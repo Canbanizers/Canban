@@ -54,10 +54,7 @@ a:active,
 a:hover {
   outline: 0;
 }
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
+
 abbr[title] {
   border-bottom: 1px dotted;
 }
@@ -398,23 +395,7 @@ cite {
 .text-center {
   text-align: center;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-}
+
 h1 small,
 h2 small,
 h3 small,
@@ -443,12 +424,7 @@ h6 .small,
   line-height: 1;
   color: #999999;
 }
-h1,
-h2,
-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
+
 h1 small,
 h2 small,
 h3 small,
@@ -471,30 +447,7 @@ h5 .small,
 h6 .small {
   font-size: 75%;
 }
-h1,
-.h1 {
-  font-size: 36px;
-}
-h2,
-.h2 {
-  font-size: 30px;
-}
-h3,
-.h3 {
-  font-size: 24px;
-}
-h4,
-.h4 {
-  font-size: 18px;
-}
-h5,
-.h5 {
-  font-size: 14px;
-}
-h6,
-.h6 {
-  font-size: 12px;
-}
+
 .page-header {
   padding-bottom: 9px;
   margin: 40px 0 20px;
@@ -3993,7 +3946,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff;
+  color: #e6e6e6;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
