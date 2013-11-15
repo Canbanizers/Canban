@@ -1,0 +1,22 @@
+#Options +FollowSymlinks
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/$ [NC]
+RewriteRule ^$ frontend/html/index\.html [NC,L]
+
+RewriteCond %{REQUEST_URI} [a-zA-Z]+\.html [NC]
+RewriteRule ([a-zA-Z]+)\.html frontend/html/$1\.html [NC,L]
+
+RewriteCond %{REQUEST_URI} .+\.php [NC]
+RewriteRule php/(.+)\.php backend/php/$1\.php [NC,L]
+#RewriteRule .* frontend/html/versendet.html [R=301,L]
+
+RewriteCond %{REQUEST_URI} [a-zA-Z]+\.css [NC]
+RewriteRule styles/([a-zA-Z]+)\.css frontend/styles/$1\.css [NC,L]
+
+RewriteCond %{REQUEST_URI} img/ [NC]
+RewriteRule img/(.+) frontend/img/$1 [NC,L]
+
+RewriteCond %{REQUEST_URI} [a-zA-Z]+\.ttf [NC]
+RewriteRule ([a-zA-Z]+)\.ttf frontend/fonts/$1\.ttf [NC,L]
