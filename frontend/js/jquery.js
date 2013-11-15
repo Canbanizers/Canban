@@ -1,17 +1,16 @@
 var jq = $.noConflict();
 jq(document).ready(function(){
-
-	jq("header.nav").click(function() {
+	jq("button.nav_header").click(function() {
 		var content = jq(".main_content");
 		var title = jq(this).text();
 		content.empty();
 		content.html("<h1>" + title +  "</h1>");
 	});
 
-	jq("article.nav_item").click(function() {
-		jq("article.active_nav_item").removeClass("active_nav_item");
-		jq(this).addClass("active_nav_item");
-		showBord(jq("article.active_nav_item").text() + getContent()); //getContent(): at script.js
+	jq(".dropdown-menu a").click(function() {
+		jq(".dropdown-menu a.active").removeClass("active");
+		jq(this).addClass("active");
+		showBord(jq(".dropdown-menu a.active").text() + getContent()); //getContent(): at script.js
 	});
 });
 

@@ -59,73 +59,12 @@ body {
 	margin-right: 10px;
 }
 
-/* Main Navi */
+/* Header Navigation */
 
-.main_nav{
-	position: relative;
-	display: inline-block;
-	float: left;
-	top: -4px;
+.navbar-static-top output.navbar-right {
+    color: #ffffff;
+    margin: 7px 10px 0 0;
 }
-
-.main_nav header.nav {
-	background-color: #991818;
-	color: #FFFFFF;
-	height: 25px;
-	border: 1px solid #FFFFFF;
-	border-radius: 5px;
-	display: inline-block;
-}
-
-.main_nav header.nav h2 {
-	display: inline-block;
-	float: left;
-	margin: 5px 10px 0 10px;
-}
-
-
-.main_nav section.nav {
-	position: relative;
-	display: inline-block;
-	z-index: 99;
-}
-
-.main_nav section.nav:hover > div.nav_item_group {
-    display: block;
-}
-
-.main_nav header.nav:HOVER {
-	cursor: pointer;
-}
-
-.main_nav div.nav_item_group {
-	width: 150px;
-	position: absolute;
-	display: none;
-	z-index: 99;
-}
-
-.main_nav article.nav_item {
-	display: block;
-	color: #000000;
-	background-color: #FFFFFF;
-	font-size: 16px;
-	font-weight: 600;
-	text-decoration: none;
-	border: 1px solid #000000;
-	border-radius: 5px;
-	padding: 3px 0 3px 20px;
-	cursor: pointer;
-}
-
-.main_nav article.nav_item:HOVER {
-	background-color: #c53a3a;
-}
-
-.main_nav article.active_nav_item {
-	background-color: #af3f3f;
-}
-
 
 /* Content */
 
