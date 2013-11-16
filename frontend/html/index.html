@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../styles/styles.css">
-        <link rel="stylesheet" href="frontend/styles/bootstrap-canban.css">  
+        <link rel="stylesheet" href="frontend/styles/bootstrap-canban.css"> 
+        <link rel="stylesheet" type="text/css" href="../styles/styles.css"> 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script src="frontend/js/bootstrap.js"></script>
         <script src="backend/js/script.js"></script>
@@ -10,11 +10,12 @@
         <title>Canban</title>
     </head>
     <body>
+        <!-- Header -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation">                
-            <a class="navbar-brand" href="#">Canbanbord</a>
+            <a class="navbar-brand" href="#">Canbanboard</a>
             <ul class="nav navbar-nav">                
                 <li class="btn-group">
-                    <button type="button" class="btn btn-primary navbar-btn nav_header">MyBords</button>
+                    <button type="button" class="btn btn-primary navbar-btn nav_header">MyBoards</button>
                     <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
@@ -32,29 +33,40 @@
             </ul>  
             <output class="navbar-right" id="servertime"></output>                           
         </nav>
-            
-        <section class="main_content">
-            <h1 class="bord_header">Personal Bord</h1>
-            <section class="bord_border">
-                <section class="bord_background"></section>
-            </section>
+        
+        <!-- Content -->
+        <section class="container main_content">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <h1 class="col-md-8">Personal Board</h1>
+                <div class="col-md-2"></div>
+            </div>
+                
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    
+                    <!-- Board -->
+                    <section class="container board_border">
+                        <section class="row board_background">
+                           
+                        </section>
+                    </section>
+                </div>                
+                <div class="col-md-2">
+                </div>
+            </div>
         </section>
-            
-<!--        <footer class="main_footer">
-            <article class="version">Canbanbord V0.0.-1</article>
-            <nav class="footer_nav">
-                <a href="#Impressum" target="_BLANK">Impressum</a>&nbsp;|
-                <a href="#Disclaimer" target="_BLANK">Disclaimer</a>&nbsp;|
-                <a href="#Contactus" target="_BLANK">Contact us</a>
-            </nav>
-        </footer>-->
-    <nav class="navbar navbar-default main_footer" role="navigation">
-        <h4 class="white version">Canbanbord V0.0.-1</h4>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#Impressum">Impressum</a></li>
-            <li><a href="#Disclaimer">Disclaimer</a></li>
-            <li><a href="#Impressum">Impressum</a></li>
-        </ul>
-    </nav>
+        
+        <!-- Footer -->
+        <nav class="navbar navbar-default main_footer" role="navigation">
+            <h4 class="white version">Canbanboard V0.0.-1</h4>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#Impressum">Impressum</a></li>
+                <li><a href="#Disclaimer">Disclaimer</a></li>
+                <li><a href="#Impressum">Contact Us</a></li>
+            </ul>
+        </nav>
     </body>
 </html>

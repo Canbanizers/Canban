@@ -15,9 +15,9 @@ jq(document).ready(function(){
 });
 
 function showBord(name) {
-	jq(".main_content").html("<h1 class=\"bord_header\">" + name + "</h1>" +
-							"<section class=\"bord_border\">" +
-							"<section class=\"bord_background\"></section>" +
+	jq(".main_content").html("<h1 class=\"board_header\">" + name + "</h1>" +
+							"<section class=\"board_border\">" +
+							"<section class=\"board_background\"></section>" +
 							"</section>"
 						);
 }

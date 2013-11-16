@@ -51,6 +51,7 @@ h5 {
 
 .center {
     vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -93,17 +94,25 @@ body {
     margin: 7px 10px 0 0;
 }
 
+.navbar-nav .nav_header {
+    margin-left: 10px;
+}
+
 /* Content */
 
 .main_content {
     position: relative;
-    margin: 20px 0 40px 20px;
+    margin: 20px 0 40px;
+    padding: 0 15px;
+    width: 100%;
 }
 
 /* Bord */
 
-.bord_border {
+.board_border {
     margin: 25px 0 0 0;
+    padding: 20px;    
+    width: 100%;
     
     background: #ffffff; /* Old browsers */
     background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #991818 97%, #ffffff 100%); /* FF3.6+ */
@@ -118,19 +127,15 @@ body {
     -moz-box-shadow: 0px 0px 27px #080808; /* firefox */
     box-shadow: 0px 0px 27px #080808;
     
-    height: 600px;
-    width: 1200px;
+    
     border-radius: 70px;
 }
 
-.bord_background {
+.board_background {
     background-color: #FFFFFF;
-    position: relative;
-    left: 25px;
-    top: 25px;
-    height: 550px;
-    width: 1150px;
+    margin: 0;
     border-radius: 50px;
+    min-height: 500px;  
 }
 
 
@@ -145,7 +150,7 @@ body {
     position: relative;
     display: inline-block;
     float: left;
-    top: 10px;
+    top: 20px;
     left: 10px;
     width: 50%;
 }
