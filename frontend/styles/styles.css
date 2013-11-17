@@ -101,9 +101,7 @@ body {
 /* Content */
 
 .main_content {
-    position: relative;
     margin: 20px 0 40px;
-    padding: 0 15px;
     width: 100%;
 }
 
@@ -149,24 +147,12 @@ body {
 .version {
     position: relative;
     display: inline-block;
-    float: left;
-    top: 20px;
+    top: 15px;
     left: 10px;
     width: 50%;
 }
 
-.footer_nav {
-    position: relative;
-    display: inline-block;
-    width: 50%;
-    direction: rtl;
-    float: right;
-    top: 15px;
-    right: 10px;
-}
-
-.footer_nav a:LINK, .footer_nav a:ACTIVE, .footer_nav a:VISITED  {
-    color: #FFFFFF;
-    text-decoration: none;
+.main_footer .navbar-right {
+    right: -10px;
 }
 

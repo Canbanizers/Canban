@@ -1,5 +1,5 @@
 var getContent = function() {
-	return " Bord";
+	return " Board";
 };
 //var w;
 //function startWorker() {
