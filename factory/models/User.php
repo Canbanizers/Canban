@@ -1,0 +1,24 @@
+<?php
+
+class User extends ActiveRecord\Model{
+    
+    public static $tablename = 'user';
+    public static $primary_key = 'id';
+
+    public function getFirstnameById($id){
+        $sql= <<<SQL
+SELECT firstname
+FROM users           
+WHERE id = $id                
+SQL;
+        
+        $firstname_ar =  User::find_by_sql($sql);
+        
+        foreach ($firstname_ar as $firstname){
+            return $firstname->firstname;
+        }
+        return null;
+     }
+}
+
+?>
