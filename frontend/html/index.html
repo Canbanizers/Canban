@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script src="backend/js/script.js"></script>
-	<script src="frontend/js/jquery.js"></script>
-	<title>Canban</title>
-</head>
-	<body>
-		<header class="main_header">
-			<h1>Canbanbord</h1>
-			<nav class="main_nav">
-				<section class="nav">
-					<header class="nav">
-						<h2>MyBords</h2>
-					</header>
-					<div class="nav_item_group">
-						<article class="nav_item active_nav_item">Personal</article>
-						<article class="nav_item">Group 1</article>
-						<article class="nav_item" >Group 2</article>
-					</div>
-				</section>
-				<section class="nav">
-					<header class="nav">
-						<h2>Settings</h2>
-					</header>
-				</section>
-			</nav>
-			<output id="servertime">asdasds</output>
-		</header>
-
-		<section class="main_content">
-			<h1 class="bord_header">Personal Bord</h1>
-			<section class="bord_border">
-				<section class="bord_background"></section>
-			</section>
-		</section>
-
-		<footer class="main_footer">
-			<article class="version">Canbanbord V0.0.-1</article>
-			<nav class="footer_nav">
-				<a href="#Impressum" target="_BLANK">Impressum</a>&nbsp;|
-				<a href="#Disclaimer" target="_BLANK">Disclaimer</a>&nbsp;|
-				<a href="#Contactus" target="_BLANK">Contact us</a>
-			</nav>
-		</footer>
-	</body>
+    <head>
+        <link rel="stylesheet" href="frontend/styles/bootstrap-canban.css"> 
+        <link rel="stylesheet" type="text/css" href="../styles/styles.css"> 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="frontend/js/bootstrap.js"></script>
+        <script src="backend/js/script.js"></script>
+        <script src="frontend/js/jquery.js"></script>
+        <title>Canban</title>
+    </head>
+    <body>
+        <!-- Header -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">                
+            <a class="navbar-brand" href="#">Canbanboard</a>
+            <ul class="nav navbar-nav">                
+                <li class="btn-group">
+                    <button type="button" class="btn btn-primary navbar-btn nav_header">MyBoards</button>
+                    <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#Personal">Personal</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#Group1">Group1</a></li>
+                        <li><a href="#Group2">Group2</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button"  class="btn btn-primary navbar-btn nav_header">Settings</button>  
+                </li>
+            </ul>  
+            <output class="navbar-right" id="servertime"></output>                           
+        </nav>
+        
+        <!-- Content -->
+        <section class="container main_content">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h1 class="col-md-10">Personal Board</h1>
+                <div class="col-md-1"></div>
+            </div>
+                
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">                    
+                    <!-- Board -->
+                    <section class="container board_border">
+                        <section class="row board_background">
+                           
+                        </section>
+                    </section>
+                </div>                
+                <div class="col-md-1">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <nav class="navbar navbar-default main_footer" role="navigation">
+            <h4 class="nav white version">Canbanboard V0.0.-1</h4>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#Impressum">Impressum</a></li>
+                <li><a href="#Disclaimer">Disclaimer</a></li>
+                <li><a href="#Contact_Us">Contact Us</a></li>
+            </ul>
+        </nav>
+    </body>
 </html>
