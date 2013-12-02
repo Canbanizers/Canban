@@ -6,12 +6,11 @@ require_once '\library\php-activerecord-master\ActiveRecord.php';
 //
 //TODO: Die Datenbank-Zugangsdaten müsst ihr natürlich anpassen
 //
-ActiveRecord\Config::initialize(function($cfg) {
-            $cfg->set_model_directory('models');
-            $cfg->set_connections(array(
-                'development' => 'mysql://root:@localhost/canban'));
-        });
-
+ActiveRecord\Config::initialize(function ($cfg) {
+	$cfg->set_model_directory('models');
+	$cfg->set_connections(array(
+		'development' => 'mysql://root:@localhost/canban'));
+});
 /*
  * So legt man einen neuen User an
  */
@@ -66,16 +65,16 @@ ActiveRecord\Config::initialize(function($cfg) {
 //foreach ($all_users as $one_user){
 //    var_dump($one_user->firstname);
 //}
-        
+
 /*
  * weitere keywords: um den letzten bzw. ersten user aus der table zu holen
  */
-        
+
 //   $last_user = User::find('last');
 //   $first_user = User::find('first');
 //   var_dump($last_user);
 //   var_dump($first_user);
-        
+
 /*
  * Jetzt suchen wir direkt mit einem SQL-Statement
  */
@@ -88,7 +87,7 @@ ActiveRecord\Config::initialize(function($cfg) {
  * sonst wird es zu unübersichtlich
  * siehe models/User.php
  */
-        
+
 //$users = User::getFirstnameById(13);
 //if (isset($users)) {
 //    var_dump($users);
