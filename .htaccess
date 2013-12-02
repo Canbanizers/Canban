@@ -5,12 +5,11 @@ RewriteBase /
 RewriteCond %{REQUEST_URI} ^/$ [NC]
 RewriteRule ^$ frontend/html/index\.html [NC,L]
 
-RewriteCond %{REQUEST_URI} [a-zA-Z]+\.html [NC]
-RewriteRule ([a-zA-Z]+)\.html frontend/html/$1\.html [NC,L]
+RewriteCond %{REQUEST_URI} ^[A-Za-z]*\/{0,1}[A-Za-z]+\.html$ [NC]
+RewriteRule ^([A-Za-z]*\/{0,1}[A-Za-z]+)\.html$ frontend/html/$1\.html [NC,L]
 
-RewriteCond %{REQUEST_URI} .+\.php [NC]
-RewriteRule php/(.+)\.php backend/php/$1\.php [NC,L]
-#RewriteRule .* frontend/html/versendet.html [R=301,L]
+RewriteCond %{REQUEST_URI} ^[A-Za-z]*\/{0,1}[A-Za-z]+\.php$ [NC]
+RewriteRule ^([A-Za-z]*\/{0,1}[A-Za-z]+)\.php$ backend/php/$1\.php [NC,L]
 
 RewriteCond %{REQUEST_URI} [a-zA-Z]+\.css [NC]
 RewriteRule styles/([a-zA-Z]+)\.css frontend/styles/$1\.css [NC,L]
