@@ -1,6 +1,6 @@
 <?php
-class BookAttrProtected extends ActiveRecord\Model
-{
+class BookAttrProtected extends ActiveRecord\Model {
+
 	static $pk = 'book_id';
 	static $table_name = 'books';
 	static $belongs_to = array(
@@ -9,5 +9,7 @@ class BookAttrProtected extends ActiveRecord\Model
 
 	// No attributes should be accessible
 	static $attr_accessible = array(null);
-};
+}
+
+;
 ?>

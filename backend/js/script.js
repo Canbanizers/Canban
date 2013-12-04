@@ -1,5 +1,5 @@
-var getContent = function () {
-    return " Board";
+var getContent = function() {
+	return " Board";
 };
 //var w;
 //function startWorker() {
@@ -16,10 +16,10 @@ var getContent = function () {
 //};
 
 if (!!window.EventSource) {
-    var source = new EventSource("php/SSE_test.php");
-    source.onmessage = function (event) {
-        document.getElementById("servertime").innerHTML = event.data;
-    };
+	var source = new EventSource("php/SSE_test.php");
+	source.onmessage = function(event) {
+		document.getElementById("servertime").innerHTML = event.data;
+	};
 } else {
-    document.getElementById("servertime").innerHTML = "Sorry, your browser does not support SSE (Server Sent Events)!";
+	document.getElementById("servertime").innerHTML = "Sorry, your browser does not support SSE (Server Sent Events)!";
 }

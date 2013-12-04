@@ -1,8 +1,8 @@
 <?php
 namespace ActiveRecord;
 
-class Memcache
-{
+class Memcache {
+
 	const DEFAULT_PORT = 11211;
 
 	private $memcache;
@@ -16,30 +16,29 @@ class Memcache
 	 * <li><b>host:</b> host for the memcache server </li>
 	 * <li><b>port:</b> port for the memcache server </li>
 	 * </ul>
+	 *
 	 * @param array $options
 	 */
-	public function __construct($options)
-	{
+	public function __construct($options) {
 		$this->memcache = new \Memcache();
 		$options['port'] = isset($options['port']) ? $options['port'] : self::DEFAULT_PORT;
 
-		if (!$this->memcache->connect($options['host'],$options['port']))
+		if (!$this->memcache->connect($options['host'], $options['port'])) {
 			throw new CacheException("Could not connect to $options[host]:$options[port]");
+		}
 	}
 
-	public function flush()
-	{
+	public function flush() {
 		$this->memcache->flush();
 	}
 
-	public function read($key)
-	{
+	public function read($key) {
 		return $this->memcache->get($key);
 	}
 
-	public function write($key, $value, $expire)
-	{
-		$this->memcache->set($key,$value,null,$expire);
+	public function write($key, $value, $expire) {
+		$this->memcache->set($key, $value, null, $expire);
 	}
 }
+
 ?>

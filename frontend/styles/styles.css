@@ -4,146 +4,146 @@
 /***************/
 
 * {
-    font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif;
 }
 
 /* ### Headings ### */
 
 h1 {
-    font-size: 18px;
-    line-height: 18px;
-    margin: 0;
+	font-size: 18px;
+	line-height: 18px;
+	margin: 0;
 }
 
 h2 {
-    font-size: 16px;
-    line-height: 16px;
-    margin: 0;
+	font-size: 16px;
+	line-height: 16px;
+	margin: 0;
 }
 
 h3 {
-    font-size: 14px;
-    line-height: 14px;
-    margin: 0;
+	font-size: 14px;
+	line-height: 14px;
+	margin: 0;
 }
 
 h4 {
-    font-size: 12px;
-    line-height: 12px;
-    margin: 0;
+	font-size: 12px;
+	line-height: 12px;
+	margin: 0;
 }
 
 h5 {
-    font-size: 10px;
-    line-height: 10px;
-    margin: 0;
+	font-size: 10px;
+	line-height: 10px;
+	margin: 0;
 }
 
 /* ### Text Styles ### */
 
 .white {
-    color: #ffffff;
+	color: #FFFFFF;
 }
 
 .center {
-    vertical-align: middle;
-    text-align: center;
+	vertical-align: middle;
+	text-align: center;
 }
 
 /* ### Layout ### */
 
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* Header */
 
 .main_header {
-    background-color: #991818;
-    color: #FFFFFF;
-    position: relative;
-    height: 20px;
-    padding: 10px 0;
-    margin: 0;
+	background-color: #991818;
+	color: #FFFFFF;
+	position: relative;
+	height: 20px;
+	padding: 10px 0;
+	margin: 0;
 }
 
 .main_header h1 {
-    display: inline-block;
-    float: left;
-    margin: 0px 40px;
+	display: inline-block;
+	float: left;
+	margin: 0px 40px;
 }
 
 .main_header output#servertime {
-    display: inline-block;
-    float: right;
-    margin-right: 10px;
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
 }
 
 /* Header Navigation */
 
 .navbar-static-top output.navbar-right {
-    color: #ffffff;
-    margin: 7px 10px 0 0;
+	color: #FFFFFF;
+	margin: 7px 10px 0 0;
 }
 
 .navbar-nav .nav_header {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 
 /* Content */
 
 .main_content {
-    margin: 20px 0 40px;
-    width: 100%;
+	margin: 20px 0 40px;
+	width: 100%;
 }
 
 /* Bord */
 
 .board_border {
-    margin: 25px 0 0 0;
-    padding: 20px;
-    width: 100%;
+	margin: 25px 0 0 0;
+	padding: 20px;
+	width: 100%;
 
-    background: #ffffff; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #991818 97%, #ffffff 100%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(97%, #991818), color-stop(100%, #ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #991818 97%, #ffffff 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #991818 97%, #ffffff 100%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #991818 97%, #ffffff 100%); /* IE10+ */
-    background: radial-gradient(ellipse at center, #ffffff 0%, #991818 97%, #ffffff 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+	background: #FFFFFF; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #FFFFFF), color-stop(97%, #991818), color-stop(100%, #FFFFFF)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 
-    -webkit-box-shadow: 0px 0px 27px #080808; /* webkit browser*/
-    -moz-box-shadow: 0px 0px 27px #080808; /* firefox */
-    box-shadow: 0px 0px 27px #080808;
+	-webkit-box-shadow: 0px 0px 27px #080808; /* webkit browser*/
+	-moz-box-shadow: 0px 0px 27px #080808; /* firefox */
+	box-shadow: 0px 0px 27px #080808;
 
-    border-radius: 70px;
+	border-radius: 70px;
 }
 
 .board_background {
-    background-color: #FFFFFF;
-    margin: 0;
-    border-radius: 50px;
-    min-height: 500px;
+	background-color: #FFFFFF;
+	margin: 0;
+	border-radius: 50px;
+	min-height: 500px;
 }
 
 /* Footer */
 
 .main_footer {
-    margin-bottom: -15px !important;
-    border-radius: 0 !important;
+	margin-bottom: -15px !important;
+	border-radius: 0 !important;
 }
 
 .version {
-    position: relative;
-    display: inline-block;
-    top: 15px;
-    left: 10px;
-    width: 50%;
+	position: relative;
+	display: inline-block;
+	top: 15px;
+	left: 10px;
+	width: 50%;
 }
 
 .main_footer .navbar-right {
-    right: -10px;
+	right: -10px;
 }
 

@@ -1,6 +1,6 @@
 <?php
-class Property extends ActiveRecord\Model
-{
+class Property extends ActiveRecord\Model {
+
 	static $table_name = 'property';
 	static $primary_key = 'property_id';
 
@@ -8,5 +8,7 @@ class Property extends ActiveRecord\Model
 		'property_amenities',
 		array('amenities', 'through' => 'property_amenities')
 	);
-};
+}
+
+;
 ?>

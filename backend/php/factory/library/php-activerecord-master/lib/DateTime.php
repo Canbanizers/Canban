@@ -33,8 +33,8 @@ namespace ActiveRecord;
  * @package ActiveRecord
  * @see http://php.net/manual/en/class.datetime.php
  */
-class DateTime extends \DateTime
-{
+class DateTime extends \DateTime {
+
 	/**
 	 * Default format used for format() and __toString()
 	 */
@@ -64,8 +64,7 @@ class DateTime extends \DateTime
 	private $model;
 	private $attribute_name;
 
-	public function attribute_of($model, $attribute_name)
-	{
+	public function attribute_of($model, $attribute_name) {
 		$this->model = $model;
 		$this->attribute_name = $attribute_name;
 	}
@@ -81,11 +80,12 @@ class DateTime extends \DateTime
 	 *
 	 * @see FORMATS
 	 * @see get_format
+	 *
 	 * @param string $format A format string accepted by get_format()
+	 *
 	 * @return string formatted date and time string
 	 */
-	public function format($format=null)
-	{
+	public function format($format = null) {
 		return parent::format(self::get_format($format));
 	}
 
@@ -96,56 +96,55 @@ class DateTime extends \DateTime
 	 * it will assume $format is a format string itself.
 	 *
 	 * @see FORMATS
+	 *
 	 * @param string $format A pre-defined string format or a raw format string
+	 *
 	 * @return string a format string
 	 */
-	public static function get_format($format=null)
-	{
+	public static function get_format($format = null) {
 		// use default format if no format specified
-		if (!$format)
+		if (!$format) {
 			$format = self::$DEFAULT_FORMAT;
+		}
 
 		// format is a friendly
-		if (array_key_exists($format, self::$FORMATS))
-			 return self::$FORMATS[$format];
+		if (array_key_exists($format, self::$FORMATS)) {
+			return self::$FORMATS[$format];
+		}
 
 		// raw format
 		return $format;
 	}
 
-	public function __toString()
-	{
+	public function __toString() {
 		return $this->format();
 	}
 
-	private function flag_dirty()
-	{
-		if ($this->model)
+	private function flag_dirty() {
+		if ($this->model) {
 			$this->model->flag_dirty($this->attribute_name);
+		}
 	}
 
-	public function setDate($year, $month, $day)
-	{
+	public function setDate($year, $month, $day) {
 		$this->flag_dirty();
-		call_user_func_array(array($this,'parent::setDate'),func_get_args());
+		call_user_func_array(array($this, 'parent::setDate'), func_get_args());
 	}
 
-	public function setISODate($year, $week , $day=null)
-	{
+	public function setISODate($year, $week, $day = null) {
 		$this->flag_dirty();
-		call_user_func_array(array($this,'parent::setISODate'),func_get_args());
+		call_user_func_array(array($this, 'parent::setISODate'), func_get_args());
 	}
 
-	public function setTime($hour, $minute, $second=null)
-	{
+	public function setTime($hour, $minute, $second = null) {
 		$this->flag_dirty();
-		call_user_func_array(array($this,'parent::setTime'),func_get_args());
+		call_user_func_array(array($this, 'parent::setTime'), func_get_args());
 	}
 
-	public function setTimestamp($unixtimestamp)
-	{
+	public function setTimestamp($unixtimestamp) {
 		$this->flag_dirty();
-		call_user_func_array(array($this,'parent::setTimestamp'),func_get_args());
+		call_user_func_array(array($this, 'parent::setTimestamp'), func_get_args());
 	}
 }
+
 ?>
