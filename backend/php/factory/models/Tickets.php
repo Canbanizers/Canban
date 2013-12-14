@@ -12,28 +12,20 @@ ActiveRecord\Config::initialize(function ($cfg) {
 class Tickets extends ActiveRecord\Model {
 
 	public static $table_name = 'tickets';
-
-
 	public static $primary_key = 'id';
 
 	public function saveNewTicket() {
 
-		if ($_REQUEST['action'] == 'saveNewTicket') {
+		$title = $_REQUEST['title'];
+		$now = date('Y-m-d H:i:S');
 
-			$title = $_REQUEST['title'];
-			$now = date('Y-m-d H:i:S');
-
-			parent::create(array(
-				'state'         => 0,
-				'content'       => '',
-				'priority'      => 0,
-				'creation_date' => $now,
-				'last_modify_date' => $now,
-				'title' => $title));
-		}
+		parent::create(array(
+			'state'            => 0,
+			'content'          => '',
+			'priority'         => 0,
+			'creation_date'    => $now,
+			'last_modify_date' => $now,
+			'title'            => $title));
 	}
 }
-
-$t = new Tickets();
-$t->saveNewTicket();
 
