@@ -27,25 +27,29 @@ Todos.TodosController = Ember.ArrayController.extend({
     }.property('@each.isCompleted'),
 
     actions: {
-        createTodo: function () {
-            // Get the todo title set by the "New Todo" text field
-            var title = this.get('newTitle');
-            if (!title.trim()) {
-                return;
-            }
+		createTodo: function () {
+			var title = this.get('newTitle');
 
-            // Create the new Todo model
-            var todo = this.store.createRecord('todo', {
-                title: title,
-                isCompleted: false
-            });
+			if (!title.trim()) { return; }
+			var todo = this.store.createRecord('todo', {
+				title: title,
+				isCompleted: false
+			});
 
-            // Clear the "New Todo" text field
-            this.set('newTitle', '');
+			var isCompleted = this.get('isCompleted');
 
-            // Save the new model
-            todo.save();
-        },
+			this.set('newTitle', '');
+
+			var parameters = {'action' : 'saveNewTicket', 'title' : title};
+
+			var request = $.ajax(({ url: '/Canban/backend/php/factory/models/Tickets.php',
+				data: parameters,
+				type: 'post'
+			}));
+
+			request.done();
+			todo.save();
+		},
         clearCompleted: function () {
             var completed = this.filterBy('isCompleted', true);
             completed.invoke('deleteRecord');
