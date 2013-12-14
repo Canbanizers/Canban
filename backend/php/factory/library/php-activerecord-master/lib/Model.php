@@ -705,7 +705,7 @@ class Model {
 	/**
 	 * Throws an exception if this model is set to readonly.
 	 *
-	 * @throws ReadOnlyException
+	 * @throws ActiveRecord\ReadOnlyException
 	 *
 	 * @param string $method_name Name of method that was invoked on model for exception message
 	 */
@@ -1175,7 +1175,7 @@ class Model {
 	/**
 	 * Passing $guard_attributes as true will throw an exception if an attribute does not exist.
 	 *
-	 * @throws UndefinedPropertyException
+	 * @throws ActiveRecord\UndefinedPropertyException
 	 *
 	 * @param array $attributes An array in the form array(name => value, ...)
 	 * @param boolean $guard_attributes Flag of whether or not protected/non-accessible attributes should be guarded
@@ -1863,7 +1863,7 @@ class Model {
 	 * });
 	 * </code>
 	 *
-	 * @param \Closure $closure The closure to execute. To cause a rollback have your closure return false or throw an exception.
+	 * @param Closure $closure The closure to execute. To cause a rollback have your closure return false or throw an exception.
 	 *
 	 * @return boolean True if the transaction was committed, False if rolled back.
 	 */
