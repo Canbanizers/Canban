@@ -40,9 +40,9 @@ Todos.TodosController = Ember.ArrayController.extend({
 
 			this.set('newTitle', '');
 
-			var parameters = {'action' : 'saveNewTicket', 'title' : title};
+			var parameters = {'controller': 'modelController', 'table': 'Tickets', 'action': 'save', 'title': title};
 
-			var request = $.ajax(({ url: '/Canban/backend/php/factory/models/Tickets.php',
+			var request = $.ajax(({ url: '/Canban/backend/php/factory/RequestHandler.php',
 				data: parameters,
 				type: 'post'
 			}));
