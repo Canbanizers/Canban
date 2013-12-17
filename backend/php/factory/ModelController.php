@@ -3,10 +3,7 @@
 
 class ModelController {
 
-	private $request;
-
-	public function __construct($request) {
-		$this->request = $request;
+	public function __construct() {
 		$this->execute();
 	}
 
@@ -36,7 +33,7 @@ class ModelController {
 
 		switch ($_REQUEST['action']) {
 			case 'save':
-				$class->saveNewTicket();
+				$class->createNewTicket();
 				break;
 			default:
 				die("Funtion not found. Use the same name for funtions and actions");

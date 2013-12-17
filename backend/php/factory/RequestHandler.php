@@ -11,13 +11,13 @@ class RequestHandler {
 			switch ($_REQUEST['controller']) {
 				case "modelController":
 					$classname = 'ModelController';
-
-					return new $classname($_REQUEST);
 					break;
 				default:
 					die("No Job founded.");
 			}
 		}
+
+		return new $classname($_REQUEST);
 	}
 }
 
