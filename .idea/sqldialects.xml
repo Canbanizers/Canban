@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/sql_schema/v0.1_add_column_title_to_table_tickets.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/sql_schema/v0.1_initial_sql_schema.sql" dialect="MySQL" />
-  </component>
-</project>
-
