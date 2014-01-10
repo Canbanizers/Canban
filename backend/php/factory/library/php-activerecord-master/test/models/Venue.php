@@ -1,12 +1,8 @@
 <?php
-class Venue extends ActiveRecord\Model {
-
-	static $use_custom_get_state_getter = false;
-	static $use_custom_set_state_setter = false;
-
-
+class Venue extends ActiveRecord\Model
+{
 	static $has_many = array(
-		'events',
+		array('events'),
 		array('hosts', 'through' => 'events')
 	);
 
@@ -14,26 +10,7 @@ class Venue extends ActiveRecord\Model {
 
 	static $alias_attribute = array(
 		'marquee' => 'name',
-		'mycity'  => 'city'
+		'mycity' => 'city'
 	);
-
-	public function get_state() {
-		if (self::$use_custom_get_state_getter) {
-			return strtolower($this->read_attribute('state'));
-		} else {
-			return $this->read_attribute('state');
-		}
-	}
-
-	public function set_state($value) {
-		if (self::$use_custom_set_state_setter) {
-			return $this->assign_attribute('state', $value.'#');
-		} else {
-			return $this->assign_attribute('state', $value);
-		}
-	}
-
-}
-
-;
+};
 ?>

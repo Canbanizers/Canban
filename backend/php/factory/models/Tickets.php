@@ -1,6 +1,6 @@
 <?php
 //TODO: change include_path
-set_include_path('C:\xampp\htdocs\Canban');
+set_include_path('D:\XAMPP\htdocs\Canban');
 require_once 'backend/php/factory/library/php-activerecord-master/ActiveRecord.php';
 
 ActiveRecord\Config::initialize(function ($cfg) {

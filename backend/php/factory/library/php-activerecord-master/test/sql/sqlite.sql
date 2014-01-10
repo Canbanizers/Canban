@@ -4,7 +4,7 @@ CREATE TABLE authors(
 	name VARCHAR  (25) NOT NULL DEFAULT default_name, -- don't touch those spaces
 	updated_at datetime,
 	created_at datetime,
-	some_Date date,
+	some_date date,
 	some_time time,
 	some_text text,
 	encrypted_password varchar(50),
@@ -40,7 +40,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE hosts(
-	id INT NOT NULL PRIMARY KEY,
+	id INTEGER NOT NULL PRIMARY KEY,
 	name VARCHAR(25)
 );
 
@@ -83,24 +83,4 @@ CREATE TABLE property_amenities(
   `id` INTEGER NOT NULL PRIMARY KEY,
   `amenity_id` INT NOT NULL,
   `property_id` INT NOT NULL
-);
-
-CREATE TABLE users (
-    id INTEGER NOT NULL PRIMARY KEY
-);
-
-CREATE TABLE newsletters (
-    id INTEGER NOT NULL PRIMARY KEY
-);
-
-CREATE TABLE user_newsletters (
-    id INTEGER NOT NULL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    newsletter_id INTEGER NOT NULL
-);
-
-CREATE TABLE valuestore (
-  `id` INTEGER NOT NULL PRIMARY KEY,
-  `key` varchar(20) NOT NULL DEFAULT '',
-  `value` varchar(255) NOT NULL DEFAULT ''
 );

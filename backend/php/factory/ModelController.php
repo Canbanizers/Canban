@@ -36,7 +36,7 @@ class ModelController {
 				$class->createNewTicket();
 				break;
 			default:
-				die("Funtion not found. Use the same name for funtions and actions");
+				die("Function not found. Use the same name for funtions and actions");
 		}
 	}
 }
