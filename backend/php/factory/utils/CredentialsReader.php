@@ -2,7 +2,7 @@
 
 class CredentialsReader {
 
-	const PATH_TO_XML = '../xml/db_credentials.xml';
+	const PATH_TO_XML = 'xml/db_credentials.xml';
 
 	public function getDBCredentials() {
 

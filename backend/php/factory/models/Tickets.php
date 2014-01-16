@@ -2,11 +2,14 @@
 //TODO: change include_path
 set_include_path('D:\XAMPP\htdocs\Canban');
 require_once 'backend/php/factory/library/php-activerecord-master/ActiveRecord.php';
+require_once 'backend/php/factory/utils/CredentialsReader.php';
 
 ActiveRecord\Config::initialize(function ($cfg) {
 	$cfg->set_model_directory('models');
+	$cr = new CredentialsReader();
+	$credentials = $cr->getDBCredentials();
 	$cfg->set_connections(array(
-		'development' => 'mysql://root:@localhost/canban'));
+		'development' => 'mysql://'.$credentials['login'].':'.$credentials['password'].'@'.$credentials['domain']));
 });
 
 class Tickets extends ActiveRecord\Model {
