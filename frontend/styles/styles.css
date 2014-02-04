@@ -3,11 +3,37 @@
 /* Main Design */
 /***************/
 
-* {
-	font-family: Arial, sans-serif;
+@font-face {
+	font-family: Angry_Chalk;
+	src: url('../fonts/AngryChalk.ttf');
+}
+
+@font-face {
+	font-family: Fine_Liner;
+	src: url('../fonts/Fineliner%20Script.otf');
+}
+
+/** {*/
+/*font-family: Arial, sans-serif;*/
+/*}*/
+
+.test {
+	border: 1px dashed white;
+	height: 66%;
+}
+
+.image_test {
 }
 
 /* ### Headings ### */
+
+.table_heading {
+	font-size: 70px;
+	line-height: 70px;
+	font-family: Angry_Chalk, sans-serif;
+	text-decoration: underline;
+	margin: 0 0 40px 20px;
+}
 
 h1 {
 	font-size: 18px;
@@ -41,10 +67,6 @@ h5 {
 
 /* ### Text Styles ### */
 
-.white {
-	color: #FFFFFF;
-}
-
 .center {
 	vertical-align: middle;
 	text-align: center;
@@ -53,97 +75,135 @@ h5 {
 /* ### Layout ### */
 
 body {
-	margin: 0;
+	/*overflow: hidden;*/
+	margin-left: 25px;
+	margin-bottom: 25px;
 	padding: 0;
-}
 
-/* Header */
-
-.main_header {
-	background-color: #991818;
-	color: #FFFFFF;
-	position: relative;
-	height: 20px;
-	padding: 10px 0;
-	margin: 0;
-}
-
-.main_header h1 {
-	display: inline-block;
-	float: left;
-	margin: 0px 40px;
-}
-
-.main_header output#servertime {
-	display: inline-block;
-	float: right;
-	margin-right: 10px;
-}
-
-/* Header Navigation */
-
-.navbar-static-top output.navbar-right {
-	color: #FFFFFF;
-	margin: 7px 10px 0 0;
-}
-
-.navbar-nav .nav_header {
-	margin-left: 10px;
-}
-
-/* Content */
-
-.main_content {
-	margin: 20px 0 40px;
+	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 	width: 100%;
 }
 
-/* Bord */
+/* ### Menu ### */
 
-.board_border {
-	margin: 25px 0 0 0;
-	padding: 20px;
-	width: 100%;
-
-	background: #FFFFFF; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #FFFFFF), color-stop(97%, #991818), color-stop(100%, #FFFFFF)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center, #FFFFFF 0%, #991818 97%, #FFFFFF 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1); /* IE6-9 fallback on horizontal gradient */
-
-	-webkit-box-shadow: 0px 0px 27px #080808; /* webkit browser*/
-	-moz-box-shadow: 0px 0px 27px #080808; /* firefox */
-	box-shadow: 0px 0px 27px #080808;
-
-	border-radius: 70px;
+.menu_items {
+	position: absolute;
+	text-decoration: underline;
+	font-family: Angry_Chalk;
+	font-size: 25px;
+	font-weight: bold;
+	line-height: 30px;
+	color: white;
+	border-bottom: solid 1px #FFFFFF;
 }
 
-.board_background {
-	background-color: #FFFFFF;
-	margin: 0;
-	border-radius: 50px;
-	min-height: 500px;
+#profile_button {
+	top: 60px;
+	right: 600px;
+	transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
 }
 
-/* Footer */
-
-.main_footer {
-	margin-bottom: -15px !important;
-	border-radius: 0 !important;
+#board_button {
+	top: 70px;
+	right: 270px;
+	transform: rotate(-30deg);
 }
 
-.version {
-	position: relative;
+#logout_button {
+	color: #EB6E6E;
+	border-bottom-color: #EB6E6E;
+	top: 20px;
+	right: 70px;
+}
+
+#group_button {
+	top: 60px;
+	right: 360px;
+	transform: rotate(-25deg);
+}
+
+/* ### Main Table ### */
+
+.main_table {
+	color: white;
+	margin: 60px 10px 0 -10px;
+	width: 98%;
+}
+
+.main_table_head {
+	font-family: Angry_Chalk, sans-serif;
+	font-size: 50px;
+}
+
+.main_table_head th {
+	text-align: center;
+	border-bottom: 3px solid white;
+	border-left: 3px solid white;
+	/*border-image: url('../img/Chalk_Border.png') 35 42 32 44 repeat;*/
+}
+
+.main_table_head th:first-child {
+	border-left: none;
+}
+
+/* ### Tickets ### */
+
+.ticket {
+	box-shadow: 5px 10px rgba(40, 94, 66, 0.7);
+	text-align: center;
+	font-family: Fine_Liner, sans-serif;
+	color: #000000;
+
+	height: 150px;
+	width: 200px;
+	margin: 20px 3px 0 0;
+	padding: 25px;
+	z-index: 1;
+	opacity: 0.9;
 	display: inline-block;
-	top: 15px;
-	left: 10px;
-	width: 50%;
+
+	/*background: url('../img/Notiz.png') no-repeat center center fixed;*/
+	background-color: #E7ED39;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
-.main_footer .navbar-right {
-	right: -10px;
+td {
+	border-left: 3px solid white;
+	vertical-align: top;
+}
+
+td:first-child {
+	border-left: none;
+}
+
+.ticket_title {
+	margin-bottom: 20px;
+	display: block;
+	font-size: 20px;
+}
+
+.ticket_details {
+	display: block;
+	font-size: 15px;
+}
+
+.ticket_empty {
+	opacity: 0.5;
+}
+
+.important {
+	background-color: #ED5139;
+}
+
+.done span {
+	text-decoration: line-through;
 }
 

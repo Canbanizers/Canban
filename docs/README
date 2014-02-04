@@ -1,0 +1,6 @@
+font-families: Angry_Chalk, Fine_Liner
+font-color: white;
+ticket-red: #ED5139
+ticket-yellow: #E7ED39
+chalk-red: #EB6E6E
+font-size/weight menu_items: 25px bold
