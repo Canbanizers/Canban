@@ -1,11 +1,19 @@
 'use strict';
 Todos.Router.map(function () {
+	this.route('login');
     this.resource('todos', { path: '/' }, function () {
         // additional child routes
         this.route('active');
         this.route('completed');
     });
 });
+
+Todos.LoginRoute = Ember.Route.extend({
+	model: function () {
+		return this.modelFor('login');
+	}
+});
+
 
 Todos.TodosIndexRoute = Ember.Route.extend({
     model: function () {
