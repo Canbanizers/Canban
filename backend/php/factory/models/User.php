@@ -8,8 +8,8 @@ class User extends ActiveRecord\Model {
 	public function getFirstnameById($id) {
 		$sql = <<<SQL
 SELECT firstname
-FROM users           
-WHERE id = $id                
+FROM users
+WHERE id = $id
 SQL;
 
 		$firstname_ar = User::find_by_sql($sql);
@@ -24,8 +24,8 @@ SQL;
 	public function getPasswordByEmail($email) {
 		$sql = <<<SQL
 SELECT password
-FROM users           
-WHERE email = "$email"                
+FROM users
+WHERE email = '$email'
 SQL;
 
 		$email_ar = User::find_by_sql($sql);
@@ -35,6 +35,21 @@ SQL;
 
 		return null;
 	}
+	public function retrieveByCredentials($email, $password_hash) {
+
+		$sql = <<<SQL
+	SELECT *
+	FROM users
+	WHERE email = '$email'
+	AND password = '$password_hash'
+SQL;
+
+		$user = User::find_by_sql($sql);
+
+		return $user;
+	}
+
+
 }
 
 ?>

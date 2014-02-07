@@ -3,40 +3,24 @@
 
 class ModelController {
 
-	public function __construct() {
-		$this->execute();
-	}
+	public function execute($table, $action, array $params) {
 
-	private function execute() {
+		$path_to_models = '\models\\';
+		$classname = $path_to_models . $table . '.php';
 
-		$path_to_class = '\models\\';
-		$classname = '';
-
-		if (!$_REQUEST['table']) {
-			die("Invalid Modelclass.");
-		} else {
-			switch ($_REQUEST['table']) {
-				case 'Tickets':
-					$classname .= $_REQUEST['table'];
-					break;
-				default:
-					die("Invalid Modelclass");
-
-			}
+		/*if (!(class_exists($classname) && method_exists($classname, $action))) {
+			//TODO return error message
 		}
 
-		$classpath = $classname;
+		$class = new $classname();*/
 
-		$include_path = getcwd().$path_to_class.$classname.'.php';
-		include($include_path);
-		$class = new $classpath;
 
-		switch ($_REQUEST['action']) {
-			case 'save':
-				$class->createNewTicket();
-				break;
-			default:
-				die("Function not found. Use the same name for funtions and actions");
+		print_r($params);
+
+		for ($i = 0; $i < count($params); $i++) {
+			echo $params[$i];
 		}
+		exit;
+		$class->$action($params);
 	}
 }
