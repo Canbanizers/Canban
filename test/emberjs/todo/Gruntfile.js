@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 		},
 		concat: {
 			vendor: {
-				src: ['app/library/jquery-1.10.2.js', 'app/library/handlebars-1.1.2.js', 'app/library/ember-1.2.0.js', 'app/library/ember-data-1.0.0.js', 'app/library/localstorage_adapter.js', 'app/library/ember-auth.min.js', 'app/library/ember-auth-request-jquery.min.js', 'app/library/ember-auth-response-json.min.js', 'app/library/ember-auth-strategy-token.min.js', 'app/library/ember-auth-session-local-storage.min.js'],
+				src: ['app/library/jquery-1.10.2.js', 'app/library/handlebars-1.1.2.js', 'app/library/ember-1.3.1.js', 'app/library/ember-data-1.0.0.js', 'app/library/localstorage_adapter.js', 'app/library/ember-auth.min.js', 'app/library/ember-auth-request-jquery.min.js', 'app/library/ember-auth-response-json.min.js', 'app/library/ember-auth-strategy-token.min.js', 'app/library/ember-auth-session-local-storage.min.js'],
 				dest:'debug/lib.js'
 			},
 			app: {
