@@ -20,7 +20,7 @@
 	line-height: 70px;
 	font-family: Angry_Chalk, sans-serif;
 	text-decoration: underline;
-	margin: 0 0 40px 20px;
+	margin: 60px 10px 40px 50px;
 }
 
 h1 {
@@ -61,19 +61,19 @@ h5 {
 }
 
 /* ### Layout ### */
+html, body {
+	width: 100%;
+	height: 100%;
+}
 
 body {
 	/*overflow: hidden;*/
-	margin-left: 25px;
-	margin-bottom: 25px;
 	padding: 0;
-
 	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	width: 100%;
 }
 
 /* ### Main Menu ### */
@@ -124,17 +124,26 @@ body {
 /* ### Main Content ### */
 
 .main_content {
-	position: relative;
-	color: white;
-	margin: 60px 10px 0 -10px;
-	width: 98%;
+	color: #FFFFFF;
+	width: 100%;
 	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 /* ### Main Table ### */
 
 .main_table {
+	padding: 0;
+	width: 98%;
+	margin: 0 1%;
+	border-collapse: separate;
+}
 
+.main_table th, .main_table td {
+	-webkit-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Safari 5 and older */
+	-o-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Opera */
+	border-image: url("../img/Chalk_Border.png") 30 30 round;
 }
 
 .main_table_head {
@@ -142,14 +151,22 @@ body {
 	font-size: 50px;
 }
 
-.main_table_head th {
+.main_table .main_table_head th {
 	text-align: center;
-	border-bottom: 3px solid white;
-	border-left: 3px solid white;
-	/*border-image: url('../img/Chalk_Border.png') 35 42 32 44 repeat;*/
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid transparent;
 }
 
 .main_table_head th:first-child {
+	border-left: none;
+}
+
+.main_table td {
+	border-left: 10px solid transparent;
+	vertical-align: top;
+}
+
+.main_table td:first-child {
 	border-left: none;
 }
 
@@ -169,21 +186,11 @@ body {
 	opacity: 0.9;
 	display: inline-block;
 
-	/*background: url('../img/Notiz.png') no-repeat center center fixed;*/
 	background-color: #E7ED39;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
-
-td {
-	border-left: 3px solid white;
-	vertical-align: top;
-}
-
-td:first-child {
-	border-left: none;
 }
 
 .ticket_title {

@@ -153,7 +153,7 @@
 
 		if ($parent.length) {
 			var $input = this.$element.find('input').prop('checked',
-														  !this.$element.hasClass('active')).trigger('change')
+				!this.$element.hasClass('active')).trigger('change')
 			if ($input.prop('type') === 'radio') $parent.find('.active').removeClass('active')
 		}
 
@@ -174,7 +174,7 @@
 
 			if (!data) $this.data('bs.button', (data = new Button(this, options)))
 
-			if (option == 'toggle') data.toggle() else if (option) data.setState(option)
+			if (option == 'toggle') data.toggle(); else if (option) data.setState(option)
 		})
 	}
 
@@ -373,7 +373,7 @@
 			if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
 			if (typeof option == 'number') {
 				data.to(option)
-			} else if (action) data[action]() else if (options.interval) data.pause().cycle()
+			} else if (action) data[action](); else if (options.interval) data.pause().cycle()
 		})
 	}
 
@@ -564,13 +564,10 @@
 	// ===================================
 
 	$(document).on('click.bs.dropdown.data-api', clearMenus).on('click.bs.dropdown.data-api', '.dropdown form',
-																function(e) {
-																	e.stopPropagation()
-																}).on('click.bs.dropdown.data-api', toggle,
-																	  Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',
-																									toggle +
-																									', [role=menu]',
-																									Dropdown.prototype.keydown)
+		function(e) {
+			e.stopPropagation()
+		}).on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',
+			toggle + ', [role=menu]', Dropdown.prototype.keydown)
 
 }(jQuery);
 
@@ -651,8 +648,8 @@
 
 			transition ? that.$element.find('.modal-dialog') // wait for modal to slide in
 				.one($.support.transition.end,function() {
-						 that.$element.focus().trigger(e)
-					 }).emulateTransitionEnd(300) : that.$element.focus().trigger(e)
+					that.$element.focus().trigger(e)
+				}).emulateTransitionEnd(300) : that.$element.focus().trigger(e)
 		})
 	}
 
@@ -757,7 +754,9 @@
 			var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
 			if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
-			if (typeof option == 'string') data[option](_relatedTarget) else if (options.show) data.show(_relatedTarget)
+			if (typeof option == 'string') {
+				data[option](_relatedTarget);
+			} else if (options.show) data.show(_relatedTarget)
 		})
 	}
 
@@ -793,8 +792,8 @@
 	$(document).on('show.bs.modal', '.modal',function() {
 		$(document.body).addClass('modal-open')
 	}).on('hidden.bs.modal', '.modal', function() {
-			  $(document.body).removeClass('modal-open')
-		  })
+			$(document.body).removeClass('modal-open')
+		})
 
 }(jQuery);
 
@@ -1329,8 +1328,8 @@
 		this.activate($this.parent('li'), $ul)
 		this.activate($target, $target.parent(), function() {
 			$this.trigger({
-							  type: 'shown.bs.tab', relatedTarget: previous
-						  })
+				type: 'shown.bs.tab', relatedTarget: previous
+			})
 		})
 	}
 
@@ -1430,8 +1429,7 @@
 		this.options = $.extend({}, Affix.DEFAULTS, options)
 		this.$window =
 		$(window).on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this)).on('click.bs.affix.data-api',
-																					   $.proxy(this.checkPositionWithEventLoop,
-																							   this))
+			$.proxy(this.checkPositionWithEventLoop, this))
 
 		this.$element = $(element)
 		this.affixed = this.unpin = null
@@ -1761,11 +1759,11 @@
 				 (!$.isWindow(self.$scrollElement.get(0)) && self.$scrollElement.scrollTop()), href ]
 			]) || null
 		}).sort(function(a, b) {
-					return a[0] - b[0]
-				}).each(function() {
-							self.offsets.push(this[0])
-							self.targets.push(this[1])
-						})
+				return a[0] - b[0]
+			}).each(function() {
+				self.offsets.push(this[0])
+				self.targets.push(this[1])
+			})
 	}
 
 	ScrollSpy.prototype.process = function() {
