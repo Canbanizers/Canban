@@ -98,14 +98,28 @@ body {
 #profile_button {
 	top: 60px;
 	right: 600px;
-	transform: rotate(30deg);
+	-ms-transform: rotate(30deg); /* IE 9 */
+	-webkit-transform: rotate(30deg); /* Safari and Chrome */
 	-moz-transform: rotate(30deg);
+	transform: rotate(30deg);
 }
 
 #board_button {
 	top: 70px;
 	right: 270px;
+	-ms-transform: rotate(-30deg); /* IE 9 */
+	-webkit-transform: rotate(-30deg); /* Safari and Chrome */
+	-moz-transform: rotate(-30deg);
 	transform: rotate(-30deg);
+}
+
+#group_button {
+	top: 60px;
+	right: 360px;
+	-ms-transform: rotate(-25deg); /* IE 9 */
+	-webkit-transform: rotate(-25deg); /* Safari and Chrome */
+	-moz-transform: rotate(-25deg);
+	transform: rotate(-25deg);
 }
 
 #logout_button {
@@ -113,12 +127,6 @@ body {
 	border-bottom-color: #EB6E6E;
 	top: 20px;
 	right: 70px;
-}
-
-#group_button {
-	top: 60px;
-	right: 360px;
-	transform: rotate(-25deg);
 }
 
 /* ### Main Content ### */
