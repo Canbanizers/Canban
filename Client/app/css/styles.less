@@ -1,0 +1,270 @@
+/*****************************/
+/* Less-Variable Definitions */
+/*****************************/
+
+/* ### Colors ### */
+
+@red_chalk: #EB6E6E;
+@red_chalk_hover: darken(@red_chalk, 5%);
+@red_important: #ED5139;
+@white: #FFFFFF;
+@white_hover: darken(#FFFFFF, 15%);
+@dark_green_shadow: rgba(40, 94, 66, 0.7);
+@ticket_yellow: #E7ED39;
+
+/*****************************/
+/* Less-Function Definitions */
+/*****************************/
+
+.rotate(@deg) when (isnumber(@deg)) {
+  -moz-transform: rotate(@deg); /* Firefox 15 */
+  -ms-transform: rotate(@deg); /* IE 9 */
+  -webkit-transform: rotate(@deg); /* Opera, Chrome, and Safari */
+  transform: rotate(@deg);
+}
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  -moz-box-shadow: @style @c;
+  box-shadow: @style @c;
+}
+
+/*****************************/
+/********** Design ***********/
+/*****************************/
+
+/* ### Font-Faces ### */
+
+@font-face {
+  font-family: Angry_Chalk;
+  src: url('../fonts/AngryChalk.ttf');
+}
+
+@font-face {
+  font-family: Fine_Liner;
+  src: url('../fonts/Fineliner%20Script.otf');
+}
+
+/* ### Basic Designs ### */
+
+.chalk_border {
+  -webkit-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Safari 5 and older */
+  -o-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Opera */
+  border-image: url("../img/Chalk_Border.png") 30 30 round;
+}
+
+/* ### Headings ### */
+
+.table_heading {
+  font-size: 70px;
+  line-height: 70px;
+  font-family: Angry_Chalk, sans-serif;
+  text-decoration: underline;
+  margin: 60px 10px 40px 50px;
+}
+
+h1 {
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+}
+
+h3 {
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 12px;
+  line-height: 12px;
+  margin: 0;
+}
+
+h5 {
+  font-size: 10px;
+  line-height: 10px;
+  margin: 0;
+}
+
+/* ### Text Styles ### */
+
+.center {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* ### Layout ### */
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  /*overflow: hidden;*/
+  padding: 0;
+  background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* ### Main Menu ### */
+
+.menu_item, .menu_item:active, .menu_item:link {
+  display: inline-block;
+  position: absolute;
+  text-decoration: underline;
+  font-family: Angry_Chalk, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 30px;
+  color: @white;
+  border-bottom: solid 1px @white;
+  z-index: 1;
+}
+
+.menu_item:hover {
+  color: @white_hover;
+  border-color: @white_hover;
+}
+
+#profile_button {
+  top: 60px;
+  right: 550px;
+  .rotate(30deg);
+}
+
+#group_button {
+  top: 60px;
+  right: 310px;
+  .rotate(-25deg);
+}
+
+#board_button {
+  top: 70px;
+  right: 220px;
+  .rotate(-30deg);
+}
+
+#logout_button {
+  color: @red_chalk;
+  border-bottom-color: @red_chalk;
+  top: 20px;
+  right: 20px;
+}
+
+#logout_button:hover, #logout_button:active {
+  color: @red_chalk_hover;
+  border-bottom-color: @red_chalk_hover;
+}
+
+/* ### Main Content ### */
+
+.main_content {
+  color: @white;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ### Main Table ### */
+
+.main_table {
+  padding: 0;
+  width: 98%;
+  margin: 0 1%;
+  border-collapse: separate;
+}
+
+.main_table th, .main_table td {
+  .chalk_border;
+}
+
+.main_table_head {
+  font-family: Angry_Chalk, sans-serif;
+  font-size: 50px;
+}
+
+.main_table .main_table_head th {
+  text-align: center;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid transparent;
+
+}
+
+.main_table_head th:first-child {
+  border-left: none;
+}
+
+.main_table td {
+  border-left: 10px solid transparent;
+  vertical-align: top;
+  text-align: center;
+}
+
+.main_table td:first-child {
+  border-left: none;
+}
+
+/* ### Tickets ### */
+
+.ticket {
+  .box-shadow(5px 10px, @dark_green_shadow);
+  text-align: center;
+  font-family: Fine_Liner, sans-serif;
+  color: #000000;
+  height: 150px;
+  width: 190px;
+  margin: 20px 3px 0 0;
+  padding: 25px;
+  z-index: 1;
+  opacity: 0.9;
+  display: inline-block;
+  background-color: @ticket_yellow;
+}
+
+.ticket_title {
+  margin-bottom: 20px;
+  display: block;
+  font-size: 20px;
+}
+
+.ticket_details {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.ticket_empty {
+  opacity: 0.5;
+}
+
+.important {
+  background-color: @red_important;
+}
+
+.done span {
+  text-decoration: line-through;
+}
+
+/* Design fixes for ember */
+
+.ember-view {
+  display: inline;
+}
+
+/* Design fixes for bootstrap */
+
+.row {
+  margin-right: 0 !important;
+}
