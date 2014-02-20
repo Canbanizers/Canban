@@ -1,5 +1,5 @@
 #Options +FollowSymlinks
-RewriteEngine on
+RewriteEngine off
 RewriteBase /
 
 RewriteCond %{REQUEST_URI} ^/$ [NC]
