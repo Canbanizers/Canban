@@ -1,9 +1,10 @@
 @Echo off
 IF exist node_modules (
-    echo ==================
-    echo = Starting grunt =
-    echo ==================
-    grunt
+    echo =====================================
+    echo ======= Starting Grunt release ======
+    echo =====================================
+    echo.
+    grunt release
 ) else (
     echo =====================================
     echo = Installing Node modules for Grunt =
@@ -17,11 +18,9 @@ IF exist node_modules (
     echo.
     echo.
     echo =====================================
-    echo =========== Starting Grunt ==========
+    echo ======= Starting Grunt release ======
     echo =====================================
     echo.
 
-    grunt
+    grunt release
 )
-
-exit

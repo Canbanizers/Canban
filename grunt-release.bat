@@ -1,10 +1,12 @@
 @Echo off
-IF exist node_modules (
+IF exist client/node_modules (
+    cd client
     echo ==================
     echo = Starting grunt =
     echo ==================
-    grunt
+    grunt release
 ) else (
+    cd client
     echo =====================================
     echo = Installing Node modules for Grunt =
     echo =====================================
@@ -21,7 +23,5 @@ IF exist node_modules (
     echo =====================================
     echo.
 
-    grunt
+    grunt release
 )
-
-exit
