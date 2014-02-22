@@ -28,9 +28,9 @@ module.exports = function(grunt) {
 		},
 		concat          : {
 			vendor : {
-				src : ['app/library/jquery-1.10.2.js', 'app/library/handlebars-1.1.2.js', 'app/library/ember-1.2.0.js',
-					   'app/library/ember-data-1.0.0.js', 'app/library/localstorage_adapter.js',
-					   'app/library/bootstrap.js'],
+				src : ['app/lib/jquery-1.10.2.js', 'app/lib/handlebars-1.3.0.js', 'app/lib/ember-1.4.0.js',
+					   'app/lib/ember-data-1.0.0b7.js', 'app/lib/localstorage_adapter.js',
+					   'app/lib/bootstrap.js'],
 				dest: 'debug/lib.js'
 			},
 			app    : {
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 		less            : {
 			css: {
 				files: {
-					'debug/css/app.css': ['app/css/base.less', 'app/css/bootstrap-canban.css']
+					'debug/css/app.css': ['app/css/styles.less', 'app/css/bootstrap-canban.css']
 				}
 			}
 		},
@@ -62,9 +62,10 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					processName: function(fileName) {
-						var arr = fileName.split("."), path = arr[arr.length - 2].split("/"), name = path[path.length -
-																										  1], isComponents = path.indexOf('components') >
-																															 -1;
+						var arr = fileName.split("."),
+							path = arr[arr.length - 2].split("/"),
+							name = path[path.length - 1],
+							isComponents = path.indexOf('components') > -1;
 						if (isComponents) {
 							return 'components/' + name;
 						} else {
@@ -138,7 +139,7 @@ module.exports = function(grunt) {
 		},
 		watch           : {
 			scripts: {
-				files  : ['app/library/*.js', 'app/*.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
+				files  : ['app/lib/*.js', 'app/*.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
 						  'app/models/*.js', 'app/css/*.less', 'app/templates/**/*.hbs', 'app/tests/*.js'],
 				tasks  : ['ember_handlebars', 'concat', 'less'],
 				options: {

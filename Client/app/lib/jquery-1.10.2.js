@@ -5904,7 +5904,7 @@
 	// Support: IE<8
 	// Manipulating tables requires a tbody
 	function manipulationTarget(elem, content) {
-		returnjQuery.nodeName(elem, "table") &&
+		return jQuery.nodeName(elem, "table") &&
 		jQuery.nodeName(content.nodeType === 1 ? content : content.firstChild, "tr") ?
 
 		elem.getElementsByTagName("tbody")[0] || elem.appendChild(elem.ownerDocument.createElement("tbody")) : elem;
