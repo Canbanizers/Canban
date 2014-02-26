@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 		less            : {
 			css: {
 				files: {
-					'debug/css/app.css': ['app/css/styles.less', 'app/css/bootstrap-canban.css']
+					'debug/css/app.css': ['app/css/styles.less', 'app/css/bootstrap.css']
 				}
 			}
 		},
