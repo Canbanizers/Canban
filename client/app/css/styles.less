@@ -71,6 +71,10 @@
 /* ### Headings ### */
 
 .board_heading {
+.table_heading,
+.board-heading {
+  font-size: 70px;
+  line-height: 70px;
   font-family: Angry_Chalk, sans-serif;
   text-decoration: underline;
   padding: 50px 0 0 20px;
@@ -348,4 +352,61 @@ label { display:block; margin-bottom:2px; margin-top:3px; }
 input, textarea { border:1px solid #ccc; border-radius:3px; box-shadow:none; min-width:220px; padding:5px; }
 .confirm-box { display:inline-block; border:1px solid #ddd; background:#f1f1f1; border-radius:3px; padding:12px; position:absolute; right:12px; }
 h5 { margin-top:0; }
-.group-count {padding-top: 20px}
+.group-count {padding-top: 20px}}
+
+/* ### Login Component ### */
+
+.form-signin {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 15px;
+}
+
+.board-heading {
+  color: #DE4F43;
+  text-align: center;
+  text-decoration: none;
+  margin: 60px 0 40px;
+}
+
+.board-input-field {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border-width: 0 0 10px 0;
+  color: @white;
+  .chalk_border;
+  font-family: Fine_Liner,sans-serif;
+  font-size: 50px;
+  height: 60px;
+  margin-bottom: 35px;
+  padding: 0 0 0 10px;
+  width: 100%;
+}
+
+#signin,
+#signup {
+  font-family: Angry_Chalk;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#signin:hover,
+#signup:hover {
+  font-size: 45px;
+  text-decoration: underline;
+}
+
+#signin {
+  background: none;
+  border: none;
+  color: #75A671;
+  .rotate(15deg);
+  margin-left: 5%;
+}
+
+#signup {
+  background: none;
+  color: #D1C649;
+  display: inline-block;
+  margin-left: 20%;
+  .rotate(-10deg);
+}

@@ -69,4 +69,8 @@ DS.JSONSerializer.reopen({
 		hash[root] = this.serialize(record, options);
 	}
 
+
+	this.resource('login', {path: '/login'} , function() {
+
+	});
 });
