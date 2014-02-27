@@ -30,12 +30,12 @@ module.exports = function(grunt) {
 			vendor : {
 				src : ['app/lib/jquery-1.10.2.js', 'app/lib/handlebars-1.3.0.js', 'app/lib/ember-1.4.0.js',
 					   'app/lib/ember-data-1.0.0b7.js', 'app/lib/localstorage_adapter.js',
-					   'app/lib/bootstrap.js'],
+					   'app/lib/bootstrap.js', 'app/lib/moment-with-langs-2.5.1.js'],
 				dest: 'debug/lib.js'
 			},
 			app    : {
 				src : ['app/app.js', 'debug/templates.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
-					   'app/models/*.js'],
+					   'app/models/*.js', 'app/helpers/*.js'],
 				dest: 'debug/app.js'
 			},
 			test   : {
