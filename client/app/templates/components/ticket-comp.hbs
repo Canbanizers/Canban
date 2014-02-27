@@ -1,8 +1,14 @@
-<div {{bind-attr class=":ticket ticket.isDone:done"}}>
-	<span class="ticket_title">{{ticket.title}}</span>
+{{#with ticket}}
+<div {{bind-attr class=":ticket isDone:done isImportant:important"}}>
+	<span class="ticket_title">{{title}}</span>
 	<span class="ticket_details">
 		Creater: Wilson <br>
 		Assignee: Momme <br>
-		Due Date: Now
+		{{#if last_modify_date}}
+			Last Modify Date: {{dateFormat last_modify_date}}
+		{{else}}
+			Creation Date: {{dateFormat creation_date}}
+		{{/if}}
 	</span>
 </div>
+{{/with}}
