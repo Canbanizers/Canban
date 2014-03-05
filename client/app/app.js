@@ -80,8 +80,4 @@ DS.JSONSerializer.reopen({
 	this.resource('login', {path: '/login'} , function() {
 
 	});
-
-	this.resource('login', {path: '/login'} , function() {
-
-	});
 });
