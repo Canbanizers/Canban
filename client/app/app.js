@@ -8,8 +8,4 @@ App.Router.map(function() {
 		this.route('login', {path: '/login'} , function() {
 		});
 	});
-
-	this.resource('login', {path: '/login'} , function() {
-
-	});
 });
