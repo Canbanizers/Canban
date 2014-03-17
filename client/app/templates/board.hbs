@@ -1,45 +1,50 @@
 {{main-menu}}
 
 <header class="main_head">
-	<h1 class="table_heading">Personal Board</h1>
+	<h1 class="board_heading">{{name}}</h1>
 </header>
-<section class="row main_content">
-	<table class="col-md-12 table main_table">
-		<thead class="main_table_head">
-			<tr class="row">
-				<th class="col-md-4 chalk_border">
-					Todo
-				</th>
-				<th class="col-md-4 chalk_border">
-					Doing
-				</th>
-				<th class="col-md-4 chalk_border">
-					Done
-				</th>
-			</tr>
-		</thead>
-		<tr class="row">
-			<td class="col-md-4">
-				<div class="td_ticket_wrapper">
-					{{#each getTodo}}
-						{{ticket-comp ticket=this}}
-					{{/each}}
-				</div>
-			</td>
-			<td class="col-md-4">
-				<div class="td_ticket_wrapper">
-					{{#each getDoing}}
-						{{ticket-comp ticket=this}}
-					{{/each}}
-				</div>
-			</td>
-			<td class="col-md-4 done">
-				<div class="td_ticket_wrapper">
-					{{#each getDone}}
-						{{ticket-comp ticket=this}}
-					{{/each}}
-				</div>
-			</td>
-		</tr>
-	</table>
+<section class="main_content">
+	{{#with this as self}}
+		{{board-menu}}
+				<table class="main_table">
+					<thead class="main_table_head">
+						<tr>
+							<th>
+								Todo
+							</th>
+							<th>
+								Doing
+							</th>
+							<th>
+								Done
+							</th>
+						</tr>
+					</thead>
+					<tbody class="main_table_body">
+						<tr>
+							<td>
+								<div class="ticket_wrapper">
+										{{#each getTodo}}
+											{{ticket-comp ticket=this currentBoardID=self.id}}
+										{{/each}}
+								</div>
+							</td>
+							<td>
+								<div class="ticket_wrapper">
+										{{#each getDoing}}
+											{{ticket-comp ticket=this currentBoardID=self.id showParentBoard="switchBoard"}}
+										{{/each}}
+								</div>
+							</td>
+							<td>
+								<div class="ticket_wrapper">
+										{{#each getDone}}
+											{{ticket-comp ticket=this currentBoardID=self.id}}
+										{{/each}}
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+	{{/with}}
 </section>
