@@ -1,18 +1,27 @@
 'use strict';
-App.BoardController = Ember.ArrayController.extend({
+App.BoardController = Ember.ObjectController.extend({
+
 	getTodo: function() {
-		return this.filter(function(ticket) {
+		return this.get('tickets').filter(function(ticket) {
 			return ticket.get('isTodo');
 		});
-	}.property('@each.isTodo'),
+	}.property('tickets.@each.isTodo'),
+
 	getDoing: function() {
-		return this.filter(function(ticket) {
+		return this.get('tickets').filter(function(ticket) {
 			return ticket.get('isDoing');
 		});
-	}.property('@each.isDoing'),
+	}.property('tickets.@each.isDoing'),
+
 	getDone: function() {
-		return this.filter(function(ticket) {
+		return this.get('tickets').filter(function(ticket) {
 			return ticket.get('isDone');
 		});
-	}.property('@each.isDone')
+	}.property('tickets.@each.isDone'),
+
+	actions: {
+		switchBoard: function(board) {
+			this.transitionToRoute('board', board.id);
+		}
+	}
 });
