@@ -1,14 +1,52 @@
-{{#with ticket}}
-<div {{bind-attr class=":ticket isDone:done isImportant:important"}}>
-	<h3 class="ticket_title">{{title}}</h3>
-	<span class="ticket_details">
-		Creater: Wilson <br>
-		Assignee: Momme <br>
-		{{#if last_modify_date}}
-			Last Modify Date: {{dateFormat last_modify_date}}
+{{#if edit}}
+
+	<div class="ticket_title">
+		Title: {{#input type="text" value=ticket.title}}{{/input}}
+	</div>
+	<div class="ticket_content">
+		{{#textarea value=ticket.content}}{{/textarea}}
+	</div>
+
+{{else}}
+	{{#if create}}
+		<div class="ticket_title">
+			Title: {{#input type="text"}}{{/input}}
+		</div>
+		<div class="ticket_content">
+			{{#textarea}}{{/textarea}}
+		</div>
+		{{view App.IconButtonView type='ok'}}
+	{{else}}
+
+		<nav class="ticket_menu">
+
+			{{#if basic}}
+				{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails'}}
+			{{/if}}
+
+			{{view App.IconButtonView type='pencil' title='Edit' action='showEdit'}}
+
+			{{#unless fromCurrentBoard}}
+				{{view App.IconButtonView type='th' title=parentName action='showParentBoard'}}
+			{{/unless}}
+
+			<span class="ticket_number">
+				#{{ticket.ticketNr}}
+			</span>
+		</nav>
+
+		{{#if basic}}
+
+			<div class="ticket_title">
+				<h3>{{ticket.title}}</h3>
+			</div>
+
 		{{else}}
-			Creation Date: {{dateFormat creation_date}}
+
+			<div class="ticket_content">
+				<h3>{{ticket.content}}</h3>
+			</div>
+
 		{{/if}}
-	</span>
-</div>
-{{/with}}
+	{{/if}}
+{{/if}}
