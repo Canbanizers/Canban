@@ -12,6 +12,7 @@
 @dark_green_shadow: rgba(40, 94, 66, 0.7);
 @ticket_yellow: #E7ED39;
 
+
 /*****************************/
 /* Less-Function Definitions */
 /*****************************/
@@ -27,6 +28,13 @@
   -webkit-box-shadow: @style @c;
   -moz-box-shadow: @style @c;
   box-shadow: @style @c;
+}
+
+.heading_setup(@font_size) when (isnumber(@font_size)) {
+  font-size: @font_size;
+  line-height: @font_size;
+  font-weight: 900;
+  margin: 0;
 }
 
 /*****************************/
@@ -47,6 +55,13 @@
 
 /* ### Basic Designs ### */
 
+.icon_button {
+  padding: 0;
+  margin: 0;
+  background: none transparent;
+  border: none 0 transparent;
+}
+
 .chalk_border {
   -webkit-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Safari 5 and older */
   -o-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Opera */
@@ -55,43 +70,30 @@
 
 /* ### Headings ### */
 
-.main_head .table_heading {
+.board_heading {
   font-family: Angry_Chalk, sans-serif;
   text-decoration: underline;
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: 50px;
-
+  padding: 50px 0 0 20px;
 }
 
 h1 {
-  font-size: 70px;
-  line-height: 70px;
-  margin: 0;
+  .heading_setup(70px);
 }
 
 h2 {
-  font-size: 50px;
-  line-height: 50px;
-  margin: 0;
+  .heading_setup(50px);
 }
 
 h3 {
-  font-size: 20px;
-  line-height: 20px;
-  margin: 0;
+  .heading_setup(20px);
 }
 
 h4 {
-  font-size: 16px;
-  line-height: 16px;
-  margin: 0;
+  .heading_setup(16px);
 }
 
 h5 {
-  font-size: 10px;
-  line-height: 10px;
-  margin: 0;
+  .heading_setup(10px);
 }
 
 /* ### Text Styles ### */
@@ -119,21 +121,19 @@ body {
 }
 
 .main_head {
-  display: table;
   color: @white;
-  vertical-align: middle;
   height: 25%;
   padding: 0;
   margin: 0;
 }
 
 .main_content {
-  text-align: center;
   color: @white;
   width: 100%;
   height: 75%;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 /* ### Main Menu ### */
@@ -192,14 +192,9 @@ body {
 .main_table {
   display: inline-block;
   padding: 0;
-  height: 60%;
+  height: 98%;
   border-collapse: separate;
-  vertical-align: middle;
-  margin: 0 auto;
-}
-
-.main_table th, .main_table td {
-  .chalk_border;
+  border-spacing: 0;
 }
 
 .main_table_head {
@@ -207,30 +202,32 @@ body {
   font-size: 50px;
 }
 
-.main_table .main_table_head th {
+.main_table_body{
+}
+
+.main_table_head th, .main_table_body td {
+  .chalk_border;
+}
+
+.main_table_head th {
   text-align: center;
   border-bottom: 10px solid transparent;
   border-left: 10px solid transparent;
+  width: 33%;
 
 }
 
-.main_table_head th:first-child {
-  border-left: none;
-}
-
-.main_table td {
+.main_table_body td {
   border-left: 10px solid transparent;
   vertical-align: top;
+  width: 33%;
   padding: 0;
-  height: 90%;
 }
 
-.main_table td:first-child {
-  border-left: none;
-}
-
-.main_table td .td_ticket_wrapper {
-  width: 392px;
+.main_table_body td .ticket_wrapper {
+  display: inline-block;
+  width: 382px;
+  min-height: 400px;
   margin: 0 auto;
   padding: 0;
 }
@@ -238,43 +235,89 @@ body {
 /* ### Tickets ### */
 
 .ticket {
-  .box-shadow(5px 10px, @dark_green_shadow);
+  .ticket_menu {
+    vertical-align: middle;
+    text-align: left;
+    display: block;
+    font-size: 15px;
+    line-height: 15px;
+    height: 20px;
+    border-bottom: solid 1px #000000;
+
+    .ticket_number {
+      float: right;
+    }
+  }
+
+  .ticket_title {
+    display: block;
+    height: 49px;
+    .center
+  }
+
+  .ticket_title h3 {
+    margin: auto 0;
+  }
+
+  .ticket_empty {
+    opacity: 0.5;
+  }
+}
+
+.ticket.basic {
+  .box-shadow(3px 7px, @dark_green_shadow);
   text-align: center;
   font-family: Fine_Liner, sans-serif;
   color: #000000;
-  height: 150px;
-  width: 190px;
-  margin: 15px 3px;
-  padding: 15px;
+  height: 80px;
+  width: 185px;
+  margin: 5px 3px;
+  padding: 5px;
   z-index: 1;
   opacity: 0.9;
   display: inline-block;
   float: left;
   background-color: @ticket_yellow;
+  border-bottom: solid 1px #000000;
+  border-right: solid 1px #000000;
 }
 
-.ticket_title {
-  margin-bottom: 20px;
-  display: block;
-  font-size: 20px;
+.ticket.edit {
 }
 
-.ticket_details {
-  display: inline-block;
-  font-size: 15px;
-  line-height: 15px;
+.ticket.details {
 }
 
-.ticket_empty {
-  opacity: 0.5;
-}
-
-.important {
+.ticket.important {
   background-color: @red_important;
 }
 
-.done span {
+.ticket.done .ticket_title {
   text-decoration: line-through;
+}
+
+.ticket.placeholder {
+  height: 80px;
+  width: 185px;
+  margin: 5px 3px;
+  padding: 5px;
+  z-index: 1;
+  display: inline-block;
+  float: left;
+}
+/* ### Board Menu ### */
+
+.main_content .board_menu {
+  display: inline-block;
+  width: 20px;
+  margin: 5px 0 0 5px ;
+  vertical-align: top;
+
+  font-size: 20px;
+
+  .icon_button {
+    color: #FFFFFF;
+  }
 }
 
 /* Design fixes for ember */
