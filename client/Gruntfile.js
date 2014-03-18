@@ -21,40 +21,27 @@ module.exports = function(grunt) {
 					Ember   : true,
 					$       : true,
 					App     : true,
-					DS      : true,
-					Todos   : true
+					DS      : true
 				}
 			}
 		},
 		concat          : {
 			vendor : {
-				src : ['app/lib/jquery-1.10.2.js', 'app/lib/handlebars-1.3.0.js', 'app/lib/ember-1.4.0.js',
+				src : ['app/lib/handlebars-1.3.0.js', 'app/lib/ember-1.4.0.js',
 					   'app/lib/ember-data-1.0.0b7.js', 'app/lib/localstorage_adapter.js',
-					   'app/lib/bootstrap.js'],
+					   'app/lib/bootstrap.js', 'app/lib/moment-with-langs-2.5.1.js'],
 				dest: 'debug/lib.js'
 			},
 			app    : {
 				src : ['app/app.js', 'debug/templates.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
-					   'app/models/*.js'],
+					   'app/models/*.js', 'app/helpers/*.js'],
 				dest: 'debug/app.js'
-			},
-			test   : {
-				src : ['app/tests/*.js'],
-				dest: 'qunit/tests.js'
-			},
-			testLib: {
-				src : 'debug/lib.js',
-				dest: 'qunit/lib.js'
-			},
-			testApp: {
-				src : 'debug/app.js',
-				dest: 'qunit/app.js'
 			}
 		},
 		less            : {
 			css: {
 				files: {
-					'debug/css/app.css': ['app/css/styles.less', 'app/css/bootstrap-canban.css']
+					'debug/css/app.css': ['app/css/styles.less']
 				}
 			}
 		},
@@ -127,34 +114,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		qunit           : {
-			all: {
-				options: {
-					urls : [
-						'http://localhost:9092/index.html'
-					],
-					force: true
-				}
-			}
-		},
 		watch           : {
 			scripts: {
 				files  : ['app/lib/*.js', 'app/*.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
-						  'app/models/*.js', 'app/css/*.less', 'app/templates/**/*.hbs', 'app/tests/*.js'],
+						  'app/models/*.js', 'app/css/*.less', 'app/templates/**/*.hbs'],
 				tasks  : ['ember_handlebars', 'concat', 'less'],
 				options: {
 					debounceDelay: 100
 				}
 			},
-			tests  : {
-				files  : ['app/tests/*.js'],
-				tasks  : ['qunit'],
-				options: {
-					debounceDelay: 100
-				}
-			},
 			images : {
-				files  : ['app/img/*'],
+				files  : ['app/img/*', 'app/fonts/*'],
 				tasks  : ['clean', 'copy'],
 				options: {
 					debounceDelay: 100

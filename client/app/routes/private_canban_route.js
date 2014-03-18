@@ -1,5 +1,12 @@
+var logedIn = true;
+
 App.PrivateCanbanRoute = Ember.Route.extend({
-	model: function() {
-		return this.store.find('ticket');
+	beforeModel: function () {
+		if (logedIn) {
+			this.transitionTo('board', 1);
+		} else {
+
+		}
 	}
 });
+
