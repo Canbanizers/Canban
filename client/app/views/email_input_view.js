@@ -1,8 +1,4 @@
-/**
- * Created by Jan-work on 27.02.14.
- */
-
-
+'use strict';
 App.EmailInputView = Ember.View.extend({
 	tagName: 'input',
 	eventManager: Ember.Object.create({
