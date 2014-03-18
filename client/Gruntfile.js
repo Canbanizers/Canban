@@ -130,26 +130,6 @@ module.exports = function(grunt) {
 					debounceDelay: 100
 				}
 			}
-		},
-		connect         : {
-			debug  : {
-				options: {
-					port: 9090,
-					base: 'debug'
-				}
-			},
-			release: {
-				options: {
-					port: 9091,
-					base: 'release'
-				}
-			},
-			test   : {
-				options: {
-					port: 9092,
-					base: 'qunit'
-				}
-			}
 		}
 	});
 
@@ -160,12 +140,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-ember-handlebars');
-	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 
-	grunt.registerTask('default', ['ember_handlebars', 'concat', 'less', 'clean', 'copy', 'watch', 'connect']);
+	grunt.registerTask('default', ['ember_handlebars', 'concat', 'less', 'clean', 'copy', 'watch']);
 	grunt.registerTask('release', ['jshint', 'uglify', 'cssmin', 'clean', 'copy']);
 };
