@@ -1,7 +1,4 @@
-/**
- * Created by Jan-work on 27.02.14.
- */
-
+'use strict';
 App.User = DS.Model.extend({
 	email : DS.attr('string'),
 	firstname : DS.attr('string'),
