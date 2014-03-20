@@ -7,6 +7,7 @@ App.User = DS.Model.extend({
 	password : DS.attr('string'),
 	authtoken : DS.attr('string')
 	lastlogin: DS.attr('string'),
+	password: DS.attr('string'),
 	authtoken: DS.attr('string')
 });
 
