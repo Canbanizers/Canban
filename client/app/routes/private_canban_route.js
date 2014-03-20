@@ -1,5 +1,7 @@
 App.PrivateCanbanRoute = Ember.Route.extend({
-	model: function() {
-		return this.store.find('ticket');
+	beforeModel: function() {
+		if (!this.controllerFor('login').get('loggedInUser')) {
+			this.transitionTo('login');
+		}
 	}
 });
