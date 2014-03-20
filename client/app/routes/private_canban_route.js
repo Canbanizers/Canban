@@ -7,6 +7,10 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		} else {
 
 		}
+	beforeModel: function() {
+		if (!this.controllerFor('login').get('loggedInUser')) {
+			this.transitionTo('login');
+		}
 	}
 });
 
