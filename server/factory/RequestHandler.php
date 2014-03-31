@@ -18,7 +18,6 @@ class RequestHandler {
 	public function handleRequest() {
 
 		$req_method = $_SERVER['REQUEST_METHOD'];
-		$url_params = $this->getUrlParams($_SERVER['REQUEST_URI']);
 
 		switch ($req_method) {
 			case 'GET':
@@ -39,25 +38,18 @@ class RequestHandler {
 		}
 
 		$req_body = file_get_contents('php://input');
-		$json = json_decode($req_body);
+		$json = json_decode($req_body, true);
 
 		if (empty($json)) {
 			//TODO NoContentException
 		}
 
-		foreach ($json as $model_name => $params) {
-			$modelcontroller = new ModelController();
-			$modelcontroller->execute($model_name, $params, $req_method);
-		};
-	}
-
-	private function getUrlParams($url) {
-		$url_parts = explode('/', $url);
-
-		foreach ($url_parts as $url_part) {
-			$url_parts[] = strtolower($url_part);
+		$modelcontroller = new ModelController();
+		if (!empty($_REQUEST['id'])) {
+			$modelcontroller->execute($_REQUEST['model'], $json, $req_method, $_REQUEST['id']);
+		} else {
+			$modelcontroller->execute($_REQUEST['model'], $json, $req_method);
 		}
-
-		return $url_parts;
 	}
+
 }
