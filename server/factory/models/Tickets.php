@@ -12,10 +12,15 @@ ActiveRecord\Config::initialize(function ($cfg) {
 		'development' => 'mysql://'.$credentials['login'].':'.$credentials['password'].'@'.$credentials['domain']));
 });
 
-class Tickets extends ActiveRecord\Model {
+class Tickets extends ActiveRecord\Model implements SubjectInterface {
 
 	public static $table_name = 'tickets';
 	public static $primary_key = 'id';
+
+	/**
+	 * @var ObserverInterface
+	 */
+	private $observer = null;
 
 	public function createNewTicket() {
 
@@ -29,6 +34,18 @@ class Tickets extends ActiveRecord\Model {
 			'creation_date'    => $now,
 			'last_modify_date' => $now,
 			'title'            => $title));
+	}
+
+	public function addObserver(ObserverInterface $observer) {
+		$this->observer = $observer;
+	}
+
+	public function removeObserver(ObserverInterface $observer) {
+		$this->observer = null;
+	}
+
+	public function notify() {
+		$this->observer->update();
 	}
 }
 

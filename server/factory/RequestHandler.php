@@ -1,73 +1,63 @@
 <?php
-require(__DIR__.'\ModelController.php');
-require(__DIR__.'\SecurityController.php');
+require_once(__DIR__.'\ModelController.php');
 
 class RequestHandler {
 
-
 	/**
-	 * @var array
-	 */
-	private $params = array(
-		'controller', 'table', 'action', 'params'
-	);
-
-	/**
-	 * @param string $param
+	 * json in request may look like this:
+	 *    {
+	 * "user": {
+	 * "email":"test@test.de",
+	 * "firstname": "Max",
+	 * "lastname": "Mustermann",
+	 * "password": "password"
+	 * }
+	 * }
 	 *
-	 * @return string
 	 */
-	private function mapParam($param) {
-
-		$param_name = '';
-		$param = explode('_', $param);
-		foreach ($param as $part) {
-			$param_name .= ucfirst($part);
-		}
-
-		return $param_name;
-	}
-
-	/**
-	 * @param $request
-	 *
-	 * @return bool
-	 */
-	private function validateRequest($request) {
-
-		foreach ($request as $request_param_key => $request_param_value) {
-
-			if (!in_array($request_param_key, $this->params)) {
-				return false;
-			}
-
-			if (!is_array($request_param_value)) {
-				$param = explode('_', $request_param_value);
-				foreach ($param as $param_part) {
-					//TODO Check for forbidden characters
-					if (!is_string($param_part)) {
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
-	}
-
 	public function handleRequest() {
-		if (!$this->validateRequest($_REQUEST)) {
-			//TODO return error message
+
+		$req_method = $_SERVER['REQUEST_METHOD'];
+		$url_params = $this->getUrlParams($_SERVER['REQUEST_URI']);
+
+		switch ($req_method) {
+			case 'GET':
+				$req_method = strtolower($req_method);
+				break;
+			case 'POST':
+				$req_method = 'create';
+				break;
+			case 'PUT':
+				$req_method = 'update';
+				break;
+			case 'DELETE':
+				$req_method = strtolower($req_method);
+				break;
+			default:
+				//TODO UndefinedRequestmethodException
+				break;
 		}
-		$class_name = $this->mapParam($_REQUEST['controller']);
-		$function_name = $this->mapParam($_REQUEST['action']);
-		if (!(class_exists($class_name) && method_exists($class_name, $function_name))) {
-			//TODO return error message
+
+		$req_body = file_get_contents('php://input');
+		$json = json_decode($req_body);
+
+		if (empty($json)) {
+			//TODO NoContentException
 		}
-		$class = new $class_name();
-		$class->$function_name($_REQUEST['params']);
+
+		foreach ($json as $model_name => $params) {
+			$modelcontroller = new ModelController();
+			$modelcontroller->execute($model_name, $params, $req_method);
+		};
+	}
+
+	private function getUrlParams($url) {
+		$url_parts = explode('/', $url);
+
+		foreach ($url_parts as $url_part) {
+			$url_parts[] = strtolower($url_part);
+		}
+
+		return $url_parts;
 	}
 }
-
-$r = new RequestHandler();
-$r->handleRequest();
