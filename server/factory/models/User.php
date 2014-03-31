@@ -28,12 +28,16 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 		self::create($params);
 	}
 
+	public function findAllUser() {
+		return self::find('all');
+	}
+
 	public function deleteUser($id) {
 		$user = self::find($id);
 		$user->delete();
 	}
 
-	public function getUser($id) {
+	public function findUser($id) {
 		return self::find($id);
 	}
 
