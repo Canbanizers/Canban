@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord/ActiveRecord.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'observer_subject/SubjectInterface.php';
 
 class User extends ActiveRecord\Model implements SubjectInterface {
@@ -14,39 +14,38 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 	public static $primary_key = 'id';
 
 	public function createUser($params) {
+		foreach ($params as $param => $value) {
+			if (!empty($value)) {
+				$index = array_search($param, $params);
+				unset($index);
+			}
+
+			if ('lastlogin' === $param) {
+				$date = new DateTime('now');
+				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
+			}
+		}
 		self::create($params);
 	}
 
-	//	public function getFirstnameById($id) {
-	//		$sql = <<<SQL
-	//SELECT firstname
-	//FROM users
-	//WHERE id = $id
-	//SQL;
-	//
-	//		$firstname_ar = User::find_by_sql($sql);
-	//
-	//		foreach ($firstname_ar as $firstname) {
-	//			return $firstname->firstname;
-	//		}
-	//
-	//		return null;
-	//	}
-	//
-	//	public function getPasswordByEmail($email) {
-	//		$sql = <<<SQL
-	//SELECT password
-	//FROM users
-	//WHERE email = "$email"
-	//SQL;
-	//
-	//		$email_ar = User::find_by_sql($sql);
-	//		foreach ($email_ar as $password) {
-	//			return $password->password;
-	//		}
-	//
-	//		return null;
-	//	}
+	public function deleteUser($id) {
+		$user = self::find($id);
+		$user->delete();
+	}
+
+	public function getUser($id) {
+		return self::find($id);
+	}
+
+	public function updateUser($id, $params) {
+		$user = self::find($id);
+		foreach ($params as $param => $value) {
+			if (!empty($value)) {
+				$user->$param = $value;
+			}
+		}
+		$user->save();
+	}
 
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
