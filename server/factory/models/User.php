@@ -25,7 +25,8 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
 			}
 		}
-		self::create($params);
+
+		return self::create($params);
 	}
 
 	public function findAllUser() {
@@ -35,6 +36,8 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 	public function deleteUser($id) {
 		$user = self::find($id);
 		$user->delete();
+
+		return $user;
 	}
 
 	public function findUser($id) {
@@ -49,6 +52,8 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 			}
 		}
 		$user->save();
+
+		return $user;
 	}
 
 	public function addObserver(ObserverInterface $observer) {
