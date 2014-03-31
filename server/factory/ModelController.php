@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord/ActiveRecord.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
 //TODO: load credentials from config
 ActiveRecord\Config::initialize(function ($cfg) {
@@ -16,7 +16,7 @@ class ModelController implements SubjectInterface {
 	 */
 	private $observer = null;
 
-	public function execute($model_name, $params, $req_method) {
+	public function execute($model_name, $params, $req_method, $id = 0) {
 		$path_to_models = __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR;
 
 		if (!file_exists($path_to_models.$model_name)) {
@@ -35,7 +35,13 @@ class ModelController implements SubjectInterface {
 			//TODO MethodNotFoundException
 		}
 
-		$model_class->$method_name((array) $params);
+		if ('update' === $req_method) {
+			$model_class->$method_name($id, $params[array_shift(array_keys($params))]);
+		} elseif ('create' === $req_method) {
+			$model_class->$method_name($params[array_shift(array_keys($params))]);
+		} else {
+			$model_class->$method_name($id);
+		}
 	}
 
 	public function addObserver(ObserverInterface $observer) {
