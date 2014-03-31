@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__.'\ModelController.php');
+require_once(__DIR__.'\ResponseFactory.php');
 
 class RequestHandler {
 
@@ -55,11 +56,21 @@ class RequestHandler {
 		}
 
 		$modelcontroller = new ModelController();
+		$response_model = null;
+
 		if (null !== $id) {
-			$modelcontroller->execute($model, $json, $req_method, $id);
+			$response_model = $modelcontroller->execute($model, $json, $req_method, $id);
 		} else {
-			$modelcontroller->execute($model, $json, $req_method);
+			$response_model = $modelcontroller->execute($model, $json, $req_method);
 		}
+
+
+		$json = $response_model->to_array();
+
+		$response_array = array(strtolower(get_class($response_model)) => $json);
+		header("HTTP/1.0 200 ok");
+		header('Content-Type: application/json');
+		echo json_encode($response_array, JSON_FORCE_OBJECT);
 	}
 
 }
