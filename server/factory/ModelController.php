@@ -36,13 +36,13 @@ class ModelController implements SubjectInterface {
 		}
 
 		if ('update' === $req_method) {
-			$model_class->$method_name($id, $params[array_shift(array_keys($params))]);
+			return $model_class->$method_name($id, $params[array_shift(array_keys($params))]);
 		} elseif ('create' === $req_method) {
-			$model_class->$method_name($params[array_shift(array_keys($params))]);
+			return $model_class->$method_name($params[array_shift(array_keys($params))]);
 		} elseif ('findAll' === $req_method) {
-			$model_class->$method_name();
+			return $model_class->$method_name();
 		} else {
-			$model_class->$method_name($id);
+			return $model_class->$method_name($id);
 		}
 	}
 
