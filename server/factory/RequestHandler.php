@@ -18,10 +18,20 @@ class RequestHandler {
 	public function handleRequest() {
 
 		$req_method = $_SERVER['REQUEST_METHOD'];
+		$model = $_REQUEST['model'];
+		$id = null;
+
+		if (!empty($_REQUEST['id'])) {
+			$id = $_REQUEST['id'];
+		}
 
 		switch ($req_method) {
 			case 'GET':
-				$req_method = strtolower($req_method);
+				if (null !== $id) {
+					$req_method = 'find';
+				} else {
+					$req_method = 'findAll';
+				}
 				break;
 			case 'POST':
 				$req_method = 'create';
@@ -45,10 +55,10 @@ class RequestHandler {
 		}
 
 		$modelcontroller = new ModelController();
-		if (!empty($_REQUEST['id'])) {
-			$modelcontroller->execute($_REQUEST['model'], $json, $req_method, $_REQUEST['id']);
+		if (null !== $id) {
+			$modelcontroller->execute($model, $json, $req_method, $id);
 		} else {
-			$modelcontroller->execute($_REQUEST['model'], $json, $req_method);
+			$modelcontroller->execute($model, $json, $req_method);
 		}
 	}
 
