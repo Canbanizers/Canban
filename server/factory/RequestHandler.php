@@ -1,6 +1,5 @@
 <?php
 require_once(__DIR__.'\ModelController.php');
-require_once(__DIR__.'\ResponseFactory.php');
 
 class RequestHandler {
 
