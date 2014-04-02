@@ -1,14 +1,8 @@
 <?php
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'observer_subject/SubjectInterface.php';
 
-class User extends ActiveRecord\Model implements SubjectInterface {
-
-	/**
-	 * @var ObserverInterface
-	 */
-	private $observer;
+class User extends ActiveRecord\Model {
 
 	public static $tablename = 'user';
 	public static $primary_key = 'id';
@@ -54,17 +48,5 @@ class User extends ActiveRecord\Model implements SubjectInterface {
 		$user->save();
 
 		return $user;
-	}
-
-	public function addObserver(ObserverInterface $observer) {
-		$this->observer = $observer;
-	}
-
-	public function removeObserver(ObserverInterface $observer) {
-		$this->observer = null;
-	}
-
-	public function notify() {
-		$this->observer->update();
 	}
 }
