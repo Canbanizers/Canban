@@ -2,12 +2,13 @@
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
 
-//TODO: load credentials from config
 ActiveRecord\Config::initialize(function ($cfg) {
+	$credentials_reader = new CredentialsReader();
 	$cfg->set_model_directory('models');
 	$cfg->set_connections(array(
-		'development' => 'mysql://root:@localhost/canban'));
+		'development' => $credentials_reader->getSqlConnectionString()));
 });
 class ModelController implements SubjectInterface {
 

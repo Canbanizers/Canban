@@ -2,40 +2,33 @@
 
 class CredentialsReader {
 
-	const PATH_TO_XML = 'xml/db_credentials.xml';
+	const PATH_TO_XML = '..\xml\db_credentials.xml';
+	const PROTOCOL = 'mysql';
+	const SERVER = 'localhost';
+	const DB_NAME = 'canban';
+	private $db_login = '';
+	private $db_password = '';
 
-	public function getDBCredentials() {
-
-		$xpaths = array(
-			'domain'           => '/credentials/domain/db/text()',
-			'path_to_password' => '/credentials/path_to_password/db/text()',
-		);
-
-		$credentials_array = $this->getCredentials(self::PATH_TO_XML, $xpaths);
-		$path_to_xml = $credentials_array['path_to_password'];
-		unset($credentials_array['path_to_password']);
+	private function setDBCredentials() {
+		$xml = simplexml_load_file(__DIR__.'/'.self::PATH_TO_XML);
 
 		$xpaths = array(
 			'password' => '/credentials/password/db/text()',
 			'login'    => '/credentials/login/db/text()'
 		);
 
-		return array_merge($credentials_array, $this->getCredentials($path_to_xml, $xpaths));
+		$password = $xml->xpath($xpaths['password']);
+		$this->db_password = (string) $password[0];
+
+		$login = $xml->xpath($xpaths['login']);
+		$this->db_login = (string) $login[0];
 	}
 
+	public function getSqlConnectionString() {
+		$this->setDBCredentials();
 
-	private function getCredentials($path_to_xml, $xpaths) {
-		$simple_xml_element = simplexml_load_file($path_to_xml);
-
-		$credentials = array();
-
-		foreach ($xpaths as $keyword => $value) {
-			$result_array = $simple_xml_element->xpath($value);
-			$credentials[$keyword] = (string) $result_array[0];
-		}
-
-		return $credentials;
+		return
+			self::PROTOCOL.'://'.trim($this->db_login).':'.trim($this->db_password).'@'.self::SERVER.'/'.self::DB_NAME;
 	}
-
 
 }
