@@ -9,7 +9,7 @@ class User extends ActiveRecord\Model {
 
 	public function createUser($params) {
 		foreach ($params as $param => $value) {
-			if (!empty($value)) {
+			if (empty($value)) {
 				$index = array_search($param, $params);
 				unset($index);
 			}
