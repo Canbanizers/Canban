@@ -115,7 +115,7 @@ class RequestHandler
 
 		if (empty($json) && !in_array($req_method, $allowed_values)) {
 			$ij_e = new InvalidJsonException();
-			$ij_e->setMessage("Request body {$req_body} is not valid JSON.");
+			$ij_e->setMessage("Request body {$req_body} is not valid JSON for Method: {$req_method}.");
 			throw $ij_e;
 		}
 

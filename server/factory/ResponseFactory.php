@@ -3,16 +3,29 @@
 
 class ResponseFactory
 {
-	public function sendResponse($response_model, $status_code = 200)
+	/**
+	 * @param mixed $response_models
+	 * @param int $status_code
+	 */
+	public function sendResponse($response_models, $status_code = 200)
 	{
 		header("HTTP/1.0 {$status_code}");
 		header('Content-Type: application/json');
+
 		if (200 === $status_code) {
-			$data_array = $response_model->to_array();
-			$response_array = array(strtolower(get_class($response_model)) => $data_array);
-			echo json_encode($response_array, JSON_FORCE_OBJECT);
+			$response_array = array();
+			if (is_array($response_models)) {
+				foreach ($response_models as $model) {
+					$response_array[strtolower(get_class($model))][] = $model->to_array();
+				}
+				echo json_encode($response_array, JSON_FORCE_OBJECT);
+			} else {
+				$data_array = $response_models->to_array();
+				$response_array = array(strtolower(get_class($response_models)) => $data_array);
+				echo json_encode($response_array, JSON_FORCE_OBJECT);
+			}
 		} else {
-			echo $response_model;
+			echo $response_models;
 		}
 	}
 
