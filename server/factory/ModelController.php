@@ -1,62 +1,86 @@
 <?php
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'observer_subject' . DIRECTORY_SEPARATOR . 'SubjectInterface.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'library/php-activerecord-master/ActiveRecord.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'utils' . DIRECTORY_SEPARATOR . 'CredentialsReader.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'AbstractException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'FileNotFoundException.php';
 
 
-ActiveRecord\Config::initialize(function ($cfg) {
-	$credentials_reader = new CredentialsReader();
-	$cfg->set_model_directory('models');
-	$cfg->set_connections(array(
-		'development' => $credentials_reader->getSqlConnectionString()));
-});
+ActiveRecord\Config::initialize(
+	function ($cfg) {
+		$credentials_reader = new CredentialsReader();
+		$cfg->set_model_directory('models');
+		$cfg->set_connections(
+			array(
+				'development' => $credentials_reader->getSqlConnectionString()
+			)
+		);
+	}
+);
 
 
-class MethodNotExistException extends AbstractException {
+class MethodNotExistException extends AbstractException
+{
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->setStatusCode(500);
 	}
 }
 
-class ModelController implements SubjectInterface {
+class ModelController implements SubjectInterface
+{
 
 	/**
 	 * @var ObserverInterface
 	 */
 	private $observer = null;
 
-	private function getModel($model_name) {
-		$path_to_models = __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR;
+	/**
+	 * @param string $model_name
+	 *
+	 * @return ActiveRecord\Model
+	 * @throws FileNotFoundException
+	 */
+	private function getModel($model_name)
+	{
+		$path_to_models = __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR;
 
-		if (!file_exists($path_to_models.ucfirst($model_name).'.php')) {
+		if (!file_exists($path_to_models . ucfirst($model_name) . '.php')) {
 			$fnf_e = new FileNotFoundException();
 			$fnf_e->setMessage("File {$model_name} in {$path_to_models} not found");
 			throw $fnf_e;
 		}
 
-		require_once($path_to_models.ucfirst($model_name).'.php');
+		require_once($path_to_models . ucfirst($model_name) . '.php');
 
 		return new $model_name();
-
 	}
 
-	public function execute($model_name, $params, $req_method, $id = 0) {
+	/**
+	 * @param string $model_name
+	 * @param array $params
+	 * @param string $req_method
+	 * @param int $id
+	 *
+	 * @return FileNotFoundException|MethodNotExistException|ActiveRecord\Model
+	 */
+	public function execute($model_name, $params, $req_method, $id = 0)
+	{
 		try {
 			$model = $this->getModel($model_name);
 
 			$model_class = ucfirst($model_name);
 
-			$method_name = $req_method.$model_class;
+			$method_name = $req_method . $model_class;
 
 			if (!method_exists($model, $method_name)) {
 				$fnf_e = new MethodNotExistException();
 				$fnf_e->setMessage("Method {$method_name} in class {$model_class} not found");
 				throw $fnf_e;
 			}
+
 
 			switch ($req_method) {
 				case 'update':
@@ -69,23 +93,23 @@ class ModelController implements SubjectInterface {
 					return $model->$method_name($id);
 			}
 
-		} catch (FileNotFoundException $fnf_e) {
-			return $fnf_e->getMessage();
-		} catch (MethodNotExistException $mne_e) {
-			return $mne_e->getMessage();
+		} catch (Exception $e) {
+			return $e;
 		}
-
 	}
 
-	public function addObserver(ObserverInterface $observer) {
+	public function addObserver(ObserverInterface $observer)
+	{
 		$this->observer = $observer;
 	}
 
-	public function removeObserver(ObserverInterface $observer) {
+	public function removeObserver(ObserverInterface $observer)
+	{
 		$this->observer = null;
 	}
 
-	public function notify() {
+	public function notify()
+	{
 		$this->observer->update();
 	}
 }
