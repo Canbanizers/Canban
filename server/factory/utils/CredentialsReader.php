@@ -1,41 +1,54 @@
 <?php
 
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
+
+class UndefinedOffsetException extends AbstractException {
+
+	public function __construct() {
+		$this->setStatusCode(500);
+	}
+}
+
 class CredentialsReader {
 
-	const PATH_TO_XML = 'xml/db_credentials.xml';
+	const PATH_TO_XML = '..\xml';
+	const PROTOCOL = 'mysql';
+	const SERVER = 'localhost';
+	const DB_NAME = 'canban';
+	private $db_login = '';
+	private $db_password = '';
 
-	public function getDBCredentials() {
+	private function setDBCredentials() {
 
-		$xpaths = array(
-			'domain'           => '/credentials/domain/db/text()',
-			'path_to_password' => '/credentials/path_to_password/db/text()',
-		);
+		$full_path_to_xml = __DIR__.'/'.self::PATH_TO_XML.'\db_credentials.xml';
 
-		$credentials_array = $this->getCredentials(self::PATH_TO_XML, $xpaths);
-		$path_to_xml = $credentials_array['path_to_password'];
-		unset($credentials_array['path_to_password']);
+		if (!file_exists($full_path_to_xml)) {
+			$fnf_e = new FileNotFoundException();
+			$fnf_e->setMessage("Config-File db_credentials.xml in {$full_path_to_xml} not found");
+			throw $fnf_e;
+		}
+
+		$xml = simplexml_load_file($full_path_to_xml);
 
 		$xpaths = array(
 			'password' => '/credentials/password/db/text()',
 			'login'    => '/credentials/login/db/text()'
 		);
 
-		return array_merge($credentials_array, $this->getCredentials($path_to_xml, $xpaths));
+
+		$password = $xml->xpath($xpaths['password']);
+		$login = $xml->xpath($xpaths['login']);
+
+		$this->db_password = (string) $password[0];
+		$this->db_login = (string) $login[0];
 	}
 
+	public function getSqlConnectionString() {
+		$this->setDBCredentials();
 
-	private function getCredentials($path_to_xml, $xpaths) {
-		$simple_xml_element = simplexml_load_file($path_to_xml);
-
-		$credentials = array();
-
-		foreach ($xpaths as $keyword => $value) {
-			$result_array = $simple_xml_element->xpath($value);
-			$credentials[$keyword] = (string) $result_array[0];
-		}
-
-		return $credentials;
+		return
+			self::PROTOCOL.'://'.trim($this->db_login).':'.trim($this->db_password).'@'.self::SERVER.'/'.self::DB_NAME;
 	}
-
 
 }

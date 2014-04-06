@@ -1,21 +1,6 @@
 #Options +FollowSymlinks
-RewriteEngine off
-RewriteBase /
+RewriteEngine on
+RewriteBase /canban/
 
-RewriteCond %{REQUEST_URI} ^/$ [NC]
-RewriteRule ^$ frontend/html/index\.html [NC,L]
-
-RewriteCond %{REQUEST_URI} ^[A-Za-z]*\/{0,1}[A-Za-z]+\.html$ [NC]
-RewriteRule ^([A-Za-z]*\/{0,1}[A-Za-z]+)\.html$ frontend/html/$1\.html [NC,L]
-
-RewriteCond %{REQUEST_URI} ^[A-Za-z]*\/{0,1}[A-Za-z]+\.php$ [NC]
-RewriteRule ^([A-Za-z]*\/{0,1}[A-Za-z]+)\.php$ backend/php/$1\.php [NC,L]
-
-RewriteCond %{REQUEST_URI} [a-zA-Z]+\.css [NC]
-RewriteRule styles/([a-zA-Z]+)\.css frontend/styles/$1\.css [NC,L]
-
-RewriteCond %{REQUEST_URI} img/ [NC]
-RewriteRule img/(.+) frontend/img/$1 [NC,L]
-
-RewriteCond %{REQUEST_URI} [a-zA-Z]+\.ttf [NC]
-RewriteRule ([a-zA-Z]+)\.ttf frontend/fonts/$1\.ttf [NC,L]
+RewriteRule ^api/([A-Za-z]+)?/([0-9]+)/?$ http://localhost/canban/server/factory/index.php?model=$1&id=$2 [L]
+RewriteRule ^api/([A-Za-z]+)?$ http://localhost/canban/server/factory/index.php?model=$1 [L]
