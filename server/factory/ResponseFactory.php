@@ -18,7 +18,7 @@ class ResponseFactory
 				foreach ($response_models as $model) {
 					$response_array[strtolower(get_class($model))][] = $model->to_array();
 				}
-				echo json_encode($response_array, JSON_FORCE_OBJECT);
+				echo json_encode($response_array);
 			} else {
 				$data_array = $response_models->to_array();
 				$response_array = array(strtolower(get_class($response_models)) => $data_array);
