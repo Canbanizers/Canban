@@ -45,12 +45,7 @@ class CredentialsReader {
 	}
 
 	public function getSqlConnectionString() {
-		try {
-			$this->setDBCredentials();
-		} catch (FileNotFoundException $fnf_e) {
-			//TODO: return ist böse weil der wert für db-connection genutzt wird
-			return $fnf_e->getMessage();
-		}
+		$this->setDBCredentials();
 
 		return
 			self::PROTOCOL.'://'.trim($this->db_login).':'.trim($this->db_password).'@'.self::SERVER.'/'.self::DB_NAME;
