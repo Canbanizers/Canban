@@ -31,7 +31,7 @@ class User extends ActiveRecord\Model {
 		$user = self::find($id);
 		$user->delete();
 
-		return $user;
+		return null;
 	}
 
 	public function findUser($id) {
