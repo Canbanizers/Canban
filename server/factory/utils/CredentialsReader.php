@@ -19,6 +19,9 @@ class CredentialsReader {
 	private $db_login = '';
 	private $db_password = '';
 
+	/**
+	 * @throws FileNotFoundException
+	 */
 	private function setDBCredentials() {
 
 		$full_path_to_xml = __DIR__.'/'.self::PATH_TO_XML.'\db_credentials.xml';
@@ -44,6 +47,9 @@ class CredentialsReader {
 		$this->db_login = (string) $login[0];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getSqlConnectionString() {
 		$this->setDBCredentials();
 
