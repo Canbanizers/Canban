@@ -1,9 +1,15 @@
 'use strict';
 window.App = Ember.Application.create({});
 
-App.Router.map(function() {
-	this.resource('private_canban', { path: '/' }, function() {
+App.Router.map(function () {
+	this.resource('private_canban', { path: '/' }, function () {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
+		this.resource('groups', function(){
+			this.resource('group', {path: '/group/:group_id'}, function(){
+				this.route('edit');
+			});
+			this.route('create');
+		});
 	});
 	this.resource('user', { path:'/user/:user_id' }, function(){
 });
