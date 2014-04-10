@@ -70,9 +70,4 @@ DS.JSONSerializer.reopen({
 		var root = Ember.String.camelize(type.typeKey);
 		hash[root] = this.serialize(record, options);
 	}
-
-
-	this.resource('login', {path: '/login'} , function() {
-
-	});
 });
