@@ -1,0 +1,14 @@
+<div>
+	<div>
+		<h2>My Groups</h2>
+		{{#each group in controller}}
+		<li>
+			{{#link-to "group" group}}
+				{{group.name}}
+			{{/link-to}}
+		</li>
+		{{else}}
+		<li>no groups... :(</li>
+		{{/each}}
+	</div>
+</div>
