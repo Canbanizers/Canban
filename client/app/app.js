@@ -1,5 +1,15 @@
 'use strict';
-window.App = Ember.Application.create({});
+window.App = Ember.Application.create({
+	//for debugging
+	LOG_TRANSITIONS: true
+});
+
+App.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+//App.ApplicationAdapter = DS.RESTAdapter.extend({
+//	host: 'http://localhost/canban',
+//	namespace: 'backend/php/resttest.php'
+//});
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 

@@ -1,4 +1,3 @@
-'use strict';
 App.User = DS.Model.extend({
 	//a user can have many groups
 	group: DS.hasMany('group', { async: true }),
@@ -12,7 +11,11 @@ App.User = DS.Model.extend({
 	fullName: function(){
 		return this.get('firstName')+' '+this.get('lastName');
 	}.property('firstName', 'lastName')
+
+	//....have to be completed
 });
+
+
 
 App.User.FIXTURES = [
 	{
