@@ -1,7 +1,7 @@
 'use strict';
 window.App = Ember.Application.create({
-	LOG_TRANSITIONS: true,
-	LOG_TRANSITIONS_INTERNAL: true
+	//for debugging
+	LOG_TRANSITIONS: true
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
