@@ -1,0 +1,32 @@
+<div>
+	<button {{action "cancel"}}> Back to Board </button>
+	<button {{action "delete"}}>Delete</button>
+	{{#if deleteMode}}
+	<div>
+		<h4>Really?</h4>
+		<button {{action "confirmDelete"}}> yes </button>
+		<button {{action "cancelDelete"}}> no </button>
+	</div>
+	{{/if}}
+
+	<div>
+		<label>Firstname</label>
+		{{input value=firstName}}
+
+		<label>Lastname</label>
+		{{input value=lastName}}
+
+		<label>Username</label>
+		{{input value=userName}}
+
+		<label>Email</label>
+		{{input value=email}}
+
+		<label>Password</label>
+		{{input type="password" value=password}}
+
+		<button {{action "save"}}> Save changes </button>
+		<button {{action "cancel"}}> Cancel </button>
+	</div>
+
+</div>
