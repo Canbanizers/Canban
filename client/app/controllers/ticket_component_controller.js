@@ -1,23 +1,34 @@
 App.TicketCompComponent = Ember.Component.extend({
-	tagName: 'article',
-	classNames: ['ticket'],
-	classNameBindings: ['basic', 'details', 'edit', 'ticket.isDone:done', 'ticket.isImportant:important'],
+	tagName          : 'article',
+	classNames       : ['ticket'],
+	classNameBindings: ['basic', 'details', 'edit', 'create', 'ticket.isDone:done', 'ticket.isImportant:important'],
 	attributeBindings: ['title'],
 
-	ticket: null,
+	ticket        : null,
 	currentBoardID: 0,
-	edit: false,
-	details: false,
+	edit          : false,
+	details       : false,
+
+	create: function() {
+		var creationDate = this.get('ticket.creation_date');
+		if (creationDate != null) {
+			return false;
+		}
+		this.send('showCreate');
+		return true;
+	}.property('ticket.creation_date'),
 
 	basic: function() {
-		return !(this.get('edit') || this.get('details'));
-	}.property('edit', 'details'),
+		return !(this.get('edit') || this.get('details') || this.get('create'));
+	}.property('details', 'edit', 'create'),
 
 	title: function() {
-		if(this.get('edit')) {
-			return 'Edit';
-		} else if(this.get('details')) {
+		if (this.get('details')) {
 			return this.get('ticket.title');
+		} else if (this.get('edit')) {
+			return 'Edit';
+		} else if (this.get('create')) {
+			return 'Create';
 		} else {
 			return '';
 		}
@@ -52,21 +63,33 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.send('showDialog', 'edit', true);
 		},
 
-		showDialog: function(type, placeholder) {
+		showCreate: function() {
+			this.send('showDialog', 'create', false);
+		},
+
+		showDialog: function(type, withPlaceholder) {
 			var self = this;
 
 			Ember.run.scheduleOnce('afterRender', this, function() {
 				var jqThis = self.$();
-				if (placeholder) {
+				if (withPlaceholder) {
 					jqThis.before('<article class="ticket placeholder"></article>');
 				}
 
 				jqThis.dialog({
 					close: function(event, ui) {
-						var placeholder = $('.ticket.placeholder');
-						if(placeholder.length > 0) {
+						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
-							Ember.set(self, type, false);
+							self.set(type, false);
+						} else if (type == 'create') {
+							self.set('ticket.creation_date', moment().utc().format());
+						}
+						if (type == 'create') {
+							console.log("sendAction()");
+							self.sendAction();
+						}
+						if (type == 'edit') {
+							self.sendAction('action', self.get('ticket'));
 						}
 						jqThis.dialog("destroy");
 					}
