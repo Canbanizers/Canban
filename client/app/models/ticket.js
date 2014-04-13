@@ -5,8 +5,8 @@ App.Ticket = DS.Model.extend({
 	content         : DS.attr('string'),
 	ticketNr        : DS.attr('number'),
 	priority        : DS.attr('number'),
-	creation_date   : DS.attr('isodate'),
-	last_modify_date: DS.attr('isodate'),
+	creation_date   : DS.attr('timestamp'),
+	last_modify_date: DS.attr('timestamp'),
 	isImportant     : function() {
 		return this.get('priority') == 1;
 	}.property('priority'),
