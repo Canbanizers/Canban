@@ -5,7 +5,7 @@
 </header>
 <section class="main_content">
 	{{#with this as self}}
-		{{board-menu}}
+				{{board-menu createTicket='showCreateTicket'}}
 				<table class="main_table">
 					<thead class="main_table_head">
 						<tr>
@@ -25,21 +25,21 @@
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getTodo}}
-											{{ticket-comp ticket=this currentBoardID=self.id}}
+											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getDoing}}
-											{{ticket-comp ticket=this currentBoardID=self.id showParentBoard="switchBoard"}}
+											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getDone}}
-											{{ticket-comp ticket=this currentBoardID=self.id}}
+											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
