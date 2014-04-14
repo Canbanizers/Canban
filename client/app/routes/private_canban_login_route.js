@@ -1,5 +1,5 @@
 'use strict';
-App.PrivateCanbanLoginRoute = Ember.Route.extend({
+App.LoginRoute = Ember.Route.extend({
 	model: function() {
 		return this.store.createRecord('User');
 	}
