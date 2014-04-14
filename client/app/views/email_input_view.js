@@ -1,12 +1,15 @@
 'use strict';
 App.EmailInputView = Ember.View.extend({
 	tagName: 'input',
+	contentBinding: 'App.LoginCompComponent',
 	eventManager: Ember.Object.create({
 		focusOut: function(event, view) {
 			if (view.$().val().match(/^[\w-\._\+%]+@(?:[\w-]+\.)+[\w]{2,6}$/)) {
-				return view.set('controller.isValid', true)
+				view.set('controller.isValid', true);
+				return view.$().val();
 			}
-			return view.set('controller.isValid', false)
+			view.set('controller.isValid', false);
+			return view.$().val();
 		}
 	})
 });

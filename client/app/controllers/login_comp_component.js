@@ -1,12 +1,11 @@
 'use strict';
 App.LoginCompComponent = Ember.Component.extend({
-	isValid: false,
+	isValid: true,
 	user: null,
 	actions: {
-		login:function() {
+		login: function() {
 			if (this.get('isValid')) {
-				console.log(this.get('user.email'));
-				loginCehck();
+				this.sendAction('action', this.get('user.email'), this.get('user.password') );
 			}
 		}
 	}
