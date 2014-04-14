@@ -1,16 +1,11 @@
 'use strict';
 window.App = Ember.Application.create({
-	//for debugging
 	LOG_TRANSITIONS: true,
 	LOG_TRANSITIONS_INTERNAL: true
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
-App.Router.map(function() {
-	this.resource('private_canban', { path: '/' }, function() {
-		this.resource('login', {path: '/login'} , function() {
-		});
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
@@ -21,8 +16,13 @@ App.Router.map(function () {
 			});
 			this.route('create');
 		});
+
+		this.resource('user', { path:'/user/:user_id' }, function(){
+		});
+
+		this.resource('login', {path: '/login'} , function() {
+		});
 	});
-	this.resource('user', { path:'/user/:user_id' }, function(){
 });
 
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
@@ -76,8 +76,4 @@ DS.JSONSerializer.reopen({
 		hash[root] = this.serialize(record, options);
 	}
 
-
-	this.resource('login', {path: '/login'} , function() {
-
-	});
 });

@@ -3,8 +3,13 @@ App.LoginController = Ember.ObjectController.extend({
 	loggedInUser: null,
 	actions: {
 		checkLogin: function(email, password) {
-			var respone = this.store.find('user', { email: email, password: password })
-			this.set('loggedInUser', respone);
+			alert('test');
+			var respone = this.store.find('user', { email: email, password: password });
+			console.log(respone);
+//			this.set('loggedInUser', respone);
+		},
+		test: function() {
+			alert('test controll er');
 		}
 	}
 });
