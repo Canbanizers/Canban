@@ -1,0 +1,1 @@
+ALTER TABLE `users` CHANGE `last_login` `last_login` DATETIME NOT NULL ;

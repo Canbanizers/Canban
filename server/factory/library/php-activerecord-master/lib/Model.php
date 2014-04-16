@@ -1571,6 +1571,10 @@ class Model {
 		return $serializer->to_s();
 	}
 
+	public function to_array(array $options = array()) {
+		return $this->serialize('array', $options);
+	}
+
 	/**
 	 * Invokes the specified callback on this model.
 	 *
