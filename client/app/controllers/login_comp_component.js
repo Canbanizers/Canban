@@ -6,6 +6,8 @@ App.LoginCompComponent = Ember.Component.extend({
 		login: function() {
 			if (this.get('isValid')) {
 				this.sendAction('action', this.get('user.email'), this.get('user.password') );
+				console.log(this.get('user.email'));
+				this.sendAction('checkLogin',this.get('user.email'), this.get('user.password') );
 			}
 		}
 	}
