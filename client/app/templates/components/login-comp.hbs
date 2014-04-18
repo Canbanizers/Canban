@@ -2,8 +2,7 @@
     <form class="form-signin" {{action "login" on="submit"}}>
         <h2 class="board-heading">Sign In</h2>
         <h1>Component: {{user.email}}</h1>
-        <!--{{email-input value=user.email class="board-input-field" type="text" placeholder="Email"}}-->
-        {{input value=user.email class="board-input-field" type="text" placeholder="Email"}}
+        {{view App.EmailInputView value=user.email placeholder="Email"}}
         {{input value=user.password class="board-input-field" type="password" placeholder="Password"}}
         {{#link-to '' id="signup"}}Sign Up{{/link-to}}
         {{input id="signin" class="board-button" type="submit" value="Sign In"}}
