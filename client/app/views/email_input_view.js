@@ -1,17 +1,18 @@
 'use strict';
-App.EmailInputView = Ember.View.extend({
-	tagName: 'input',
-	contentBinding: 'App.LoginCompComponent',
-	eventManager: Ember.Object.create({
-		focusOut: function(event, view) {
-			if (view.$().val().match(/^[\w-\._\+%]+@(?:[\w-]+\.)+[\w]{2,6}$/)) {
-				view.set('controller.isValid', true);
-				return view.$().val();
+App.EmailInputView = Ember.TextField.extend({
+	classNames: ['board-input-field'],
+	classNameBindings: ['isValidEmail:valid:invalid'],
+	isValidEmail: false,
+	change: function() {
+		var value = this.get('value');
+		if(value) {
+			if(value.match(/^[\w-\._\+%]+@(?:[\w-]+\.)+[\w]{2,6}$/)) {
+				this.set('isValidEmail', true);
+				this.set('controller.isValid', true);
+			} else {
+				this.set('isValidEmail', false);
+				this.set('controller.isValid', false);
 			}
-			view.set('controller.isValid', false);
-			return view.$().val();
 		}
-	})
+	}
 });
-
-Ember.Handlebars.helper('email-input', App.EmailInputView);
