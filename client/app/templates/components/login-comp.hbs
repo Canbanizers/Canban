@@ -1,10 +1,12 @@
 <div class="container">
-    <form class="form-signin" {{action "login" on="submit"}}>
+    <form class="form-signin" {{action "submit" on="submit"}}>
         <h2 class="board-heading">Sign In</h2>
-        <h1>Component: {{user.email}}</h1>
+        <p>email: {{user.email}}</p>
         {{view App.EmailInputView value=user.email placeholder="Email"}}
+		<p>password: {{user.password}}</p>
         {{input value=user.password class="board-input-field" type="password" placeholder="Password"}}
         {{#link-to '' id="signup"}}Sign Up{{/link-to}}
-        {{input id="signin" class="board-button" type="submit" value="Sign In"}}
+        <button id="signin" class="board-button" type="submit">sign in</button>
     </form>
+    <button type="button" {{action "test"}}>test action</button>
 </div>

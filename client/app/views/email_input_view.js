@@ -8,10 +8,10 @@ App.EmailInputView = Ember.TextField.extend({
 		if(value) {
 			if(value.match(/^[\w-\._\+%]+@(?:[\w-]+\.)+[\w]{2,6}$/)) {
 				this.set('isValidEmail', true);
-				this.set('controller.isValid', true);
+				this.set('parentView.isValid', true);
 			} else {
 				this.set('isValidEmail', false);
-				this.set('controller.isValid', false);
+				this.set('parentView.isValid', false);
 			}
 		}
 	}
