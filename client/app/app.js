@@ -1,30 +1,15 @@
 'use strict';
-window.App = Ember.Application.create({
-	//for debugging
-	LOG_TRANSITIONS: true,
-	LOG_TRANSITIONS_INTERNAL: true
-});
+window.App = Ember.Application.create({});
 
-App.Router.map(function () {
-	this.resource('private_canban', { path: '/' }, function () {
+App.Router.map(function() {
+	this.resource('private_canban', { path: '/' }, function() {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
-
-		this.resource('groups', function(){
-			this.resource('group', {path: '/:group_id'}, function(){
-				this.route('edit');
-			});
-			this.route('create');
-		});
-
-		this.resource('user', {path:'/user/:user_id' }, function(){});
-
-		this.resource('login', {path: '/login'}, function(){});
 	});
 });
 
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
-	host : 'http://localhost/canban',
-	namespace : 'api',
+	host       : 'http://localhost/canban',
+	namespace  : 'api',
 	lsnamespace: 'private_canban'
 });
 
@@ -55,11 +40,11 @@ DS.JSONSerializer.reopen({
 
 	 ```js
 	 App.ApplicationSerializer = DS.RESTSerializer.extend({
-serializeIntoHash: function(data, type, record, options) {
-var root = Ember.String.decamelize(type.typeKey);
-data[root] = this.serialize(record, options);
-}
-});
+          serializeIntoHash: function(data, type, record, options) {
+            var root = Ember.String.decamelize(type.typeKey);
+            data[root] = this.serialize(record, options);
+          }
+        });
 	 ```
 
 	 @method serializeIntoHash
@@ -74,3 +59,4 @@ data[root] = this.serialize(record, options);
 	}
 
 });
+
