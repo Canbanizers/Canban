@@ -25,21 +25,21 @@
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getTodo}}
-											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
+											{{ticket-comp ticket=this currentBoardID=self.id createAction='saveTicket' editAction='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getDoing}}
-											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
+											{{ticket-comp ticket=this currentBoardID=self.id createAction='saveTicket' editAction='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
 							<td>
 								<div class="ticket_wrapper">
 										{{#each getDone}}
-											{{ticket-comp ticket=this currentBoardID=self.id action='saveTicket'}}
+											{{ticket-comp ticket=this currentBoardID=self.id createAction='saveTicket' editAction='saveTicket'}}
 										{{/each}}
 								</div>
 							</td>
