@@ -28,7 +28,7 @@ App.BoardController = Ember.ObjectController.extend({
 		showCreateTicket : function() {
 			this.send('addDummyTicket');
 		},
-		addDummyTicket   : function(state) {
+		addDummyTicket   : function() {
 			console.log("BoardController.addDummyTicket()");
 			var board = this.get('model');
 			console.log(board);
@@ -42,37 +42,13 @@ App.BoardController = Ember.ObjectController.extend({
 				creation_date   : null,
 				last_modify_date: null
 			});
-			this.set('dummyTicket', dummyTicket);
 			var tickets = board.get('tickets');
 			tickets.pushObject(dummyTicket);
 		},
-		saveTicket       : function(ticket) {
-			console.log('BoardShow: Received!');
-			if (arguments.length === 1) {
-				console.log('BoardShow: Sending update!');
-				this.send('updateTicket', ticket);
-			} else {
-				console.log('BoardShow: Sending save!');
-				this.send('saveDummyTicket');
-			}
-		},
-		saveDummyTicket  : function() {
-			console.log('Board: Receiving save!');
-			var ticket = this.get('dummyTicket');
-			console.log("dummyTicket");
-			console.log(ticket);
+		saveTicket     : function(ticket) {
 			ticket.save();
+			//FIXME At the moment we need to save the board on every edit on its tickets., or the localstorage data will be corrupted. I will try to fix this soon.
 			ticket.get('board').save();
-		},
-		removeDummyTicket: function() {
-			var dummyTicket = this.get('dummyTicket');
-			var board = this.get('model');
-			var tickets = board.get('tickets');
-			tickets.removeObject(dummyTicket);
-			this.store.deleteRecord(dummyTicket);
-		},
-		updateTicket     : function(ticket) {
-			ticket.save();
 		}
 	}
 });
