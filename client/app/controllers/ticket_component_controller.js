@@ -34,6 +34,14 @@ App.TicketCompComponent = Ember.Component.extend({
 		}
 	}.property('ticket.title', 'basic'),
 
+	displayPrevious: function() {
+		return this.get('ticket.state') > 1;
+	}.property('ticket.state'),
+
+	displayNext: function() {
+		return this.get('ticket.state') < 3;
+	}.property('ticket.state'),
+
 	parentBoard: function() {
 		return this.get('ticket.board');
 	}.property('ticket.board'),
@@ -52,19 +60,31 @@ App.TicketCompComponent = Ember.Component.extend({
 		},
 
 		showDetails: function() {
-			console.log('TicketCompComponentController.actions.showDetails()');
 			Ember.set(this, 'details', true);
 			this.send('showDialog', 'details', true);
 		},
 
 		showEdit: function() {
-			Ember.set(this, 'details', false);
 			Ember.set(this, 'edit', true);
 			this.send('showDialog', 'edit', true);
 		},
 
 		showCreate: function() {
 			this.send('showDialog', 'create', false);
+		},
+
+		toNextColumn: function() {
+			var ticket = this.get('ticket');
+			var state = ticket.get('state');
+			ticket.set('state', state + 1);
+			this.sendAction('editAction', ticket);
+		},
+
+		toPreviousColumn: function() {
+			var ticket = this.get('ticket');
+			var state = ticket.get('state');
+			ticket.set('state', state - 1);
+			this.sendAction('editAction', ticket);
 		},
 
 		showDialog: function(type, withPlaceholder) {
@@ -81,17 +101,12 @@ App.TicketCompComponent = Ember.Component.extend({
 						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
 							self.set(type, false);
-						} else if (type == 'create') {
-							self.set('ticket.creation_date', moment().utc().format());
+						} else if (type === 'create') {
+							self.set('ticket.creation_date', moment().format('YYYY-MM-DD HH:mm:ss'));
 						}
-						if (type == 'create') {
-							console.log("sendAction()");
-							self.sendAction();
-						}
-						if (type == 'edit') {
-							self.sendAction('action', self.get('ticket'));
-						}
-						jqThis.dialog("destroy");
+						self.sendAction(type + 'Action', self.get('ticket'));
+
+						jqThis.dialog('destroy');
 					}
 				});
 			});
