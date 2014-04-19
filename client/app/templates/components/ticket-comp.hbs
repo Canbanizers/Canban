@@ -19,7 +19,9 @@
 {{else}}
 
 		<nav class="ticket_menu">
-
+			{{#if displayPrevious}}
+				{{view App.IconButtonView type='chevron-left' title='Show Details' action='toPreviousColumn'}}
+			{{/if}}
 			{{#if basic}}
 				{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails'}}
 			{{/if}}
@@ -30,7 +32,11 @@
 				{{view App.IconButtonView type='th' title=parentName action='showParentBoard'}}
 			{{/unless}}
 
-			<span class="ticket_number">
+			{{#if displayNext}}
+				{{view App.IconButtonView class='float_right' type='chevron-right' title='Show Details' action='toNextColumn'}}
+			{{/if}}
+
+			<span class="ticket_number float_right">
 				#{{ticket.ticketNr}}
 			</span>
 		</nav>
