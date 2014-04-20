@@ -3,7 +3,6 @@ App.Ticket = DS.Model.extend({
 	state           : DS.attr('number'),
 	title           : DS.attr('string'),
 	content         : DS.attr('string'),
-	ticketNr        : DS.attr('number'),
 	priority        : DS.attr('number'),
 	creation_date   : DS.attr('timestamp'),
 	last_modify_date: DS.attr('timestamp'),

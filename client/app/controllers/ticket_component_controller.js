@@ -8,6 +8,7 @@ App.TicketCompComponent = Ember.Component.extend({
 	currentBoardID: 0,
 	edit          : false,
 	details       : false,
+	delete: false,
 
 	create: function() {
 		var creationDate = this.get('ticket.creation_date');
@@ -19,8 +20,8 @@ App.TicketCompComponent = Ember.Component.extend({
 	}.property('ticket.creation_date'),
 
 	basic: function() {
-		return !(this.get('edit') || this.get('details') || this.get('create'));
-	}.property('details', 'edit', 'create'),
+		return !(this.get('edit') || this.get('details') || this.get('create') || this.get('delete'));
+	}.property('details', 'edit', 'create', 'delete'),
 
 	title: function() {
 		if (this.get('details')) {
@@ -29,6 +30,8 @@ App.TicketCompComponent = Ember.Component.extend({
 			return 'Edit';
 		} else if (this.get('create')) {
 			return 'Create';
+		} else if (this.get('delete')) {
+			return 'delete';
 		} else {
 			return '';
 		}
@@ -60,17 +63,37 @@ App.TicketCompComponent = Ember.Component.extend({
 		},
 
 		showDetails: function() {
-			Ember.set(this, 'details', true);
-			this.send('showDialog', 'details', true);
+			var self = this;
+			var button = {
+				OK: function() {
+					self.set('details', false);
+					self.$().dialog('close');
+				}
+			};
+			this.send('showDialog', 'details', true, button);
 		},
 
 		showEdit: function() {
-			Ember.set(this, 'edit', true);
 			this.send('showDialog', 'edit', true);
 		},
 
 		showCreate: function() {
-			this.send('showDialog', 'create', false);
+			var self = this;
+			var buttons = {
+				Save  : function() {
+					self.$().dialog('close');
+					self.set('ticket.creation_date', moment().format('YYYY-MM-DD HH:mm:ss'));
+				},
+				Cancel: function() {
+					self.get('ticket').deleteRecord();
+					self.$().remove();
+				}
+			};
+			this.send('showDialog', 'create', false, buttons);
+		},
+
+		showDelete: function() {
+			this.send('showDialog', 'delete', true)
 		},
 
 		toNextColumn: function() {
@@ -87,26 +110,49 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.sendAction('editAction', ticket);
 		},
 
-		showDialog: function(type, withPlaceholder) {
+		showDialog: function(type, withPlaceholder, buttons) {
 			var self = this;
 
+			if (type !== 'create') {
+				self.set(type, true);
+			}
 			Ember.run.scheduleOnce('afterRender', this, function() {
 				var jqThis = self.$();
 				if (withPlaceholder) {
 					jqThis.before('<article class="ticket placeholder"></article>');
 				}
-
+				if (!buttons) {
+					buttons = {
+						Save  : function() {
+							self.$().dialog('close');
+						},
+						Cancel: function() {
+							self.get('ticket').rollback();
+							self.set(type, false);
+							self.$().dialog('close');
+						}
+					}
+				}
 				jqThis.dialog({
+					buttons: buttons,
+
 					close: function(event, ui) {
 						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
-							self.set(type, false);
-						} else if (type === 'create') {
-							self.set('ticket.creation_date', moment().format('YYYY-MM-DD HH:mm:ss'));
 						}
-						self.sendAction(type + 'Action', self.get('ticket'));
-
-						jqThis.dialog('destroy');
+						if (!self.get('ticket.isDeleted') && !self.get('delete')) {
+							if (self.get(type)) {
+								if (!event.currentTarget) {
+									self.sendAction(type + 'Action', self.get('ticket'));
+								}
+								if (type !== 'create') {
+									self.set(type, false);
+								}
+							}
+							jqThis.dialog('destroy');
+						} else {
+							jqThis.remove();
+						}
 					}
 				});
 			});
