@@ -9,13 +9,16 @@ App.TicketCompComponent = Ember.Component.extend({
 	edit          : false,
 	details       : false,
 	delete: false,
+	isDialog: false,
 
 	create: function() {
 		var creationDate = this.get('ticket.creation_date');
 		if (creationDate != null) {
 			return false;
 		}
-		this.send('showCreate');
+		if (!this.get('isDialog')) {
+			this.send('showCreate');
+		}
 		return true;
 	}.property('ticket.creation_date'),
 
@@ -133,6 +136,7 @@ App.TicketCompComponent = Ember.Component.extend({
 						}
 					}
 				}
+				self.set('isDialog', true);
 				jqThis.dialog({
 					buttons: buttons,
 
@@ -140,19 +144,17 @@ App.TicketCompComponent = Ember.Component.extend({
 						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
 						}
-						if (!self.get('ticket.isDeleted') && !self.get('delete')) {
 							if (self.get(type)) {
-								if (!event.currentTarget) {
+								if (!event.currentTarget) { // close button at top right of the dialog was clicked
 									self.sendAction(type + 'Action', self.get('ticket'));
 								}
-								if (type !== 'create') {
+								if (type !== 'create' && type !== 'delete') {
 									self.set(type, false);
 								}
 							}
-							jqThis.dialog('destroy');
-						} else {
-							jqThis.remove();
-						}
+						self.set('isDialog', false);
+						jqThis.dialog('destroy');
+
 					}
 				});
 			});
