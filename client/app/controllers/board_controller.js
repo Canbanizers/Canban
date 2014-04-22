@@ -22,16 +22,14 @@ App.BoardController = Ember.ObjectController.extend({
 	}.property('tickets.@each.isDone'),
 
 	actions: {
-		switchBoard      : function(board) {
+		switchBoard     : function(board) {
 			this.transitionToRoute('board', board.id);
 		},
-		showCreateTicket : function() {
+		showCreateTicket: function() {
 			this.send('addDummyTicket');
 		},
-		addDummyTicket   : function() {
-			console.log("BoardController.addDummyTicket()");
+		addDummyTicket  : function() {
 			var board = this.get('model');
-			console.log(board);
 			var dummyTicket = this.store.createRecord('ticket', {
 				board           : board,
 				state           : 1,
@@ -45,10 +43,16 @@ App.BoardController = Ember.ObjectController.extend({
 			var tickets = board.get('tickets');
 			tickets.pushObject(dummyTicket);
 		},
-		saveTicket     : function(ticket) {
+		saveTicket      : function(ticket) {
 			ticket.save();
-			//FIXME At the moment we need to save the board on every edit on its tickets., or the localstorage data will be corrupted. I will try to fix this soon.
+			//FIXME At the moment we need to save the board on every edit on its tickets, or the localstorage data will be corrupted. I will try to fix this soon.
 			ticket.get('board').save();
+		},
+
+		deleteTicket: function(ticket) {
+			ticket.deleteRecord();
+			ticket.save();
+			this.get('model').save();
 		}
 	}
 });
