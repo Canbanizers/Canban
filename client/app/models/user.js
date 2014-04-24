@@ -1,9 +1,9 @@
 'use strict';
 App.User = DS.Model.extend({
 	email : DS.attr('string'),
-	firstname : DS.attr('string'),
-	lastname : DS.attr('string'),
-	lastlogin : DS.attr('string'),
+	firstName : DS.attr('string'),
+	lastName : DS.attr('string'),
+	lastLogin : DS.attr('string'),
 	password : DS.attr('string'),
 	authtoken : DS.attr('string')
 });
@@ -11,28 +11,28 @@ App.User = DS.Model.extend({
 App.User.FIXTURES = [
 	{
 		id : 1,
-		email : 'john@smith.de',
-		firstname : 'John',
-		lastname : 'Smith',
-		lastlogin : 'Learn Ember.js',
+		email : ' ',
+		firstName : 'John',
+		lastName : 'Smith',
+		lastLogin : 'Learn Ember.js',
 		password : '0815',
 		authtoken : 'AbCdE'
 	},
 	{
 		id : 2,
 		email : 'james@macin.de',
-		firstname : 'James',
-		lastname : 'Macin',
-		lastlogin : 'Learn Ember.js',
+		firstName : 'James',
+		lastName : 'Macin',
+		lastLogin : 'Learn Ember.js',
 		password : 'abc',
 		authtoken : 'ABCDE'
 	},
 	{
 		id : 3,
 		email: 'donald@trump.de',
-		firstname : 'Donald',
-		lastname : 'Trump',
-		lastlogin : 'Learn Ember.js',
+		firstName : 'Donald',
+		lastName : 'Trump',
+		lastLogin : 'Learn Ember.js',
 		password : '1234',
 		authtoken : 'abcde'
 	}
