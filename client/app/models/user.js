@@ -3,7 +3,7 @@ App.User = DS.Model.extend({
 	email : DS.attr('string'),
 	firstName : DS.attr('string'),
 	lastName : DS.attr('string'),
-	lastLogin : DS.attr('string'),
+	lastLogin : DS.attr('timestamp'),
 	password : DS.attr('string'),
 	authtoken : DS.attr('string')
 });

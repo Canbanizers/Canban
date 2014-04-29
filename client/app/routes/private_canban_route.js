@@ -5,7 +5,7 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		if (logedIn) {
 			this.transitionTo('board', 1);
 		} else {
-			this.transitionTo('login');
+			this.transitionTo('signup');
 		}
 	}
 });

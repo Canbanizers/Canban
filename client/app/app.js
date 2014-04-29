@@ -4,7 +4,7 @@ window.App = Ember.Application.create({});
 App.Router.map(function() {
 	this.resource('private_canban', { path: '/' }, function() {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
-		this.resource('login', {path: '/login'} , function() {
+		this.resource('signup', {path: '/signup'} , function() {
 		});
 	});
 });
