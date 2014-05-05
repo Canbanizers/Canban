@@ -1,15 +1,11 @@
 'use strict';
 window.App = Ember.Application.create({
 	//for debugging
-	LOG_TRANSITIONS: true
+	LOG_TRANSITIONS: true,
+	LOG_TRANSITIONS_INTERNAL: true
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
-
-//App.ApplicationAdapter = DS.RESTAdapter.extend({
-//	host: 'http://localhost/canban',
-//	namespace: 'backend/php/resttest.php'
-//});
 
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
@@ -58,11 +54,11 @@ DS.JSONSerializer.reopen({
 
 	 ```js
 	 App.ApplicationSerializer = DS.RESTSerializer.extend({
-          serializeIntoHash: function(data, type, record, options) {
-            var root = Ember.String.decamelize(type.typeKey);
-            data[root] = this.serialize(record, options);
-          }
-        });
+		serializeIntoHash: function(data, type, record, options) {
+			var root = Ember.String.decamelize(type.typeKey);
+			data[root] = this.serialize(record, options);
+		}
+	});
 	 ```
 
 	 @method serializeIntoHash
