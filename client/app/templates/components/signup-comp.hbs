@@ -1,14 +1,10 @@
 <div class="container">
     <form class="form-signup" {{action "submit" on="submit"}}>
         <h2 class="board-heading">Sign Up</h2>
-        {{input value=user.firstName class="board-input-field" type="text" placeholder="Firstname"}}
-        <p>{{user.firstname}}</p>
-        {{input value=user.lastName class="board-input-field" type="text" placeholder="Lastname"}}
-		<p>{{user.lastname}}</p>
+        {{input value=user.firstname class="board-input-field" type="text" placeholder="Firstname"}}
+        {{input value=user.lastname class="board-input-field" type="text" placeholder="Lastname"}}
         {{view App.EmailInputView value=user.email placeholder="Email"}}
-		<p>{{user.email}}</p>
         {{input value=user.password class="board-input-field" type="password" placeholder="Password"}}
-		<p>{{user.password}}</p>
         {{#link-to '' id="signin"}}Sign In{{/link-to}}
         <button id="signup" class="board-button" type="submit">sign up</button>
     </form>
