@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '\ModelController.php');
+require_once(__DIR__ . '\ModelFactory.php');
 require_once(__DIR__ . '\ResponseFactory.php');
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'AbstractException.php';
 
@@ -30,9 +30,19 @@ class InvalidJsonException extends AbstractException
 	}
 }
 
+/**
+ * Class RequestHandler
+ *
+ * Handler to process the request
+ */
 class RequestHandler
 {
 
+	/**
+	 * function to start the whole process, one and only accessible function from external services
+	 * and will be called in index.php (centralized entry point)
+	 *
+	 */
 	public function execute()
 	{
 		$response_factory = new ResponseFactory();
@@ -52,6 +62,12 @@ class RequestHandler
 
 
 	/**
+	 * function will divide and prepare the complete request
+	 * 1. get the request-params
+	 * 2. validate params
+	 * 3. get REST-operation from request
+	 * 4. call the modelcontroller with prepared params
+	 *
 	 * json in request may look like this:
 	 *
 	 * {

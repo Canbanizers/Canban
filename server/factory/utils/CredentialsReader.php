@@ -10,6 +10,11 @@ class UndefinedOffsetException extends AbstractException {
 	}
 }
 
+/**
+ * Class CredentialsReader
+ *
+ * Utility class to load the database-credentials from unversioned xml-file
+ */
 class CredentialsReader {
 
 	const PATH_TO_XML = '..\xml';
@@ -20,6 +25,11 @@ class CredentialsReader {
 	private $db_password = '';
 
 	/**
+	 * setter-function to set the private member-variables above
+	 * 1. load xml-file
+	 * 2. get credentials with SimpleXMLs xpath
+	 * 3. set variables
+	 *
 	 * @throws FileNotFoundException
 	 */
 	private function setDBCredentials() {
@@ -48,6 +58,8 @@ class CredentialsReader {
 	}
 
 	/**
+	 * visible function to get the credentials when they're needed
+	 *
 	 * @return string
 	 */
 	public function getSqlConnectionString() {

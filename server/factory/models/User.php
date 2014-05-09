@@ -2,6 +2,12 @@
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
+/**
+ * Class User
+ *
+ * Representation of the Usertable in Database
+ * The class provide the necessary REST-operations which are called dynamic in ModelFactory
+ */
 class User extends ActiveRecord\Model {
 
 	/**

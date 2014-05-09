@@ -6,6 +6,8 @@
  * Time: 08:59
  */
 
+//TODO: Ist das Kunst oder kann das weg?
+
 class SecurityController {
 
 	private $salt = '9Zq|3`CS{b=9_k0gwZz=4QwY~52BS5EI)h7dV>@0q[j{_Y`n.i$_ZbKP>we+&OJx';
