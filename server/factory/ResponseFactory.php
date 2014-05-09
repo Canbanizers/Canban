@@ -1,9 +1,16 @@
 <?php
 
-
+/**
+ * Class ResponseFactory
+ *
+ * Factory to get and prepare the Response for the client
+ */
 class ResponseFactory
 {
 	/**
+	 * function to send the response to the client with the correct http-header
+	 * the response will be decoded to json
+	 *
 	 * @param mixed $response_models
 	 * @param int $status_code
 	 */
@@ -31,6 +38,8 @@ class ResponseFactory
 	}
 
 	/**
+	 * if any errors occured in response (e.g. from database or internal server error), the function will provide them
+	 *
 	 * @param Exception $e
 	 */
 	public function sendErrorResponse(Exception $e)

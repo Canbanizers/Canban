@@ -6,7 +6,9 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'Credential
 require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
 
-
+/**
+ * Loading credentials and initialize connection to database
+ */
 ActiveRecord\Config::initialize(
 	function ($cfg) {
 		$credentials_reader = new CredentialsReader();
@@ -29,6 +31,11 @@ class MethodNotExistException extends AbstractException {
 	}
 }
 
+/**
+ * Class ModelController
+ *
+ * Factory to load dynamic the required modelclass and execute the correct REST-operation on it
+ */
 class ModelController implements SubjectInterface {
 
 	/**
@@ -37,6 +44,8 @@ class ModelController implements SubjectInterface {
 	private $observer = null;
 
 	/**
+	 * Function get the $model_name, build and return the correct classname for the model
+	 *
 	 * @param string $model_name
 	 *
 	 * @return ActiveRecord\Model
@@ -57,6 +66,8 @@ class ModelController implements SubjectInterface {
 	}
 
 	/**
+	 * Function build the right REST-operation for the request (e.g. create, delete ....) and execute it on the modelclass
+	 *
 	 * @param string $model_name
 	 * @param array $params
 	 * @param string $req_method
@@ -95,6 +106,8 @@ class ModelController implements SubjectInterface {
 		}
 	}
 
+
+	//TODO: Observer-gelöde obsolete?
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
