@@ -1,0 +1,8 @@
+- Features definieren und implementieren
+- Designen
+- Testen
+- Refactoring/Cleanup
+- Quellcode dokumentieren
+- Präsentation erstellen und "üben"
+- Vorbereitung auf Fachgespräch?
+- Hosten der App 
