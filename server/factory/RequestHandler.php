@@ -66,7 +66,7 @@ class RequestHandler
 	 * 1. get the request-params
 	 * 2. validate params
 	 * 3. get REST-operation from request
-	 * 4. call the modelcontroller with prepared params
+	 * 4. call the modelfactory with prepared params
 	 *
 	 * json in request may look like this:
 	 *
@@ -135,12 +135,12 @@ class RequestHandler
 			throw $ij_e;
 		}
 
-		$modelcontroller = new ModelController();
+		$modelfactory = new ModelFactory();
 
 		if (null !== $id) {
-			return $modelcontroller->execute($model, $json, $req_method, $id);
+			return $modelfactory->execute($model, $json, $req_method, $id);
 		} else {
-			return $modelcontroller->execute($model, $json, $req_method);
+			return $modelfactory->execute($model, $json, $req_method);
 		}
 	}
 

@@ -32,11 +32,11 @@ class MethodNotExistException extends AbstractException {
 }
 
 /**
- * Class ModelController
+ * Class ModelFactory
  *
  * Factory to load dynamic the required modelclass and execute the correct REST-operation on it
  */
-class ModelController implements SubjectInterface {
+class ModelFactory implements SubjectInterface {
 
 	/**
 	 * @var ObserverInterface

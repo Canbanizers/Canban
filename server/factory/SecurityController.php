@@ -20,7 +20,7 @@ class SecurityController {
 		if (!empty($params['email']) && !empty($params['password'])) {
 			$email = $params['email'];
 			$password_hash = md5($params['password'], $this->salt);
-			$model = new ModelController();
+			$model = new ModelFactory();
 			$model->execute('User', 'checkCredentials', $params);
 		}
 	}
