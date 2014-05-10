@@ -12,7 +12,26 @@ App.Router.map(function() {
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
 	host       : 'http://localhost/canban',
 	namespace  : 'api',
-	lsnamespace: 'private_canban'
+	lsnamespace: 'private_canban',
+	/**
+	 * Catches Ajax errors from the server
+	 * @param jqXHR
+	 * @returns {Object}
+	 */
+	ajaxError: function(jqXHR) {
+		var error = this._super(jqXHR);
+
+		if (error && error.status === 500) {
+			/**
+			 * Get the JSON object and throw an error
+			 * @TODO Der Error wird nicht gefangen und dadurch wird das Script gestoppt
+			 * @type {InvalidError}
+			 */
+			return new DS.InvalidError(error.responseJSON);
+		} else {
+			return error;
+		}
+	}
 });
 
 App.ApplicationSerializer = DS.JSONSerializer.extend({});
