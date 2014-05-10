@@ -1,7 +1,7 @@
 'use strict';
 App.SignupController = Ember.ObjectController.extend({
 	actions: {
-		saveUser: function(firstname, lastname, email, password) {
+		saveUser: function() {
 			var user = this.get('model');
 			user.save();
 		}

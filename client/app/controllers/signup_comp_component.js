@@ -6,12 +6,7 @@ App.SignupCompComponent = Ember.Component.extend({
 	actions: {
 		submit: function() {
 			if (this.get('isValid')) {
-				this.sendAction('submit',
-					this.get('user.firstname'),
-					this.get('user.lastname'),
-					this.get('user.email'),
-					this.get('user.password')
-				);
+				this.sendAction('submit');
 			}
 		}
 	}
