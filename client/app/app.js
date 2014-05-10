@@ -24,7 +24,7 @@ App.ApplicationAdapter = DS.LSRESTAdapter.extend({
 		if (error && error.status === 500) {
 			/**
 			 * Get the JSON object and throw an error
-			 * @TODO Der Error wird nicht gefangen und dadurch wird das Script gestoppt
+			 * @TODO Der Error wird nicht gefangen und dadurch wird das Script abgebrochen
 			 * @type {InvalidError}
 			 */
 			return new DS.InvalidError(error.responseJSON);
