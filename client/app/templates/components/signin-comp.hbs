@@ -1,0 +1,9 @@
+<div class="container">
+    <form class="form-signup" {{action "submit" on="submit"}}>
+        <h2 class="board-heading">Sign In</h2>
+        {{view App.EmailInputView value=email placeholder="Email"}}
+        {{input value=password class="board-input-field" type="password" placeholder="Password"}}
+        {{#link-to 'signup' id="signup"}}Sign up{{/link-to}}
+		<button id="signin" class="board-button" type="submit">Sign in</button>
+    </form>
+</div>

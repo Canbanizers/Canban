@@ -31,17 +31,30 @@ class CredentialsReader {
 
 		$xml = simplexml_load_file($full_path_to_xml);
 
+//		print_r($xml);
+//		exit;
+
 		$xpaths = array(
-			'password' => '/credentials/password/db/text()',
-			'login'    => '/credentials/login/db/text()'
+			'login'    => '/credentials/login/db/text()',
+			'password' => '/credentials/password/db/text()'
 		);
 
+//		$test = $xml->xpath('credentials/login/db');
+//		var_dump($test);
+//		exit;
 
-		$password = $xml->xpath($xpaths['password']);
 		$login = $xml->xpath($xpaths['login']);
+		$password = $xml->xpath($xpaths['password']);
 
-		$this->db_password = (string) $password[0];
-		$this->db_login = (string) $login[0];
+//		var_dump($login);
+//		var_dump($password);
+//		exit;
+
+//		$this->db_password = (string) $password[0];
+//		$this->db_login = (string) $login[0];
+
+		$this->db_login = (string) 'root';
+		$this->db_password = (string) '';
 	}
 
 	public function getSqlConnectionString() {

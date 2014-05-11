@@ -2,43 +2,42 @@
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
-class User extends ActiveRecord\Model {
+class Users extends ActiveRecord\Model {
 
-	public static $tablename = 'user';
+	public static $tablename = 'users';
 	public static $primary_key = 'id';
 
-	public function createUser($params) {
+	public function createUsers($params) {
 		foreach ($params as $param => $value) {
 			if (empty($value)) {
 				$index = array_search($param, $params);
 				unset($index);
 			}
 
-			if ('lastlogin' === $param) {
-				$date = new DateTime('now');
-				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
+			if('password' === $param) {
+				$params['password'] = password_hash($value, PASSWORD_DEFAULT);
 			}
 		}
 
 		return self::create($params);
 	}
 
-	public function findAllUser() {
+	public function findAllUsers() {
 		return self::find('all');
 	}
 
-	public function deleteUser($id) {
+	public function deleteUsers($id) {
 		$user = self::find($id);
 		$user->delete();
 
 		return null;
 	}
 
-	public function findUser($id) {
+	public function findUsers($id) {
 		return self::find($id);
 	}
 
-	public function updateUser($id, $params) {
+	public function updateUsers($id, $params) {
 		$user = self::find($id);
 		foreach ($params as $param => $value) {
 			if (!empty($value)) {

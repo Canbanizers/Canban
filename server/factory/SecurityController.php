@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jan-work
- * Date: 07.02.14
- * Time: 08:59
- */
 
 class SecurityController {
 
