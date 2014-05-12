@@ -25,7 +25,7 @@ DS.LSRESTAdapter = DS.RESTAdapter.extend(Ember.Evented, {
 		return Ember.RSVP.resolve(results);
 	},
 
-	/*
+	/**
 	 * Supports queries that look like this:
 	 *
 	 * {
@@ -69,23 +69,45 @@ DS.LSRESTAdapter = DS.RESTAdapter.extend(Ember.Evented, {
 	},
 
 	findAll: function(store, type, sinceToken) {
-		var namespace = this._namespaceForType(type);
+		var self = this;
+		var namespace = self._namespaceForType(type);
 		var results = [];
-		for (var id in namespace.records) {
-			results.push(Ember.copy(namespace.records[id]));
-		}
-		this._super(store, type, this._getLastUpdated());
-		this._setLastUpdated(moment().format('YYYY-MM-DD HH:mm:ss'));
-		return Ember.RSVP.resolve(results);
+		var serverResponse = self._super(store, type, self._getLastUpdated(type));
+		self._setLastUpdated(type, moment().format('YYYY-MM-DD HH:mm:ss'));
+		return Ember.RSVP.resolve(serverResponse.then(function(object) {
+			for (var array in object) {
+				if (object.hasOwnProperty(array)) {
+					object[array].forEach(function(record) {
+						var id = record.id;
+						self._addRecordToNamespace(namespace, record, true);
+					});
+					self._saveData();
+				}
+			}
+			for (var id in namespace.records) {
+				results.push(Ember.copy(namespace.records[id]));
+			}
+			return Ember.RSVP.resolve(results);
+		}));
 	},
 
 	createRecord: function(store, type, record) {
-		this._super(store, type, record);
-		var namespace = this._namespaceForType(type);
-		var id = record.get('id');
-		this._addRecordToNamespace(namespace, record);
-		this._saveData();
-		return Ember.RSVP.resolve();
+		var self = this;
+		var serverResponse = this._super(store, type, record);
+		return Ember.RSVP.resolve(serverResponse.then(function(object) {
+			for (var property in object) {
+				if (object.hasOwnProperty(property)) {
+					record.set('id', object[property].id);
+					record.set('creation_date', object[property].creation_date);
+				}
+			}
+
+			var namespace = self._namespaceForType(type);
+			var id = record.get('id');
+			self._addRecordToNamespace(namespace, record);
+			self._saveData();
+			return Ember.RSVP.resolve();
+		}));
 	},
 
 	updateRecord: function(store, type, record) {
@@ -121,26 +143,29 @@ DS.LSRESTAdapter = DS.RESTAdapter.extend(Ember.Evented, {
 		localStorage.setItem(this._getNamespace(), JSON.stringify(this._data));
 	},
 
-	_getLastUpdated: function() {
-		var lastUpdated = localStorage.getItem('lastUpdated');
+	_getLastUpdated: function(type) {
+		var lastUpdated = localStorage.getItem('lastUpdated.' + type);
 		return lastUpdated;
 	},
 
-	_setLastUpdated: function(timestamp) {
-		localStorage.setItem('lastUpdated', timestamp);
+	_setLastUpdated: function(type, timestamp) {
+		localStorage.setItem('lastUpdated.' + type, timestamp);
 	},
 
 	_namespaceForType: function(type) {
-		//		return this.lsnamespace || 'DS.LSAdapter';
-
 		var namespace = type.url || type.toString();
 		return this._data[namespace] || (
 			this._data[namespace] = {records: {}}
 			);
 	},
 
-	_addRecordToNamespace: function(namespace, record) {
-		var data = record.serialize({includeId: true});
+	_addRecordToNamespace: function(namespace, record, serialized) {
+		var data = null;
+		if (!serialized) {
+			data = record.serialize({includeId: true});
+		} else {
+			data = record;
+		}
 		namespace.records[data.id] = data;
 	}
 });
