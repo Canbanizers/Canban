@@ -6,6 +6,8 @@ App.Router.map(function() {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
 		this.resource('signup', {path: '/signup'} , function() {
 		});
+		this.resource('signin', {path: '/signin'} , function() {
+		});
 	});
 });
 

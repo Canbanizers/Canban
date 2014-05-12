@@ -22,13 +22,13 @@ App.BoardController = Ember.ObjectController.extend({
 	}.property('tickets.@each.isDone'),
 
 	actions: {
-		switchBoard      : function(board) {
+		switchBoard: function(board) {
 			this.transitionToRoute('board', board.id);
 		},
-		showCreateTicket : function() {
+		showCreateTicket: function() {
 			this.send('addDummyTicket');
 		},
-		addDummyTicket   : function(state) {
+		addDummyTicket: function(state) {
 			console.log("BoardController.addDummyTicket()");
 			var board = this.get('model');
 			console.log(board);
@@ -46,7 +46,7 @@ App.BoardController = Ember.ObjectController.extend({
 			var tickets = board.get('tickets');
 			tickets.pushObject(dummyTicket);
 		},
-		saveTicket       : function(ticket) {
+		saveTicket: function(ticket) {
 			console.log('BoardShow: Received!');
 			if (arguments.length === 1) {
 				console.log('BoardShow: Sending update!');
@@ -56,7 +56,7 @@ App.BoardController = Ember.ObjectController.extend({
 				this.send('saveDummyTicket');
 			}
 		},
-		saveDummyTicket  : function() {
+		saveDummyTicket: function() {
 			console.log('Board: Receiving save!');
 			var ticket = this.get('dummyTicket');
 			console.log("dummyTicket");
@@ -71,7 +71,7 @@ App.BoardController = Ember.ObjectController.extend({
 			tickets.removeObject(dummyTicket);
 			this.store.deleteRecord(dummyTicket);
 		},
-		updateTicket     : function(ticket) {
+		updateTicket: function(ticket) {
 			ticket.save();
 		}
 	}

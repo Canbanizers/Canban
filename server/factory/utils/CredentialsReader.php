@@ -16,9 +16,21 @@ class CredentialsReader {
 	const PROTOCOL = 'mysql';
 	const SERVER = 'localhost';
 	const DB_NAME = 'canban';
+	/**
+	 * database login name
+	 * @var string
+	 */
 	private $db_login = '';
+	/**
+	 * database login password
+	 * @var string
+	 */
 	private $db_password = '';
 
+	/**
+	 * Reads credentials from the xml and sets them into config variables
+	 * @throws FileNotFoundException
+	 */
 	private function setDBCredentials() {
 
 		$full_path_to_xml = __DIR__.'/'.self::PATH_TO_XML.'\db_credentials.xml';
@@ -31,32 +43,23 @@ class CredentialsReader {
 
 		$xml = simplexml_load_file($full_path_to_xml);
 
-//		print_r($xml);
-//		exit;
-
 		$xpaths = array(
 			'login'    => '/credentials/login/db/text()',
 			'password' => '/credentials/password/db/text()'
 		);
 
-//		$test = $xml->xpath('credentials/login/db');
-//		var_dump($test);
-//		exit;
-
 		$login = $xml->xpath($xpaths['login']);
 		$password = $xml->xpath($xpaths['password']);
 
-//		var_dump($login);
-//		var_dump($password);
-//		exit;
+		$this->db_login = (string) $login[0];
+		$this->db_password = (string) $password[0];
 
-//		$this->db_password = (string) $password[0];
-//		$this->db_login = (string) $login[0];
-
-		$this->db_login = (string) 'root';
-		$this->db_password = (string) '';
 	}
 
+	/**
+	 * Returns Database connection
+	 * @return string
+	 */
 	public function getSqlConnectionString() {
 		$this->setDBCredentials();
 
