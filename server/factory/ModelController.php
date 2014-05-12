@@ -61,10 +61,11 @@ class ModelController implements SubjectInterface {
 	 * @param array $params
 	 * @param string $req_method
 	 * @param int $id
+	 * @param null $since
 	 *
 	 * @return FileNotFoundException|MethodNotExistException|ActiveRecord\Model
 	 */
-	public function execute($model_name, $params, $req_method, $id = 0) {
+	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
 			$model = $this->getModel($model_name);
 
@@ -85,7 +86,7 @@ class ModelController implements SubjectInterface {
 				case 'create':
 					return $model->$method_name($params[array_shift(array_keys($params))]);
 				case 'findAll':
-					return $model->$method_name();
+					return $model->$method_name($since);
 				default:
 					return $model->$method_name($id);
 			}

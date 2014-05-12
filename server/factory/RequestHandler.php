@@ -82,6 +82,10 @@ class RequestHandler
 		if (!empty($_REQUEST['id'])) {
 			$id = $_REQUEST['id'];
 		}
+		$since = null;
+		if (!empty($_REQUEST['since'])) {
+			$since = $_REQUEST['since'];
+		}
 
 		switch ($req_method) {
 			case 'GET':
@@ -109,7 +113,6 @@ class RequestHandler
 
 		$req_body = file_get_contents('php://input');
 		$json = json_decode($req_body, true);
-
 		//Methods without Request Body
 		$allowed_values = array('find', 'findAll', 'delete');
 
@@ -123,6 +126,8 @@ class RequestHandler
 
 		if (null !== $id) {
 			return $modelcontroller->execute($model, $json, $req_method, $id);
+		} else if (null !== $since) {
+			return $modelcontroller->execute($model, $json, $req_method, null, $since);
 		} else {
 			return $modelcontroller->execute($model, $json, $req_method);
 		}
