@@ -5,6 +5,7 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/Active
 require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'MethodNotExistException.php';
 
 /**
  * Loading credentials and initialize connection to database
@@ -24,12 +25,14 @@ ActiveRecord\Config::initialize(
 );
 
 
-class MethodNotExistException extends AbstractException {
+//TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
 
-	public function __construct() {
-		$this->setStatusCode(500);
-	}
-}
+//class MethodNotExistException extends AbstractException {
+//
+//	public function __construct() {
+//		$this->setStatusCode(500);
+//	}
+//}
 
 /**
  * Class ModelFactory

@@ -1,34 +1,39 @@
 <?php
 require_once(__DIR__ . '\ModelFactory.php');
 require_once(__DIR__ . '\ResponseFactory.php');
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'AbstractException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException';
 
-class RequestModelEmptyException extends AbstractException
-{
 
-	public function __construct()
-	{
-		$this->setStatusCode(400);
-	}
-}
+//TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
 
-class HttpMethodNotAllowedException extends AbstractException
-{
+//class RequestModelEmptyException extends AbstractException
+//{
+//
+//	public function __construct()
+//	{
+//		$this->setStatusCode(400);
+//	}
+//}
 
-	public function __construct()
-	{
-		$this->setStatusCode(405);
-	}
-}
+//class HttpMethodNotAllowedException extends AbstractException
+//{
+//
+//	public function __construct()
+//	{
+//		$this->setStatusCode(405);
+//	}
+//}
 
-class InvalidJsonException extends AbstractException
-{
-
-	public function __construct()
-	{
-		$this->setStatusCode(400);
-	}
-}
+//class InvalidJsonException extends AbstractException
+//{
+//
+//	public function __construct()
+//	{
+//		$this->setStatusCode(400);
+//	}
+//}
 
 /**
  * Class RequestHandler
