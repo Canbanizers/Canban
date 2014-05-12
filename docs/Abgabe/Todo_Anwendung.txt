@@ -1,8 +1,12 @@
-- Features definieren und implementieren
+﻿- Features definieren <erledigt>
+- Features implementieren
+- Dokumentation fertig stellen
+	- UML (Server) überarbeiten nach Merge von Momme
 - Designen
 - Testen
 - Refactoring/Cleanup
 - Quellcode dokumentieren
-- Präsentation erstellen und "üben"
-- Vorbereitung auf Fachgespräch?
 - Hosten der App 
+- Präsentation erstellen und "üben"
+- Handout erstellen
+- Vorbereitung auf Fachgespräch?
