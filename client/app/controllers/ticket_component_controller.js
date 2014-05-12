@@ -34,7 +34,7 @@ App.TicketCompComponent = Ember.Component.extend({
 		} else if (this.get('create')) {
 			return 'Create';
 		} else if (this.get('delete')) {
-			return 'delete';
+			return 'Delete';
 		} else {
 			return '';
 		}
@@ -96,7 +96,19 @@ App.TicketCompComponent = Ember.Component.extend({
 		},
 
 		showDelete: function() {
-			this.send('showDialog', 'delete', true)
+			var self = this;
+			var jqThis = self.$();
+			var buttons = {
+				Delete: function() {
+					jqThis.dialog('close');
+					jqThis.remove();
+				},
+				Cancel: function() {
+					self.set('delete', false);
+					self.$().dialog('close');
+				}
+			}
+			this.send('showDialog', 'delete', true, buttons)
 		},
 
 		toNextColumn: function() {
@@ -139,22 +151,24 @@ App.TicketCompComponent = Ember.Component.extend({
 				self.set('isDialog', true);
 				jqThis.dialog({
 					buttons: buttons,
+					width: 'auto',
 
 					close: function(event, ui) {
 						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
 						}
-							if (self.get(type)) {
-								if (!event.currentTarget) { // close button at top right of the dialog was clicked
-									self.sendAction(type + 'Action', self.get('ticket'));
-								}
-								if (type !== 'create' && type !== 'delete') {
-									self.set(type, false);
-								}
+						if (self.get(type)) {
+							if (!event.currentTarget) { // close button at top right of the dialog was clicked
+								self.sendAction(type + 'Action', self.get('ticket'));
 							}
-						self.set('isDialog', false);
+						}
+						if (self) {
+							self.set('isDialog', false);
+							if (type !== 'create') {
+								self.set(type, false);
+							}
+						}
 						jqThis.dialog('destroy');
-
 					}
 				});
 			});
