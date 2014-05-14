@@ -1,4 +1,4 @@
 ﻿- Inhaltsverzeichnis anpassen (Format)
-- Wireless Presenter organisieren
+- Wireless Presenter organisieren <erledigt>
 - Handout <erledigt>
 - Rechtschreib/Formatprüfung
