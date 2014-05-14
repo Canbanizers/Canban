@@ -4,15 +4,6 @@ window.App = Ember.Application.create({
 	LOG_TRANSITIONS: true
 });
 
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
-
-//App.ApplicationAdapter = DS.RESTAdapter.extend({
-//	host: 'http://localhost/canban',
-//	namespace: 'backend/php/resttest.php'
-//});
-
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
-
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
 		this.resource('board', {path: '/board/:board_id'}, function(){});
