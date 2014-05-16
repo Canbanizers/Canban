@@ -1,33 +1,77 @@
 <div class="profile">
-	<button {{action "cancel"}}> Back to Board </button>
-	<button {{action "delete"}}>Delete</button>
-
 	<div>
-		<label>Firstname</label>
-		{{input value=firstName}}
+		<form>
+			<button {{action "cancel"}}> Back to Board </button>
+			<button {{action "delete"}}>Delete</button>
 
-		<label>Lastname</label>
-		{{input value=lastName}}
+			<div>
+				<label {{bind-attr for="view.name.elementId"}}>Firstname</label>
+				{{view App.ValidationTextField viewName="firstName" valueBinding="firstName"}}
+				<span>
+					{{#if firstNameError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error-message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
 
-		<label>Username</label>
-		{{input value=userName}}
+			<div>
+				<label {{bind-attr for="view.name.elementId"}}>Lastname</label>
+				{{view App.ValidationTextField viewName="lastName" valueBinding="lastName"}}
+				<span>
+					{{#if lastNameError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error-message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
 
-		<label>Email</label>
-		{{input value=email}}
 
-		<label>Password</label>
-		{{input type="password" value=password}}
+			<div>
+				<label {{bind-attr for="view.name.elementId"}}>Email</label>
+				{{view App.ValidationTextField viewName="email" valueBinding="email"}}
+				<span>
+					{{#if emailError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error-message">Please fill in.</span>
+					{{else}}
+						{{#if emailInvalidError}}
+							{{view App.IconButtonView type='remove'}}
+							<span class="error-message">Invalid email address.</span>
+						{{/if}}
+					{{/if}}
+				</span>
+			</div>
 
-		{{#if confirmationFailed}}
-		<div class="error">
-			Please check that your passwords match and try again.
-		</div>
-		{{/if}}
-		<label>Password Confirmation</label>
-		{{input type="password" value=passwordConfirmation}}
+			<div>
+				<label {{bind-attr for="view.name.elementId"}}>Password</label>
+				{{view App.ValidationTextField viewName="password" valueBinding="password"}}
+				<span>
+					{{#if passwordError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error-message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
+
+			<div>
+				<label {{bind-attr for="view.name.elementId"}}>Password Confirmatiom</label>
+				{{view App.ValidationTextField viewName="passwordConfirmation" valueBinding="passwordConfirmation" }}
+				<span>
+					{{#if passwordConfirmationError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error-message">Please confirm your password.</span>
+					{{else}}
+						{{#if passwordConfirmationCompareError}}
+							{{view App.IconButtonView type='remove'}}
+							<span class="error-message">Passwords didn't match.</span>
+						{{/if}}
+					{{/if}}
+				</span>
+			</div>
 
 		<button {{action "save"}}> Save changes </button>
 		<button {{action "cancel"}}> Cancel </button>
+		</form>
 	</div>
-
 </div>

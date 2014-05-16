@@ -11,7 +11,7 @@
 @white_hover: darken(#FFFFFF, 15%);
 @dark_green_shadow: rgba(40, 94, 66, 0.7);
 @ticket_yellow: #E7ED39;
-@error_red: #FF0000;
+@error_red: #CD0000;
 
 
 /*****************************/
@@ -431,16 +431,25 @@ body {
   opacity: 0.4;
 }
 
+.profile span button {
+  display:inline-block;
+  color: @error_red;
+  border: none;
+  background: none;
+  opacity: 1;
+  font-size: 16px;
+}
+
 .profile button:hover{
   opacity: 1;
 }
 
-.profile .error {
-  margin-top: 15px;
-  color: @error_red;
-  font-weight: bold;
-}
 
+/* ### Errors ### */
+
+.error-message {
+  color: @error_red;
+}
 
 
 ///* Test Groupmanagement */
