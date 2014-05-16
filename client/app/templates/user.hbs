@@ -1,13 +1,6 @@
-<div>
+<div class="profile">
 	<button {{action "cancel"}}> Back to Board </button>
 	<button {{action "delete"}}>Delete</button>
-	{{#if deleteMode}}
-	<div>
-		<h4>Really?</h4>
-		<button {{action "confirmDelete"}}> yes </button>
-		<button {{action "cancelDelete"}}> no </button>
-	</div>
-	{{/if}}
 
 	<div>
 		<label>Firstname</label>
@@ -24,6 +17,14 @@
 
 		<label>Password</label>
 		{{input type="password" value=password}}
+
+		{{#if confirmationFailed}}
+		<div class="error">
+			Please check that your passwords match and try again.
+		</div>
+		{{/if}}
+		<label>Password Confirmation</label>
+		{{input type="password" value=passwordConfirmation}}
 
 		<button {{action "save"}}> Save changes </button>
 		<button {{action "cancel"}}> Cancel </button>
