@@ -4,11 +4,17 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 	deleteMode: false,
 	content: Ember.Object.create(),
 
+	/**
+	 * check if mailaddress is valid and trigger the error-message in usertemplate
+	 *
+	 * @param val
+	 * @returns {boolean}
+	 */
 	isValidEmail: function(val) {
 		var error, value;
 		value = this.get(val);
 		error = false;
-		if(!value.match(/^[\w-\._\+%]+@(?:[\w-]+\.)+[\w]{2,6}$/)) {
+		if (!value.match(/^\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
 			error = true;
 			//Debugging
 			console.log("" + val + " has error");
@@ -16,6 +22,14 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 		this.set("" + val + "InvalidError", error);
 		return error;
 	},
+
+	/**
+	 *
+	 * compare the two password-inputfields and trigger the error-message in usertemplate
+	 *
+	 * @param val
+	 * @returns {boolean}
+	 */
 	comparePasswords: function(val) {
 		var error, value;
 		value = this.get(val);
@@ -28,6 +42,14 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 		this.set("" + val + "CompareError", error);
 		return error;
 	},
+
+	/**
+	 *
+	 * check if inputfield is empty and trigger the error-message in usertemplate
+	 *
+	 * @param val
+	 * @returns {*}
+	 */
 	getValue: function(val) {
 		var error, result;
 		if (!(result = !!this.get(val))) {
@@ -38,6 +60,11 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 		this.set("" + val + "Error", error);
 		return result;
 	},
+
+	/**
+	 * validate functions
+	 * @returns {*}
+	 */
 	validateFirstName: function() {
 		return this.getValue('firstName');
 	},
@@ -54,7 +81,14 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 		return this.getValue('passwordConfirmation')  && this.comparePasswords('passwordConfirmation');
 	},
 
+	/**
+	 * actions triggered in template
+	 */
 	actions: {
+
+		/**
+		 * delete user when clicking ok in popup
+		 */
 		delete: function(){
 			this.toggleProperty('deleteMode');
 			if(confirm('Really?')){
@@ -67,17 +101,29 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 		cancelDelete: function(){
 			this.set('deleteMode', false);
 		},
+
+		/**
+		 * delete user
+		 */
 		confirmDelete: function(){
 			this.get('model').deleteRecord();
 			this.get('model').save();
 			this.set('deleteMode', false);
 		},
+
+		/**
+		 * save new user-profile
+		 */
 		save: function(){
 			var user = this.get('model');
 			//TODO: only save without errors
 			user.save();
 			this.transitionToRoute('user', user.id);
 		},
+
+		/**
+		 * cancel and go back to personal board
+		 */
 		cancel: function(){
 			//TODO: board-id übergeben
 			this.transitionToRoute('board');
