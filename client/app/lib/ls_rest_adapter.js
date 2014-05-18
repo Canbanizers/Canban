@@ -73,62 +73,76 @@ DS.LSRESTAdapter = DS.RESTAdapter.extend(Ember.Evented, {
 		var namespace = self._namespaceForType(type);
 		var results = [];
 		var serverResponse = self._super(store, type, self._getLastUpdated(type));
-		self._setLastUpdated(type, moment().format('YYYY-MM-DD HH:mm:ss'));
-		return Ember.RSVP.resolve(serverResponse.then(function(object) {
+		return serverResponse.then(function(object) {
+			self._setLastUpdated(type);
+
 			for (var array in object) {
+
 				if (object.hasOwnProperty(array)) {
+
 					object[array].forEach(function(record) {
-						var id = record.id;
+
 						self._addRecordToNamespace(namespace, record, true);
+
 					});
 					self._saveData();
 				}
 			}
+
 			for (var id in namespace.records) {
 				results.push(Ember.copy(namespace.records[id]));
 			}
+
 			return Ember.RSVP.resolve(results);
-		}));
+		});
 	},
 
 	createRecord: function(store, type, record) {
 		var self = this;
 		var serverResponse = this._super(store, type, record);
-		return Ember.RSVP.resolve(serverResponse.then(function(object) {
+		return serverResponse.then(function(object) {
 			for (var property in object) {
 				if (object.hasOwnProperty(property)) {
 					record.set('id', object[property].id);
 					record.set('creation_date', object[property].creation_date);
 				}
 			}
-
-			var namespace = self._namespaceForType(type);
-			var id = record.get('id');
-			self._addRecordToNamespace(namespace, record);
-			self._saveData();
-			return Ember.RSVP.resolve();
-		}));
+			return self._updateLocalStorage(record, type, false);
+		})
 	},
 
 	updateRecord: function(store, type, record) {
 		this._super(store, type, record);
-		var namespace = this._namespaceForType(type);
-		var id = record.get('id');
-		namespace.records[id] = record.toJSON({ includeId: true });
-		this._saveData();
-		return Ember.RSVP.resolve();
+		return this._updateLocalStorage(record, type, false);
 	},
 
 	deleteRecord: function(store, type, record) {
 		this._super(store, type, record);
-		var namespace = this._namespaceForType(type);
-		var id = record.get('id');
-		delete namespace.records[id];
-		this._saveData();
-		return Ember.RSVP.resolve();
+		return this._updateLocalStorage(record, type, true);
 	},
 
 	// private
+	_updateLocalStorage: function(record, type, deleteRcd) {
+		var namespace = this._namespaceForType(type);
+		var id = record.get('id');
+		if (!deleteRcd) {
+			this._addRecordToNamespace(namespace, record);
+		} else {
+			delete namespace.records[id];
+		}
+		this._saveData();
+		return Ember.RSVP.resolve();
+
+	},
+
+	_getLastUpdated: function(type) {
+		var lastUpdated = localStorage.getItem('lastUpdated.' + type);
+		return lastUpdated;
+	},
+
+	_setLastUpdated: function(type) {
+		localStorage.setItem('lastUpdated.' + type, moment().format(window.timestampFormat));
+	},
 
 	_getNamespace: function() {
 		return this.lsnamespace || 'DS.LSAdapter';
@@ -140,16 +154,25 @@ DS.LSRESTAdapter = DS.RESTAdapter.extend(Ember.Evented, {
 	},
 
 	_saveData: function() {
-		localStorage.setItem(this._getNamespace(), JSON.stringify(this._data));
+		var jsonData = JSON.stringify(this._data, this._jsonStringifyHasMany);
+		localStorage.setItem(this._getNamespace(), jsonData);
 	},
 
-	_getLastUpdated: function(type) {
-		var lastUpdated = localStorage.getItem('lastUpdated.' + type);
-		return lastUpdated;
-	},
+	_jsonStringifyHasMany: function(undef, array) {
+		if (Object.prototype.toString.call(array) === '[object Array]') {
+			var tempArray = [];
+			array.forEach(function(item) {
+				if (item.id) {
+					tempArray.push(item.id);
+				} else {
+					tempArray.push(item);
 
-	_setLastUpdated: function(type, timestamp) {
-		localStorage.setItem('lastUpdated.' + type, timestamp);
+				}
+			});
+			return tempArray;
+		} else {
+			return array;
+		}
 	},
 
 	_namespaceForType: function(type) {
