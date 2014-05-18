@@ -1,7 +1,7 @@
 App.TicketCompComponent = Ember.Component.extend({
 	tagName          : 'article',
 	classNames       : ['ticket'],
-	classNameBindings: ['basic', 'details', 'edit', 'create', 'ticket.isDone:done', 'ticket.isImportant:important'],
+	classNameBindings: ['basic', 'ticket.isDone:done', 'ticket.isImportant:important'],
 	attributeBindings: ['title'],
 
 	ticket        : null,
@@ -153,7 +153,21 @@ App.TicketCompComponent = Ember.Component.extend({
 				self.set('isDialog', true);
 				jqThis.dialog({
 					buttons: buttons,
-					width  : 'auto',
+					dialogClass: 'ticket ' + type,
+					minWidth   : 200,
+
+					hide: {
+						effect   : self.get('ticket.isDeleted') ? 'explode' : 'puff',
+						duration : 500,
+						percent  : 50,
+						direction: 'vertical'
+					},
+					show: {
+						effect   : 'puff',
+						duration : 500,
+						percent  : 50,
+						direction: 'vertical'
+					},
 
 					close: function(event, ui) {
 						if (withPlaceholder) {

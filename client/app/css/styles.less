@@ -12,7 +12,6 @@
 @dark_green_shadow: rgba(40, 94, 66, 0.7);
 @ticket_yellow: #E7ED39;
 
-
 /*****************************/
 /* Less-Function Definitions */
 /*****************************/
@@ -30,7 +29,7 @@
   box-shadow: @style @c;
 }
 
-.heading_setup(@font_size) when (isnumber(@font_size)) {
+.heading_factory(@font_size) when (isnumber(@font_size)) {
   font-size: @font_size;
   line-height: @font_size;
   font-weight: 900;
@@ -69,7 +68,7 @@
 }
 
 .float_right {
-   float: right;
+  float: right;
 }
 
 /* ### Headings ### */
@@ -81,23 +80,23 @@
 }
 
 h1 {
-  .heading_setup(70px);
+  .heading_factory(70px);
 }
 
 h2 {
-  .heading_setup(50px);
+  .heading_factory(50px);
 }
 
 h3 {
-  .heading_setup(20px);
+  .heading_factory(20px);
 }
 
 h4 {
-  .heading_setup(16px);
+  .heading_factory(16px);
 }
 
 h5 {
-  .heading_setup(10px);
+  .heading_factory(10px);
 }
 
 /* ### Text Styles ### */
@@ -190,7 +189,6 @@ body {
   border-bottom-color: @red_chalk_hover;
 }
 
-
 /* ### Main Table ### */
 
 .main_table {
@@ -206,7 +204,7 @@ body {
   font-size: 50px;
 }
 
-.main_table_body{
+.main_table_body {
 }
 
 .main_table_head th, .main_table_body td {
@@ -247,10 +245,6 @@ body {
     line-height: 15px;
     height: 20px;
     border-bottom: solid 1px #000000;
-
-    .ticket_number {
-      font-weight: bold;
-    }
   }
 
   .ticket_title {
@@ -286,10 +280,36 @@ body {
   border-right: solid 1px #000000;
 }
 
-.ticket.edit {
+.ui-dialog.ticket {
+
+  font-family: Fine_Liner, sans-serif;
+  background: @ticket_yellow;
+  color: #000000;
+
+  .ui-widget-header {
+    .heading_factory(30px);
+  }
+
+  .ui-dialog-titlebar-close {
+    display: none;
+  }
+
+  .ui-widget-header, .ui-dialog-buttonpane {
+    background: @ticket_yellow;
+    border: none 0 transparent;
+  }
+
+  .ui-dialog-content, .ui-widget-content {
+  }
 }
 
 .ticket.details {
+  .ticket_content {
+    max-height: 500px;
+    overflow-y: scroll;
+    font-size: 20px;
+    font-weight: bold;
+  }
 }
 
 .ticket.important {
@@ -309,12 +329,13 @@ body {
   display: inline-block;
   float: left;
 }
+
 /* ### Board Menu ### */
 
 .main_content .board_menu {
   display: inline-block;
   width: 20px;
-  margin: 5px 0 0 5px ;
+  margin: 5px 0 0 5px;
   vertical-align: top;
 
   font-size: 20px;
