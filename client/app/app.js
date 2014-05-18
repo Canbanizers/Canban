@@ -1,11 +1,13 @@
 'use strict';
 window.App = Ember.Application.create({
 	//for debugging
-	LOG_TRANSITIONS: true
+	LOG_TRANSITIONS: true,
+	LOG_TRANSITIONS_INTERNAL: true
 });
 
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
+
 		this.resource('board', {path: '/board/:board_name'}, function(){});
 
 		this.resource('groups', function(){
@@ -15,11 +17,9 @@ App.Router.map(function () {
 			this.route('create');
 		});
 
-		this.resource('user', { path:'/user/:user_id' }, function(){
-		});
+		this.resource('user', { path:'/user/:user_id' }, function(){});
 
-		this.resource('login', {path: '/login'} , function() {
-		});
+		this.resource('login', {path: '/login'} , function() {});
 	});
 });
 
