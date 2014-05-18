@@ -110,7 +110,7 @@ class ModelFactory implements SubjectInterface {
 	}
 
 
-	//TODO: Observer-gelöde obsolete?
+	//TODO: Bleibt erstmal drin!
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
