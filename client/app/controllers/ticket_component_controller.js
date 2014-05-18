@@ -8,8 +8,8 @@ App.TicketCompComponent = Ember.Component.extend({
 	currentBoardID: 0,
 	edit          : false,
 	details       : false,
-	delete: false,
-	isDialog: false,
+	delete        : false,
+	isDialog      : false,
 
 	create: function() {
 		var creationDate = this.get('ticket.creation_date');
@@ -85,7 +85,6 @@ App.TicketCompComponent = Ember.Component.extend({
 			var buttons = {
 				Save  : function() {
 					self.$().dialog('close');
-					self.set('ticket.creation_date', moment().format('YYYY-MM-DD HH:mm:ss'));
 				},
 				Cancel: function() {
 					self.get('ticket').deleteRecord();
@@ -142,8 +141,11 @@ App.TicketCompComponent = Ember.Component.extend({
 							self.$().dialog('close');
 						},
 						Cancel: function() {
-							self.get('ticket').rollback();
-							self.set(type, false);
+							if (self.get('ticket.isDirty')) {
+								self.get('ticket').rollback();
+							} else {
+								self.set(type, false);
+							}
 							self.$().dialog('close');
 						}
 					}
@@ -151,24 +153,23 @@ App.TicketCompComponent = Ember.Component.extend({
 				self.set('isDialog', true);
 				jqThis.dialog({
 					buttons: buttons,
-					width: 'auto',
+					width  : 'auto',
 
 					close: function(event, ui) {
 						if (withPlaceholder) {
 							$('.ticket.placeholder').remove();
 						}
 						if (self.get(type)) {
-							if (!event.currentTarget) { // close button at top right of the dialog was clicked
-								self.sendAction(type + 'Action', self.get('ticket'));
-							}
+							self.sendAction(type + 'Action', self.get('ticket'));
+
 						}
-						if (self) {
+						if (!self.get('ticket.isDeleted') && !self.get('isDestroyed')) {
 							self.set('isDialog', false);
 							if (type !== 'create') {
 								self.set(type, false);
 							}
+							jqThis.dialog('destroy');
 						}
-						jqThis.dialog('destroy');
 					}
 				});
 			});
