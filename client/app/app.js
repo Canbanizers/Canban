@@ -6,7 +6,7 @@ window.App = Ember.Application.create({
 
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
-		this.resource('board', {path: '/board/:board_id'}, function(){});
+		this.resource('board', {path: '/board/:board_name'}, function(){});
 
 		this.resource('groups', function(){
 			this.resource('group', {path: '/:group_id'}, function(){
@@ -27,6 +27,24 @@ App.ApplicationAdapter = DS.LSRESTAdapter.extend({
 	host       : 'http://localhost/canban',
 	namespace  : 'api',
 	lsnamespace: 'private_canban'
+});
+
+App.TicketAdapter = App.ApplicationAdapter.extend({
+
+	ajaxError: function(jqXHR) {
+		var error = this._super(jqXHR);
+		if (jqXHR && jqXHR.status === 500) {
+			var errorArray = jqXHR.responseJSON.error.split(',');
+			return {
+				serverError : 500,
+				sqlState    : errorArray[0],
+				sqlError    : errorArray[1],
+				errorMessage: errorArray[2]
+			}
+		} else {
+			return error;
+		}
+	}
 });
 
 App.ApplicationSerializer = DS.JSONSerializer.extend({});

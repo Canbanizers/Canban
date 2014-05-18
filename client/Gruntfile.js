@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 			}
 		},
 		concat          : {
-			vendor: {
+			vendor : {
 				src : ['app/lib/handlebars-1.3.0.js', 'app/lib/ember-1.4.0.js', 'app/lib/ember-data-1.0.0b7.js',
 					   'app/lib/ls_rest_adapter.js', 'app/lib/bootstrap.js', 'app/lib/moment-with-langs-2.5.1.js'],
 				dest: 'debug/lib.js'
