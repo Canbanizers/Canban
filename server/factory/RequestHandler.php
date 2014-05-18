@@ -148,7 +148,7 @@ class RequestHandler
 		if (null !== $id) {
 			return $modelfactory->execute($model, $json, $req_method, $id);
 		} else if (null !== $since) {
-			return $modelcontroller->execute($model, $json, $req_method, null, $since);
+			return $modelfactory->execute($model, $json, $req_method, null, $since);
 		} else {
 			return $modelfactory->execute($model, $json, $req_method);
 		}
