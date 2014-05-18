@@ -1,14 +1,17 @@
+window.timestampFormat = 'YYYY-MM-DD HH:mm:ss';
+
 App.TimestampTransform = DS.Transform.extend({
 	deserialize: function(serialized) {
 		if (serialized) {
-			return moment(serialized, 'YYYY-MM-DD HH:mm:ss').toDate();
+			return moment(serialized, window.timestampFormat);
 		}
 		return serialized;
 	},
 
 	serialize: function(deserialized) {
 		if (deserialized) {
-			return moment(deserialized, 'YYYY-MM-DD HH:mm:ss');
+			var ts = moment(deserialized, window.timestampFormat);
+			return ts.format(window.timestampFormat);
 		}
 		return deserialized;
 	}
