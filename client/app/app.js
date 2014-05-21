@@ -24,8 +24,8 @@ App.Router.map(function () {
 });
 
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
-	host       : 'http://localhost/canban',
-	namespace  : 'api',
+	host : 'http://localhost/canban',
+	namespace : 'api',
 	lsnamespace: 'private_canban'
 });
 
@@ -37,8 +37,8 @@ App.TicketAdapter = App.ApplicationAdapter.extend({
 			var errorArray = jqXHR.responseJSON.error.split(',');
 			return {
 				serverError : 500,
-				sqlState    : errorArray[0],
-				sqlError    : errorArray[1],
+				sqlState : errorArray[0],
+				sqlError : errorArray[1],
 				errorMessage: errorArray[2]
 			}
 		} else {
@@ -74,11 +74,11 @@ DS.JSONSerializer.reopen({
 
 	 ```js
 	 App.ApplicationSerializer = DS.RESTSerializer.extend({
-		serializeIntoHash: function(data, type, record, options) {
-			var root = Ember.String.decamelize(type.typeKey);
-			data[root] = this.serialize(record, options);
-		}
-	});
+serializeIntoHash: function(data, type, record, options) {
+var root = Ember.String.decamelize(type.typeKey);
+data[root] = this.serialize(record, options);
+}
+});
 	 ```
 
 	 @method serializeIntoHash

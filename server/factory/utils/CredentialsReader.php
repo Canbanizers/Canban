@@ -21,7 +21,15 @@ class CredentialsReader {
 	const PROTOCOL = 'mysql';
 	const SERVER = 'localhost';
 	const DB_NAME = 'canban';
+	/**
+	 * database login name
+	 * @var string
+	 */
 	private $db_login = '';
+	/**
+	 * database login password
+	 * @var string
+	 */
 	private $db_password = '';
 
 	/**
@@ -45,16 +53,16 @@ class CredentialsReader {
 		$xml = simplexml_load_file($full_path_to_xml);
 
 		$xpaths = array(
-			'password' => '/credentials/password/db/text()',
-			'login'    => '/credentials/login/db/text()'
+			'login'    => '/credentials/login/db/text()',
+			'password' => '/credentials/password/db/text()'
 		);
 
-
-		$password = $xml->xpath($xpaths['password']);
 		$login = $xml->xpath($xpaths['login']);
+		$password = $xml->xpath($xpaths['password']);
 
-		$this->db_password = (string) $password[0];
 		$this->db_login = (string) $login[0];
+		$this->db_password = (string) $password[0];
+
 	}
 
 	/**

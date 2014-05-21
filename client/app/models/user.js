@@ -3,10 +3,9 @@ App.User = DS.Model.extend({
 	group: DS.hasMany('group', { async: true }),
 	firstName: DS.attr('string'),
 	lastName: DS.attr('string'),
-	userName: DS.attr('string'),
-	password: DS.attr('number'),
+	password: DS.attr('string'),
 	email: DS.attr('string'),
-	lastChanged: DS.attr('date'),
+	lastLogin : DS.attr('timestamp'),
 
 	fullName: function(){
 		return this.get('firstName')+' '+this.get('lastName');
@@ -16,7 +15,7 @@ App.User = DS.Model.extend({
 });
 
 
-
+//TODO Fixtures remove fixture data before final commit
 App.User.FIXTURES = [
 	{
 		id: 1,

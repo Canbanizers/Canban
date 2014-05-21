@@ -22,28 +22,28 @@ App.BoardController = Ember.ObjectController.extend({
 	}.property('tickets.@each.isDone'),
 
 	actions: {
-		switchBoard     : function(board) {
+		switchBoard : function(board) {
 			this.transitionToRoute('board', board.id);
 		},
 		showCreateTicket: function() {
 			this.send('addDummyTicket');
 		},
-		addDummyTicket  : function() {
+		addDummyTicket : function() {
 			var board = this.get('model');
 			var dummyTicket = this.store.createRecord('ticket', {
-				board           : board,
-				state           : 1,
-				title           : '',
-				content         : '',
-				ticketNr        : 500,
-				priority        : 0,
-				creation_date   : null,
+				board : board,
+				state : 1,
+				title : '',
+				content : '',
+				ticketNr : 500,
+				priority : 0,
+				creation_date : null,
 				last_modify_date: null
 			});
 			var tickets = board.get('tickets');
 			tickets.pushObject(dummyTicket);
 		},
-		createTicket    : function(ticket) {
+		createTicket : function(ticket) {
 			ticket.set('creation_date', moment().format(window.timestampFormat));
 			var success = function(resp) {
 			};

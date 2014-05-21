@@ -85,7 +85,7 @@ ActiveRecord\Config::initialize(function ($cfg) {
 /*
  * Eigene SQL-Statements müsst aber als Funktion auslagern in die DB-Tabellenklasse,
  * sonst wird es zu unübersichtlich
- * siehe models/User.php
+ * siehe models/Users.php
  */
 
 //$users = User::getFirstnameById(13);

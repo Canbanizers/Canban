@@ -5,15 +5,15 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-a
 /**
  * Class User
  *
- * Representation of the Usertable in Database
+ * Representation of the Userstable in Database
  * The class provide the necessary REST-operations which are called dynamic in ModelFactory
  */
-class User extends ActiveRecord\Model {
+class Users extends ActiveRecord\Model {
 
 	/**
 	 * @var string
 	 */
-	public static $tablename = 'user';
+	public static $tablename = 'users';
 
 	/**
 	 * @var string
@@ -32,9 +32,14 @@ class User extends ActiveRecord\Model {
 				unset($index);
 			}
 
+			// TODO Check if on new user an date will be set or not
 			if ('lastlogin' === $param) {
 				$date = new DateTime('now');
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
+			}
+
+			if('password' === $param) {
+				$params['password'] = password_hash($value, PASSWORD_DEFAULT);
 			}
 		}
 
