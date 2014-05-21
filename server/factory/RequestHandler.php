@@ -3,7 +3,7 @@ require_once(__DIR__ . '\ModelFactory.php');
 require_once(__DIR__ . '\ResponseFactory.php');
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException.php';
 
 
 //TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
