@@ -17,23 +17,23 @@
 /*****************************/
 
 .rotate(@deg) when (isnumber(@deg)) {
-  -moz-transform: rotate(@deg); /* Firefox 15 */
-  -ms-transform: rotate(@deg); /* IE 9 */
-  -webkit-transform: rotate(@deg); /* Opera, Chrome, and Safari */
-  transform: rotate(@deg);
+	-moz-transform: rotate(@deg); /* Firefox 15 */
+	-ms-transform: rotate(@deg); /* IE 9 */
+	-webkit-transform: rotate(@deg); /* Opera, Chrome, and Safari */
+	transform: rotate(@deg);
 }
 
 .box-shadow(@style, @c) when (iscolor(@c)) {
-  -webkit-box-shadow: @style @c;
-  -moz-box-shadow: @style @c;
-  box-shadow: @style @c;
+	-webkit-box-shadow: @style @c;
+	-moz-box-shadow: @style @c;
+	box-shadow: @style @c;
 }
 
 .heading_factory(@font_size) when (isnumber(@font_size)) {
-  font-size: @font_size;
-  line-height: @font_size;
-  font-weight: 900;
-  margin: 0;
+	font-size: @font_size;
+	line-height: @font_size;
+	font-weight: 900;
+	margin: 0;
 }
 
 /*****************************/
@@ -43,316 +43,317 @@
 /* ### Font-Faces ### */
 
 @font-face {
-  font-family: Angry_Chalk;
-  src: url('../fonts/AngryChalk.ttf');
+	font-family: Angry_Chalk;
+	src: url('../fonts/AngryChalk.ttf');
 }
 
 @font-face {
-  font-family: Fine_Liner;
-  src: url('../fonts/Fineliner%20Script.otf');
+	font-family: Fine_Liner;
+	src: url('../fonts/Fineliner%20Script.otf');
 }
 
 /* ### Basic Designs ### */
 
 .icon_button {
-  padding: 0;
-  margin: 0;
-  background: none transparent;
-  border: none 0 transparent;
+	padding: 0;
+	margin: 0;
+	background: none transparent;
+	border: none 0 transparent;
 }
 
 .chalk_border {
-  -webkit-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Safari 5 and older */
-  -o-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Opera */
-  border-image: url("../img/Chalk_Border.png") 30 30 round;
+	-webkit-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Safari 5 and older */
+	-o-border-image: url("../img/Chalk_Border.png") 30 30 round; /* Opera */
+	border-image: url("../img/Chalk_Border.png") 30 30 round;
 }
 
 .float_right {
-  float: right;
+	float: right;
 }
 
 /* ### Headings ### */
 
 .board_heading {
-  font-family: Angry_Chalk, sans-serif;
-  text-decoration: underline;
-  padding: 50px 0 0 20px;
+	font-family: Angry_Chalk, sans-serif;
+	text-decoration: underline;
+	padding: 50px 0 0 20px;
 }
 
 h1 {
-  .heading_factory(70px);
+	.heading_factory(70px);
 }
 
 h2 {
-  .heading_factory(50px);
+	.heading_factory(50px);
 }
 
 h3 {
-  .heading_factory(20px);
+	.heading_factory(20px);
 }
 
 h4 {
-  .heading_factory(16px);
+	.heading_factory(16px);
 }
 
 h5 {
-  .heading_factory(10px);
+	.heading_factory(10px);
 }
 
 /* ### Text Styles ### */
 
 .center {
-  vertical-align: middle;
-  text-align: center;
+	vertical-align: middle;
+	text-align: center;
 }
 
 /* ### Layout ### */
 
 html, body {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 body {
-  /*overflow: hidden;*/
-  padding: 0;
-  background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	/*overflow: hidden;*/
+	padding: 0;
+	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .main_head {
-  color: @white;
-  height: 25%;
-  padding: 0;
-  margin: 0;
+	color: @white;
+	height: 25%;
+	padding: 0;
+	margin: 0;
 }
 
 .main_content {
-  color: @white;
-  width: 100%;
-  height: 75%;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+	color: @white;
+	width: 100%;
+	height: 75%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
 }
 
 /* ### Main Menu ### */
 
 .menu_item, .menu_item:active, .menu_item:link {
-  display: inline-block;
-  position: absolute;
-  text-decoration: underline;
-  font-family: Angry_Chalk, sans-serif;
-  font-size: 25px;
-  font-weight: bold;
-  line-height: 30px;
-  color: @white;
-  border-bottom: solid 1px @white;
-  z-index: 1;
+	display: inline-block;
+	position: absolute;
+	text-decoration: underline;
+	font-family: Angry_Chalk, sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	line-height: 30px;
+	color: @white;
+	border-bottom: solid 1px @white;
+	z-index: 1;
 }
 
 .menu_item:hover {
-  color: @white_hover;
-  border-color: @white_hover;
+	color: @white_hover;
+	border-color: @white_hover;
 }
 
 #profile_button {
-  top: 60px;
-  right: 550px;
-  .rotate(30deg);
+	top: 60px;
+	right: 550px;
+	.rotate(30deg);
 }
 
 #group_button {
-  top: 60px;
-  right: 310px;
-  .rotate(-25deg);
+	top: 60px;
+	right: 310px;
+	.rotate(-25deg);
 }
 
 #board_button {
-  top: 70px;
-  right: 220px;
-  .rotate(-30deg);
+	top: 70px;
+	right: 220px;
+	.rotate(-30deg);
 }
 
 #logout_button {
-  color: @red_chalk;
-  border-bottom-color: @red_chalk;
-  top: 20px;
-  right: 20px;
+	color: @red_chalk;
+	border-bottom-color: @red_chalk;
+	top: 20px;
+	right: 20px;
 }
 
 #logout_button:hover, #logout_button:active {
-  color: @red_chalk_hover;
-  border-bottom-color: @red_chalk_hover;
+	color: @red_chalk_hover;
+	border-bottom-color: @red_chalk_hover;
 }
 
 /* ### Main Table ### */
 
 .main_table {
-  display: inline-block;
-  padding: 0;
-  height: 98%;
-  border-collapse: separate;
-  border-spacing: 0;
+	display: inline-block;
+	padding: 0;
+	height: 98%;
+	border-collapse: separate;
+	border-spacing: 0;
 }
 
 .main_table_head {
-  font-family: Angry_Chalk, sans-serif;
-  font-size: 50px;
+	font-family: Angry_Chalk, sans-serif;
+	font-size: 50px;
 }
 
 .main_table_body {
 }
 
 .main_table_head th, .main_table_body td {
-  .chalk_border;
+	.chalk_border;
 }
 
 .main_table_head th {
-  text-align: center;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid transparent;
-  width: 33%;
+	text-align: center;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid transparent;
+	width: 33%;
 
 }
 
 .main_table_body td {
-  border-left: 10px solid transparent;
-  vertical-align: top;
-  width: 33%;
-  padding: 0;
+	border-left: 10px solid transparent;
+	vertical-align: top;
+	width: 33%;
+	padding: 0;
 }
 
 .main_table_body td .ticket_wrapper {
-  display: inline-block;
-  width: 382px;
-  min-height: 400px;
-  margin: 0 auto;
-  padding: 0;
+	display: inline-block;
+	width: 382px;
+	min-height: 400px;
+	margin: 0 auto;
+	padding: 0;
 }
 
 /* ### Tickets ### */
 
 .ticket {
-  .ticket_menu {
-    vertical-align: middle;
-    text-align: left;
-    display: block;
-    font-size: 15px;
-    line-height: 15px;
-    height: 20px;
-    border-bottom: solid 1px #000000;
-  }
+	.ticket_menu {
+		vertical-align: middle;
+		text-align: left;
+		display: block;
+		font-size: 15px;
+		line-height: 15px;
+		height: 20px;
+		border-bottom: solid 1px #000000;
+	}
 
-  .ticket_title {
-    display: block;
-    height: 49px;
-    .center
-  }
+	.ticket_title {
+		display: block;
+		height: 49px;
+		.center
+	}
 
-  .ticket_title h3 {
-    margin: auto 0;
-  }
+	.ticket_title h3 {
+		margin: auto 0;
+	}
 
-  .ticket_empty {
-    opacity: 0.5;
-  }
+	.ticket_empty {
+		opacity: 0.5;
+	}
 }
 
 .ticket.basic {
-  .box-shadow(3px 7px, @dark_green_shadow);
-  text-align: center;
-  font-family: Fine_Liner, sans-serif;
-  color: #000000;
-  height: 80px;
-  width: 185px;
-  margin: 5px 3px;
-  padding: 5px;
-  z-index: 1;
-  opacity: 0.9;
-  display: inline-block;
-  float: left;
-  background-color: @ticket_yellow;
-  border-bottom: solid 1px #000000;
-  border-right: solid 1px #000000;
+	.box-shadow(3px 7px, @dark_green_shadow);
+	text-align: center;
+	font-family: Fine_Liner, sans-serif;
+	color: #000000;
+	height: 80px;
+	width: 185px;
+	margin: 5px 3px;
+	padding: 5px;
+	z-index: 1;
+	opacity: 0.9;
+	display: inline-block;
+	float: left;
+	background-color: @ticket_yellow;
+	border-bottom: solid 1px #000000;
+	border-right: solid 1px #000000;
 }
 
 .ui-dialog.ticket {
 
-  font-family: Fine_Liner, sans-serif;
-  background: @ticket_yellow;
-  color: #000000;
+	font-family: Fine_Liner, sans-serif;
+	background: @ticket_yellow;
+	color: #000000;
 
-  .ui-widget-header {
-    .heading_factory(30px);
-  }
+	.ui-widget-header {
+		.heading_factory(30px);
+	}
 
-  .ui-dialog-titlebar-close {
-    display: none;
-  }
+	.ui-dialog-titlebar-close {
+		display: none;
+	}
 
-  .ui-widget-header, .ui-dialog-buttonpane {
-    background: @ticket_yellow;
-    border: none 0 transparent;
-  }
+	.ui-widget-header, .ui-dialog-buttonpane {
+		background: @ticket_yellow;
+		border: none 0 transparent;
+	}
 
-  .ui-dialog-content, .ui-widget-content {
-  }
+	.ui-dialog-content, .ui-widget-content {
+	}
 }
 
 .ticket.details {
-  .ticket_content {
-    max-height: 500px;
-    overflow-y: scroll;
-    font-size: 20px;
-    font-weight: bold;
-  }
+	.ticket_content {
+		max-height: 500px;
+		overflow-y: scroll;
+		font-size: 20px;
+		font-weight: bold;
+	}
 }
 
 .ticket.important {
-  background-color: @red_important;
+	background-color: @red_important;
 }
 
 .ticket.done .ticket_title {
-  text-decoration: line-through;
+	text-decoration: line-through;
 }
 
 .ticket.placeholder {
-  height: 80px;
-  width: 185px;
-  margin: 5px 3px;
-  padding: 5px;
-  z-index: 1;
-  display: inline-block;
-  float: left;
+	height: 80px;
+	width: 185px;
+	margin: 5px 3px;
+	padding: 5px;
+	z-index: 1;
+	display: inline-block;
+	float: left;
 }
+
 /* ### Board Menu ### */
 
 .main_content .board_menu {
-  display: inline-block;
-  width: 20px;
-  margin: 5px 0 0 5px;
-  vertical-align: top;
+	display: inline-block;
+	width: 20px;
+	margin: 5px 0 0 5px;
+	vertical-align: top;
 
-  font-size: 20px;
+	font-size: 20px;
 
-  .icon_button {
-    color: #FFFFFF;
-  }
+	.icon_button {
+		color: #FFFFFF;
+	}
 }
 
 /* Design fixes for ember */
 
 .ember-view {
-  display: inline;
+	display: inline;
 }
 
 /* Design fixes for bootstrap */
 
 .row {
-  margin-right: 0 !important;
-  margin-left: 0 !important;
+	margin-right: 0 !important;
+	margin-left: 0 !important;
 }
