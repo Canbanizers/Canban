@@ -26,21 +26,9 @@
 				</span>
 			</div>
 
-
 			<div>
 				<label>Email</label>
-				{{view App.ValidationTextField viewName="email" valueBinding="email"}}
-				<span>
-					{{#if emailError}}
-						{{view App.IconButtonView type='remove'}}
-						<span class="error-message">Please fill in.</span>
-					{{else}}
-						{{#if emailInvalidError}}
-							{{view App.IconButtonView type='remove'}}
-							<span class="error-message">Invalid email address.</span>
-						{{/if}}
-					{{/if}}
-				</span>
+				{{view App.ValidationTextField disabled="disabled" viewName="email" valueBinding="email"}}
 			</div>
 
 			<div>
