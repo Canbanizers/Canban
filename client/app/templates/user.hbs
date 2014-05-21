@@ -5,7 +5,7 @@
 			<button {{action "delete"}}>Delete</button>
 
 			<div>
-				<label {{bind-attr for="view.name.elementId"}}>Firstname</label>
+				<label>Firstname</label>
 				{{view App.ValidationTextField viewName="firstName" valueBinding="firstName"}}
 				<span>
 					{{#if firstNameError}}
@@ -16,7 +16,7 @@
 			</div>
 
 			<div>
-				<label {{bind-attr for="view.name.elementId"}}>Lastname</label>
+				<label>Lastname</label>
 				{{view App.ValidationTextField viewName="lastName" valueBinding="lastName"}}
 				<span>
 					{{#if lastNameError}}
@@ -28,7 +28,7 @@
 
 
 			<div>
-				<label {{bind-attr for="view.name.elementId"}}>Email</label>
+				<label>Email</label>
 				{{view App.ValidationTextField viewName="email" valueBinding="email"}}
 				<span>
 					{{#if emailError}}
@@ -44,7 +44,7 @@
 			</div>
 
 			<div>
-				<label {{bind-attr for="view.name.elementId"}}>Password</label>
+				<label>Password</label>
 				{{view App.ValidationTextField type="password" viewName="password" valueBinding="password"}}
 				<span>
 					{{#if passwordError}}
@@ -55,7 +55,7 @@
 			</div>
 
 			<div>
-				<label {{bind-attr for="view.name.elementId"}}>Password Confirmatiom</label>
+				<label>Password Confirmation</label>
 				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation" }}
 				<span>
 					{{#if passwordConfirmationError}}
