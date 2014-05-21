@@ -25,7 +25,7 @@ class Users extends ActiveRecord\Model {
 	 *
 	 * @return \ActiveRecord\Model
 	 */
-	public function createUser($params) {
+	public function createUsers($params) {
 		foreach ($params as $param => $value) {
 			if (empty($value)) {
 				$index = array_search($param, $params);
@@ -49,7 +49,7 @@ class Users extends ActiveRecord\Model {
 	/**
 	 * @return mixed
 	 */
-	public function findAllUser() {
+	public function findAllUsers() {
 		return self::find('all');
 	}
 
@@ -58,7 +58,7 @@ class Users extends ActiveRecord\Model {
 	 *
 	 * @return null
 	 */
-	public function deleteUser($id) {
+	public function deleteUsers($id) {
 		$user = self::find($id);
 		$user->delete();
 
@@ -70,7 +70,7 @@ class Users extends ActiveRecord\Model {
 	 *
 	 * @return mixed
 	 */
-	public function findUser($id) {
+	public function findUsers($id) {
 		return self::find($id);
 	}
 
@@ -80,7 +80,7 @@ class Users extends ActiveRecord\Model {
 	 *
 	 * @return mixed
 	 */
-	public function updateUser($id, $params) {
+	public function updateUsers($id, $params) {
 		$user = self::find($id);
 		foreach ($params as $param => $value) {
 			if (!empty($value)) {

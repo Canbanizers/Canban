@@ -81,6 +81,18 @@ class ModelFactory implements SubjectInterface {
 	 */
 	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
+			if (is_array($params)) {
+				//FIXME Arrayfehler
+				foreach ($params as $param) {
+					var_dump($param);
+					$params[strtolower($param)] = $params[$param];
+					unset($params[$param]);
+				}
+			} else {
+				$params = strtolower($params);
+			}
+
+
 			$model = $this->getModel($model_name);
 
 			$model_class = ucfirst($model_name);
