@@ -1,8 +1,8 @@
 App.IconButtonView = Ember.View.extend({
 	tagName: 'button',
 	attributeBindings: ['title'],
-	classNames: ['icon_button', 'glyphicon'],
-	classNameBindings: ['iconType'],
+	classNames       : ['glyphicon'],
+	classNameBindings: ['iconType', 'button:icon_button:icon'],
 
 	action: null,
 	title: '',
