@@ -16,9 +16,11 @@ class ResponseFactory
 	 */
 	public function sendResponse($response_models, $status_code = 200)
 	{
+		mb_internal_encoding('UTF-8');
 		header("HTTP/1.0 {$status_code}");
 		header('Content-Type: application/json');
 
+		$debug = ($response_models[0] instanceof Tickets);
 		if (200 === $status_code) {
 			$response_array = array();
 			if (is_array($response_models)) {
@@ -31,7 +33,18 @@ class ResponseFactory
 				$data_array = $response_models->to_array();
 				$response_array = array(strtolower(get_class($response_models)) => $data_array);
 			}
-			echo json_encode($response_array);
+			if ($debug) {
+				var_dump($response_array);
+			}
+			$response_array = $this->utf8Encode($response_array);
+			$jsonResponse = json_encode($response_array);
+
+			//			if($debug) {
+			//				var_dump($response_array);
+			//				var_dump(json_last_error_msg());
+			//			}
+
+			echo $jsonResponse;
 		} else {
 			echo $response_models;
 		}
@@ -53,5 +66,20 @@ class ResponseFactory
 			$status_code = '500';
 		}
 		$this->sendResponse($json, $status_code);
+	}
+
+
+	private function utf8Encode(array $array) {
+		$utf8_encoded = array();
+		foreach ($array as $key => $value) {
+			if (is_array($value)) {
+				$this->utf8Encode($value);
+			} elseif (is_string($value)) {
+				$utf8_encoded[$key] = utf8_encode($value);
+			}
+		}
+
+		return $utf8_encoded;
+
 	}
 } 
