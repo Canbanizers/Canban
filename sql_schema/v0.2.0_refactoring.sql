@@ -15,3 +15,9 @@ TRUNCATE TABLE `userhasboard`;
 DELETE From `tickets`;
 DELETE From `users`;
 DELETE From `boards`;
+
+ALTER TABLE `boardhasticket` AUTO_INCREMENT = 1;
+ALTER TABLE `userhasboard` AUTO_INCREMENT = 1;
+ALTER TABLE `tickets` AUTO_INCREMENT = 1;
+ALTER TABLE `users` AUTO_INCREMENT = 1;
+ALTER TABLE `boards` AUTO_INCREMENT = 1;
