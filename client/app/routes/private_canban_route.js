@@ -1,5 +1,5 @@
 App.PrivateCanbanRoute = Ember.Route.extend({
-	loggedIn: false,
+	loggedIn: true,
 	model : function() {
 		var self = this;
 		if (this.get('loggedIn')) {
@@ -26,7 +26,7 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		if (this.get('loggedIn')) {
 			this.transitionTo('board', 'Personal Board');
 		} else {
-			this.transitionTo('signin');
+			this.transitionTo('login');
 		}
 	}
 });
