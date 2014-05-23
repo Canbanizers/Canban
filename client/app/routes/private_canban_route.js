@@ -1,17 +1,23 @@
 App.PrivateCanbanRoute = Ember.Route.extend({
-	loggedIn : true,
+	loggedIn: false,
 	model : function() {
 		var self = this;
 		if (this.get('loggedIn')) {
-			self.store.find('user');
-			return Ember.RSVP.resolve(self.store.find('ticket').then(function(ticketArray) {
-				return self.store.find('board').then(function(boardArray) {
-					return {
-						boardCount : boardArray.content.length,
-						ticketCount: ticketArray.content.length
-					};
+			var users = self.store.find('user'), tickets = null, boards = null;
+
+			var model = users.then(function() {
+				boards = self.store.find('board');
+				return boards.then(function() {
+					tickets = self.store.find('ticket');
+					return tickets.then(function() {
+						return {
+							boardCount : boards.get('length'),
+							ticketCount: tickets.get('length')
+						};
+					});
 				});
-			}));
+			});
+			return Ember.RSVP.resolve(model);
 		} else {
 			return null;
 		}
