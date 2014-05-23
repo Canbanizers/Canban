@@ -1,7 +1,7 @@
 USE `canban`;
 
-DROP TABLE IF EXISTS `invitations`;
 DROP TABLE IF EXISTS `userhasinvitation`;
+DROP TABLE IF EXISTS `invitations`;
 DROP TABLE IF EXISTS `userhasgrouproles`;
 DROP TABLE IF EXISTS `grouphasboard`;
 DROP TABLE IF EXISTS `grouphasticket`;
