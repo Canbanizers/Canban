@@ -22,7 +22,8 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 			return null;
 		}
 	},
-	setupController: function(model) {
+	setupController: function(controller, model) {
+		controller.set('model', model);
 		if (this.get('loggedIn')) {
 			this.transitionTo('board', 'Personal Board');
 		} else {
