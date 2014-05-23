@@ -1,11 +1,17 @@
 App.ValidationController = Ember.ObjectController.extend({
 
 	content: Ember.Object.create({}),
+	needs: ['user'],
+	controller: null,
 
-
-	//TODO: Abhängigkeiten auflösen und Parameter in Funktion injizieren!
-	needs: 'user',
-
+	/**
+	 * set the current controller which want to use the validation
+	 *
+	 * @param controller
+	 */
+	initializeController: function(controller) {
+		this.controller = controller;
+	},
 
 	/**
 	 * check if mailaddress is valid and trigger the error-message in template
@@ -15,7 +21,7 @@ App.ValidationController = Ember.ObjectController.extend({
 	 */
 	isValidEmail: function(val) {
 		var error, value;
-		value = this.get('controllers.user').get(val);
+		value = this.controller.get(val);
 		error = false;
 		if (!value.match(/^\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
 			error = true;
@@ -34,9 +40,9 @@ App.ValidationController = Ember.ObjectController.extend({
 	 */
 	comparePasswords: function(val) {
 		var error, value;
-		value = this.get('controllers.user').get(val);
+		value = this.controller.get(val);
 		error = false;
-		if(value !== this.get('controllers.user').get('password')) {
+		if(value !== this.controller.get('password')) {
 			error = true;
 			//Debugging
 			console.log("" + val + "Compare has error");
@@ -54,10 +60,10 @@ App.ValidationController = Ember.ObjectController.extend({
 	getValue: function(val) {
 		var error, result;
 		error = false;
-		if (!(result = !!this.get('controllers.user').get(val))) {
+		if (!(result = !!this.controller.get(val))) {
 			error = true;
 			//Debugging
-//			console.log("" + val + " has error");
+			console.log("" + val + " has error");
 		}
 		return error;
 	}

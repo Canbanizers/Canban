@@ -2,11 +2,10 @@ App.UserController = Ember.ObjectController.extend({
 
 	editMode: false,
 	deleteMode: false,
-	needs: 'validation',
+	needs: ['validation'],
 
 	/**
 	 * validate functions
-	 * @returns {*}
 	 */
 	validateFirstname: function() {
 		this.set("firstnameError", this.get('controllers.validation').getValue('firstname'));
@@ -16,14 +15,20 @@ App.UserController = Ember.ObjectController.extend({
 	},
 	validateEmail: function() {
 		this.set('emailError', this.get('controllers.validation').getValue('email'));
-//		this.set("emailInvalidError", !this.get('controllers.validation').isValidEmail('email'));
 	},
 	validatePassword: function() {
 		this.set('passwordError', this.get('controllers.validation').getValue('password'));
 	},
 	validatePasswordConfirmation: function() {
 		this.set('passwordConfirmationError', this.get('controllers.validation').getValue('passwordConfirmation'));
-		this.set("passwordConfirmationCompareError", this.get('controllers.validation').comparePasswords('passwordConfirmation'));
+		this.set('passwordConfirmationCompareError', this.get('controllers.validation').comparePasswords('passwordConfirmation'));
+	},
+
+	/**
+	 * set this as the current controller for the validation, the validationcontroller have access to it
+	 */
+	setController: function() {
+		this.get('controllers.validation').initializeController(this);
 	},
 
 	/**

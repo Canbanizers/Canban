@@ -16,6 +16,7 @@ App.ValidationTextField = Ember.TextField.extend({
 	focusOut: function() {
 		var controller, validatorName, viewName;
 		controller = this.get('parentView.controller');
+		controller.setController();
 		viewName = this.get('viewName');
 		validatorName = "" + (Em.String.classify(viewName));
 		return controller["validate" + validatorName]();
