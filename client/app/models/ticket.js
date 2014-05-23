@@ -21,6 +21,7 @@ App.Ticket = DS.Model.extend({
 });
 
 
+//TODO Fixtures remove fixture data before final release
 App.Ticket.FIXTURES = [
 	{
 		id              : 1,

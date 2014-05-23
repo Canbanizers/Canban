@@ -8,7 +8,7 @@ App.Group = DS.Model.extend({
 });
 
 
-
+//TODO Fixtures remove fixture data before final release
 App.Group.FIXTURES = [
 	{
 		id: 1,

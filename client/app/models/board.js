@@ -6,7 +6,7 @@ App.Board = DS.Model.extend({
 });
 
 
-
+//TODO Fixtures remove fixture data before final release
 App.Board.FIXTURES = [
 	{
 		id: 1,
