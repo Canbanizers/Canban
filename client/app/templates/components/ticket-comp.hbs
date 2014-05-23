@@ -22,23 +22,23 @@
 
 		<nav class="ticket_menu">
 			{{#if displayPrevious}}
-				{{view App.IconButtonView type='chevron-left' title='Previous Column' action='toPreviousColumn'}}
+				{{view App.IconButtonView type='chevron-left' title='Previous Column' action='toPreviousColumn' button=true}}
 			{{/if}}
 			{{#if basic}}
-				{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails'}}
+				{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails' button=true}}
 			{{/if}}
 
-			{{view App.IconButtonView type='pencil' title='Edit' action='showEdit'}}
+			{{view App.IconButtonView type='pencil' title='Edit' action='showEdit' button=true}}
 
 			{{#unless fromCurrentBoard}}
-				{{view App.IconButtonView type='th' title=parentName action='showParentBoard'}}
+				{{view App.IconButtonView type='th' title=parentName action='showParentBoard' button=true}}
 			{{/unless}}
 
 			{{#if displayNext}}
-				{{view App.IconButtonView class='float_right' type='chevron-right' title='Next Column' action='toNextColumn'}}
+				{{view App.IconButtonView class='float_right' type='chevron-right' title='Next Column' action='toNextColumn' button=true}}
 			{{/if}}
 
-			{{view App.IconButtonView class='float_right' type='remove' title='Delete' action='showDelete'}}
+			{{view App.IconButtonView class='float_right' type='remove' title='Delete' action='showDelete' button=true}}
 		</nav>
 
 		<div class="ticket_title">
