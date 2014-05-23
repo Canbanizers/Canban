@@ -6,9 +6,9 @@
 
 			<div>
 				<label>Firstname</label>
-				{{view App.ValidationTextField viewName="firstName" valueBinding="firstName"}}
+				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname"}}
 				<span>
-					{{#if firstNameError}}
+					{{#if firstnameError}}
 						{{view App.IconButtonView type='remove'}}
 						<span class="error-message">Please fill in.</span>
 					{{/if}}
@@ -17,9 +17,9 @@
 
 			<div>
 				<label>Lastname</label>
-				{{view App.ValidationTextField viewName="lastName" valueBinding="lastName"}}
+				{{view App.ValidationTextField viewName="lastname" valueBinding="lastname"}}
 				<span>
-					{{#if lastNameError}}
+					{{#if lastnameError}}
 						{{view App.IconButtonView type='remove'}}
 						<span class="error-message">Please fill in.</span>
 					{{/if}}
@@ -44,7 +44,7 @@
 
 			<div>
 				<label>Password Confirmation</label>
-				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation" }}
+				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation"}}
 				<span>
 					{{#if passwordConfirmationError}}
 						{{view App.IconButtonView type='remove'}}

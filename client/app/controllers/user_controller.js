@@ -1,8 +1,9 @@
-App.UserController = Ember.ObjectController.extend(Ember.Evented, {
+App.UserController = Ember.ObjectController.extend({
 
 	editMode: false,
 	deleteMode: false,
-	content: Ember.Object.create(),
+	needs: 'validation',
+	content: Ember.Object.create({}),
 
 	/**
 	 * check if mailaddress is valid and trigger the error-message in usertemplate
@@ -65,11 +66,11 @@ App.UserController = Ember.ObjectController.extend(Ember.Evented, {
 	 * validate functions
 	 * @returns {*}
 	 */
-	validateFirstName: function() {
-		return this.getValue('firstName');
+	validateFirstname: function() {
+		return this.getValue('firstname');
 	},
-	validateLastName: function() {
-		return this.getValue('lastName');
+	validateLastname: function() {
+		return this.getValue('lastname');
 	},
 	validateEmail: function() {
 		return this.getValue('email') && this.isValidEmail('email');

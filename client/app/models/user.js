@@ -1,15 +1,15 @@
 App.User = DS.Model.extend({
 	//a user can have many groups
 	group: DS.hasMany('group', { async: true }),
-	firstName: DS.attr('string'),
-	lastName: DS.attr('string'),
+	firstname: DS.attr('string'),
+	lastname: DS.attr('string'),
 	password: DS.attr('string'),
 	email: DS.attr('string'),
 	lastLogin : DS.attr('timestamp'),
 
-	fullName: function(){
-		return this.get('firstName')+' '+this.get('lastName');
-	}.property('firstName', 'lastName')
+	fullname: function(){
+		return this.get('firstname')+' '+this.get('lastname');
+	}.property('firstname', 'lastname')
 
 	//....have to be completed
 });
