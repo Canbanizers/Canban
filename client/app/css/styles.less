@@ -119,7 +119,7 @@ html, body {
 }
 
 body {
-	/*overflow: hidden;*/
+	overflow: hidden;
 	padding: 0;
 	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -285,17 +285,19 @@ body {
 
 	font-family: Fine_Liner, sans-serif;
 	background: @ticket_yellow;
-	color: #000000;
 
-	.ui-widget-header {
+	.ui-dialog-titlebar {
 		.heading_factory(30px);
+		.ui-dialog-title {
+			float: none;
+		}
 	}
 
 	.ui-dialog-titlebar-close {
 		display: none;
 	}
 
-	.ui-widget-header, .ui-dialog-buttonpane {
+	.ui-dialog-titlebar, .ui-dialog-buttonpane {
 		background: @ticket_yellow;
 		border: none 0 transparent;
 	}
