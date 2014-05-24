@@ -26,7 +26,7 @@ ALTER TABLE `users` AUTO_INCREMENT = 1;
 ALTER TABLE `boards` AUTO_INCREMENT = 1;
 
 #change last_login for registration user to have null in last_login
-ALTER TABLE `users` CHANGE `last_login` `last_login` DATETIME NULL;
+ALTER TABLE `users` CHANGE `last_login` `last_login` TIMESTAMP NULL;
 
 #increase the maximum char value of ticket content an if none given to be null
 ALTER TABLE `tickets` CHANGE `content` `content` VARCHAR(800) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
