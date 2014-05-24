@@ -40,6 +40,21 @@ App.TicketCompComponent = Ember.Component.extend({
 		}
 	}.property('ticket.title', 'basic'),
 
+
+	titleWidth: function() {
+		var calc = '<span id="calc_span" class="ui-dialog" style="display: none;"><span class="ui-dialog-titlebar" style="font-family: Fine_Liner, sans-serif;font-size: 30px;font-weight: 900;line-height: 30px;">' +
+				   this.get('title') + '</span></span>';
+		var body = $('body');
+		body.append(calc);
+
+		var calcSpan = $('#calc_span');
+
+		var width = calcSpan.outerWidth();
+		console.log(width);
+		calcSpan.remove();
+		return width;
+	}.property('title'),
+
 	displayPrevious: function() {
 		return this.get('ticket.state') > 1;
 	}.property('ticket.state'),
@@ -153,7 +168,8 @@ App.TicketCompComponent = Ember.Component.extend({
 				jqThis.dialog({
 					buttons: buttons,
 					dialogClass: 'ticket ' + type,
-					minWidth   : 200,
+					minWidth: self.get('titleWidth'),
+					maxWidth: 800,
 
 					hide: {
 						effect   : self.get('ticket.isDeleted') ? 'explode' : 'puff',
