@@ -167,7 +167,7 @@ App.TicketCompComponent = Ember.Component.extend({
 				self.set('isDialog', true);
 				jqThis.dialog({
 					buttons: buttons,
-					dialogClass: 'ticket ' + type,
+					dialogClass: 'ticket ' + type + (self.get('ticket.isImportant') ? ' important' : ''),
 					minWidth: self.get('titleWidth'),
 					maxWidth: 800,
 

@@ -301,9 +301,6 @@ body {
 		background: @ticket_yellow;
 		border: none 0 transparent;
 	}
-
-	.ui-dialog-content, .ui-widget-content {
-	}
 }
 
 .ticket.details {
@@ -315,8 +312,11 @@ body {
 	}
 }
 
-.ticket.important {
+ui-dialog.ticket.important, .ticket.important {
 	background-color: @red_important;
+	.ui-dialog-titlebar, .ui-dialog-buttonpane {
+		background-color: @red_important;
+	}
 }
 
 .ticket.done .ticket_title {
