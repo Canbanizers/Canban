@@ -60,7 +60,13 @@ class ResponseFactory
 		$this->sendResponse($json, $status_code);
 	}
 
-
+	/**
+	 * Encode array regardless of which depth to UTF
+	 *
+	 * @param array $array
+	 *
+	 * @return array
+	 */
 	private function utf8Encode(array $array) {
 		$utf8_encoded = array();
 		foreach ($array as $key => $value) {
