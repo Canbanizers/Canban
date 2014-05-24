@@ -20,7 +20,7 @@ class ResponseFactory
 		header("HTTP/1.0 {$status_code}");
 		header('Content-Type: application/json');
 
-		$debug = ($response_models[0] instanceof Tickets);
+		//		$debug = ($response_models[0] instanceof Tickets);
 		if (200 === $status_code) {
 			$response_array = array();
 			if (is_array($response_models)) {
@@ -33,16 +33,8 @@ class ResponseFactory
 				$data_array = $response_models->to_array();
 				$response_array = array(strtolower(get_class($response_models)) => $data_array);
 			}
-			if ($debug) {
-				var_dump($response_array);
-			}
 			$response_array = $this->utf8Encode($response_array);
 			$jsonResponse = json_encode($response_array);
-
-			//			if($debug) {
-			//				var_dump($response_array);
-			//				var_dump(json_last_error_msg());
-			//			}
 
 			echo $jsonResponse;
 		} else {
@@ -73,9 +65,11 @@ class ResponseFactory
 		$utf8_encoded = array();
 		foreach ($array as $key => $value) {
 			if (is_array($value)) {
-				$this->utf8Encode($value);
+				$utf8_encoded[$key] = $this->utf8Encode($value);
 			} elseif (is_string($value)) {
 				$utf8_encoded[$key] = utf8_encode($value);
+			} else {
+				$utf8_encoded[$key] = $value;
 			}
 		}
 
