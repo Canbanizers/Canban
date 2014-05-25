@@ -119,7 +119,7 @@ html, body {
 }
 
 body {
-	/*overflow: hidden;*/
+	overflow: hidden;
 	padding: 0;
 	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -242,6 +242,9 @@ body {
 /* ### Tickets ### */
 
 .ticket {
+	font-family: Fine_Liner, sans-serif;
+	background: @ticket_yellow;
+	color: #000000;
 	.ticket_menu {
 		vertical-align: middle;
 		text-align: left;
@@ -263,11 +266,17 @@ body {
 	}
 }
 
+.ticket.important {
+	background-color: @red_important;
+}
+
+.ticket.done .ticket_title {
+	text-decoration: line-through;
+}
+
 .ticket.basic {
 	.box-shadow(3px 7px, @dark_green_shadow);
 	text-align: center;
-	font-family: Fine_Liner, sans-serif;
-	color: #000000;
 	height: 80px;
 	width: 185px;
 	margin: 5px 3px;
@@ -276,31 +285,26 @@ body {
 	opacity: 0.9;
 	display: inline-block;
 	float: left;
-	background-color: @ticket_yellow;
 	border-bottom: solid 1px #000000;
 	border-right: solid 1px #000000;
 }
 
 .ui-dialog.ticket {
 
-	font-family: Fine_Liner, sans-serif;
-	background: @ticket_yellow;
-	color: #000000;
-
-	.ui-widget-header {
+	.ui-dialog-titlebar {
 		.heading_factory(30px);
+		.ui-dialog-title {
+			float: none;
+		}
 	}
 
 	.ui-dialog-titlebar-close {
 		display: none;
 	}
 
-	.ui-widget-header, .ui-dialog-buttonpane {
-		background: @ticket_yellow;
+	.ui-dialog-titlebar, .ui-dialog-buttonpane {
+		background: inherit;
 		border: none 0 transparent;
-	}
-
-	.ui-dialog-content, .ui-widget-content {
 	}
 }
 
@@ -313,14 +317,6 @@ body {
 	}
 }
 
-.ticket.important {
-	background-color: @red_important;
-}
-
-.ticket.done .ticket_title {
-	text-decoration: line-through;
-}
-
 .ticket.placeholder {
 	height: 80px;
 	width: 185px;
@@ -328,6 +324,7 @@ body {
 	padding: 5px;
 	z-index: 1;
 	display: inline-block;
+	background: none;
 	float: left;
 }
 
