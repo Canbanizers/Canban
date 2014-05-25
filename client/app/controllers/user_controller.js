@@ -85,7 +85,7 @@ App.UserController = Ember.ObjectController.extend({
 		 */
 		cancel: function(){
 			//TODO: board-id übergeben
-			this.transitionToRoute('board');
+			this.transitionToRoute('private_canban');
 		}
 	}
 });
