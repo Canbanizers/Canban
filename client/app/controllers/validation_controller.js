@@ -1,7 +1,7 @@
 App.ValidationController = Ember.ObjectController.extend({
 
 	content: Ember.Object.create({}),
-	needs: ['user'],
+	needs: ['user', 'login'],
 	controller: null,
 	isError: {},
 

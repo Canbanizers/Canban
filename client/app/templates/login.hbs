@@ -1,1 +1,9 @@
-{{login-comp user=this}}
+<div class="container">
+	<form class="form-signin" {{action "login" on="submit"}}>
+	<h2 class="board-heading">Sign In</h2>
+	{{view App.ValidationTextField viewName="email" valueBinding="email" placeholder="E-Mail"}}
+	{{view App.ValidationTextField viewName="password" valueBinding="password" placeholder="******" type="password"}}
+	<!--{{#link-to '' id="signup"}}Sign Up{{/link-to}}-->
+	{{input id="signin" class="board-button" type="submit" value="Sign In"}}
+	</form>
+</div>
