@@ -33,7 +33,7 @@
 
 			<div>
 				<label>Password</label>
-				{{view App.ValidationTextField type="password" viewName="password" valueBinding="password"}}
+				{{view App.ValidationTextField type="password" viewName="password" valueBinding="pwPlaceholder"}}
 				<span>
 					{{#if passwordError}}
 						{{view App.IconButtonView type='remove'}}
@@ -59,6 +59,10 @@
 			</div>
 
 		<button {{action "save"}}> Save changes </button>
+			{{#if saveError}}
+			{{view App.IconButtonView type='remove'}}
+			<span class="error-message">Please check your input again.</span>
+			{{/if}}
 		<button {{action "cancel"}}> Cancel </button>
 		</form>
 	</div>

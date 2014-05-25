@@ -3,7 +3,7 @@
  * @type {*|void|Object|extend|extend|extend}
  */
 App.ValidationView = Ember.View.extend({
-	templateName: 'user'
+//	templateName: 'user'
 });
 
 /**

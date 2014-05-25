@@ -3,6 +3,7 @@ App.ValidationController = Ember.ObjectController.extend({
 	content: Ember.Object.create({}),
 	needs: ['user'],
 	controller: null,
+	isError: {},
 
 	/**
 	 * set the current controller which want to use the validation
@@ -28,6 +29,10 @@ App.ValidationController = Ember.ObjectController.extend({
 			//Debugging
 			console.log("" + val + " has error");
 		}
+
+		var errors = this.get('isError');
+		errors['email'] = error;
+		this.set('isError', errors);
 		return error;
 	},
 
@@ -41,12 +46,19 @@ App.ValidationController = Ember.ObjectController.extend({
 	comparePasswords: function(val) {
 		var error, value;
 		value = this.controller.get(val);
+		var password = this.controller.get('pwPlaceholder');
+		console.log(value);
+		console.log(password);
 		error = false;
-		if(value !== this.controller.get('password')) {
+		if(value !== password ) {
 			error = true;
 			//Debugging
 			console.log("" + val + "Compare has error");
 		}
+
+		var errors = this.get('isError');
+		errors['comparePassword'] = error;
+		this.set('isError', errors);
 		return error;
 	},
 
@@ -58,13 +70,30 @@ App.ValidationController = Ember.ObjectController.extend({
 	 * @returns {*}
 	 */
 	getValue: function(val) {
-		var error, result;
+		var error,result;
 		error = false;
 		if (!(result = !!this.controller.get(val))) {
 			error = true;
 			//Debugging
 			console.log("" + val + " has error");
 		}
+		var errors = this.get('isError');
+		errors[val] = error;
+		this.set('isError', errors);
 		return error;
+	},
+
+
+	hasErrors: function() {
+		var hasError = false;
+		var errors = this.get('isError');
+		for(var error in errors) {
+			if(errors.hasOwnProperty(error)) {
+				if(errors[error]) {
+					hasError = true;
+				}
+			}
+		}
+		return hasError;
 	}
 })

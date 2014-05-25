@@ -3,6 +3,7 @@ App.UserController = Ember.ObjectController.extend({
 	editMode: false,
 	deleteMode: false,
 	needs: ['validation'],
+	noChanges: true,
 
 	/**
 	 * validate functions
@@ -18,6 +19,7 @@ App.UserController = Ember.ObjectController.extend({
 	},
 	validatePassword: function() {
 		this.set('passwordError', this.get('controllers.validation').getValue('password'));
+		this.set('noChanges', false);
 	},
 	validatePasswordConfirmation: function() {
 		this.set('passwordConfirmationError', this.get('controllers.validation').getValue('passwordConfirmation'));
@@ -65,10 +67,17 @@ App.UserController = Ember.ObjectController.extend({
 		 * save new user-profile
 		 */
 		save: function(){
-			var user = this.get('model');
-			//TODO: only save without errors
-			user.save();
-			this.transitionToRoute('user', user.id);
+
+			if(this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
+				this.set('saveError', true);
+			} else {
+				this.set('saveError', false);
+				var user = this.get('model');
+				user.set('password', this.get('pwPlaceholder'));
+				//TODO: only save without errors
+				user.save();
+				this.transitionToRoute('user', user.id);
+			}
 		},
 
 		/**
