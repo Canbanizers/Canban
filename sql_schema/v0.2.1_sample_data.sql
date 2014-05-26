@@ -1,10 +1,10 @@
 INSERT INTO `canban`.`users` (`id`, `email`, `firstname`, `lastname`, `password`, `last_login`)
 VALUES
-#pw = Mustermann
-	('1', 'max@mustermann.de', 'max', 'mustermann', '$2y$10$YXV3JTJNfUhLNSw9YTp0W.chxJ.D.fiEXOvRbrO3TEysOa1IUjKiK', NULL),
-#pw = Smith
+	#pw = Mustermann
+	('1', 'max@mustermann.de', 'max', 'mustermann', '$2y$10$YXV3JTJNfUhLNSw9YTp0W.chxJ.D.fiEXOvRbrO3TEysOa1IUjKiK', null),
+	#pw = Smith
 	('2', 'john@smith.com', 'john', 'smith', '$2y$10$YXV3JTJNfUhLNSw9YTp0W.fTzp6IHuEZ9PSWtFNJgmrcv8cWm0Lpy', '2014-05-23 09:20:00'),
-#pw = they_killed_kenny
+	#pw = they_killed_kenny
 	('3', 'kenny@southpark.com', '', '', '$2y$10$YXV3JTJNfUhLNSw9YTp0W.H174j/CexjW2sPmYmIaFXfpDdzr0X0.', '2014-04-23 18:45:15');
 
 INSERT INTO `canban`.`boards` (`ID`, `NAME`, `PARENT`, `CREATION_DATE`)
@@ -25,8 +25,7 @@ VALUES
 
 INSERT INTO `canban`.`tickets` (`id`, `state`, `content`, `priority`, `creation_date`, `last_modify_date`, `title`)
 VALUES
-	('1', '1', 'This is an example ticket. You can finish or ignore it.', '0', CURRENT_TIMESTAMP, NULL,
-	 'Welcome to Personal Kanban'),
+	('1', '1', 'This is an example ticket. You can finish or ignore it.', '0', CURRENT_TIMESTAMP, NULL, 'Welcome to Personal Kanban'),
 	('2', '2', 'This is an example ticket. You can finish or ignore it.', '0', '2014-05-14 05:22:38', '2014-05-14 05:30:15', 'Welcome to Personal Kanban'),
 	('3', '3', 'This is an example ticket. You can finish or ignore it.', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Welcome to Personal Kanban'),
 	('4', '1', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies', '0', '2014-05-14 05:22:38', NULL, 'Quisque rutrum Aenean imperdiet'),
@@ -48,8 +47,7 @@ VALUES
 	('20', '3', 'You know, they lay down with their ugly wives in front of their ugly children and just look at their loser lives and then they look at me and say, ''I CAN''T PROCESS IT!'' Well, no, and you never will. Stop trying. Just sit back and enjoy the show .... You know? And I''m like ... guys, it''s right there in the thing. Duh! We work for the Pope. We murder people.', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Stop trying'),
 	('21', '3', 'This is an example ticket. You can finish or ignore it.', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Welcome to Personal Kanban'),
 	('22', '1', 'Different types of wood', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Wood lession chapter 1'),
-	('23', '2', 'Tools form working with wood', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06',
-	 'Wood lession chapter 2'),
+	('23', '2', 'Tools form working with wood', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Wood lession chapter 2'),
 	('24', '3', '', '0', '2013-11-21 17:01:10', '2013-12-21 16:50:06', 'Wood lession chapter 3');
 
 INSERT INTO `canban`.`boardhasticket` (`ID`, `ID_BOARD`, `ID_TICKET`)
