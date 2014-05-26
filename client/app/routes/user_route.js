@@ -1,3 +1,4 @@
+'use strict';
 App.UserRoute = Ember.Route.extend({
 	model: function() {
 
