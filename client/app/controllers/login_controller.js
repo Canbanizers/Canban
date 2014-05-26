@@ -20,7 +20,7 @@ App.LoginController = Ember.ObjectController.extend({
 	},
 	actions: {
 		login: function() {
-			if(this.get('controllers.validation').hasErrors() && this.get('noChanges')) {
+			if(this.get('controllers.validation').hasErrors() || this.noChanges) {
 				this.set('saveError', true);
 			} else {
 				this.set('saveError', false);
