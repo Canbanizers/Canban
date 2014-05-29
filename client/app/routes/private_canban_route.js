@@ -8,5 +8,17 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		} else {
 			this.transitionTo('board', 'Personal Board');
 		}
+	},
+	actions: {
+		/**
+		 * unsets the token which indicates if the user is logged in and saves the user model
+		 * afterwards he will be redirected to login page
+		 */
+		logout: function(){
+			var user = this.controllerFor('private_canban').get('user');
+			user.set('token', null);
+			user.save();
+			this.transitionTo('login');
+		}
 	}
 });

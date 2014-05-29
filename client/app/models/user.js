@@ -6,6 +6,7 @@ App.User = DS.Model.extend({
 	password: DS.attr('string'),
 	email: DS.attr('string'),
 	lastLogin : DS.attr('timestamp'),
+	token: DS.attr('string'),
 
 	fullname: function(){
 		return this.get('firstname')+' '+this.get('lastname');
