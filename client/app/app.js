@@ -13,16 +13,16 @@ App.Router.map(function () {
 
 		this.resource('board', {path: '/board/:board_name'}, function(){});
 
-		this.resource('groups', function(){
-			this.resource('group', {path: '/:group_id'}, function(){
-				this.route('edit');
-			});
-			this.route('create');
-		});
+//		this.resource('groups', function(){
+//			this.resource('group', {path: '/:group_id'}, function(){
+//				this.route('edit');
+//			});
+//			this.route('create');
+//		});
 
-		this.resource('user', { path:'/user' }, function(){});
+		this.resource('user');
 
-		this.resource('login', {path: '/login'} , function() {});
+		this.resource('login');
 	});
 });
 
