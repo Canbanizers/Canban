@@ -1,15 +1,46 @@
 'use strict';
 App.LoginController = Ember.ObjectController.extend({
-	loggedInUser: null,
+	content: Ember.Object.create({}),
+	needs: ['validation', 'private_canban'],
+	noChanges: true,
+
+	/**
+	 * set this as the current controller for the validation and allows the validationcontroller to have access to it
+	 */
+	setController: function() {
+		this.get('controllers.validation').initializeController(this);
+	},
+	validateEmail: function() {
+		this.set('emailError', this.get('controllers.validation').getValue('email'));
+		this.set('invalidEmailError', this.get('controllers.validation').isValidEmail('email'));
+		this.set('noChanges', false);
+	},
+	validatePassword: function() {
+		this.set('passwordError', this.get('controllers.validation').getValue('password'));
+		this.set('noChanges', false);
+	},
 	actions: {
-		checkLogin: function(email, password) {
-			alert('test');
-			var respone = this.store.find('user', { email: email, password: password });
-			console.log(respone);
-//			this.set('loggedInUser', respone);
-		},
-		test: function() {
-			alert('test controll er');
+		/**
+		 * If all login fields are valid, this method sends a server request to check if there is a corresponding  entry
+		 * in the database. When there is a user with the specified email and password the model will be injected into
+		 * the PrivateCanbanController.
+		 */
+		login: function() {
+			if(this.get('controllers.validation').hasErrors() || this.noChanges) {
+				this.set('saveError', true);
+			} else {
+				this.set('saveError', false);
+				var self = this;
+				var userPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
+				userPromise.then(function(users) {
+					users.forEach(function(user){
+						self.set('controllers.private_canban.user', user);
+						self.get('controllers.private_canban').getData();
+
+					});
+				}, function() {
+				});
+			}
 		}
 	}
 });

@@ -1,5 +1,5 @@
 App.UserController = Ember.ObjectController.extend({
-
+	content: Ember.Object.create({}),
 	editMode: false,
 	deleteMode: false,
 	needs: ['validation'],
@@ -74,7 +74,6 @@ App.UserController = Ember.ObjectController.extend({
 				this.set('saveError', false);
 				var user = this.get('model');
 				user.set('password', this.get('pwPlaceholder'));
-				//TODO: only save without errors
 				user.save();
 				this.transitionToRoute('user', user.id);
 			}
@@ -84,8 +83,7 @@ App.UserController = Ember.ObjectController.extend({
 		 * cancel and go back to personal board
 		 */
 		cancel: function(){
-			//TODO: board-id übergeben
-			this.transitionToRoute('board');
+			this.transitionToRoute('board', 'Personal Board');
 		}
 	}
 });

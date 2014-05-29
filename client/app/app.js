@@ -5,6 +5,9 @@ window.App = Ember.Application.create({
 	LOG_TRANSITIONS_INTERNAL: true
 });
 
+/**
+ * The function is responsible for mapping the URL to the corresponding Ember.Route
+ */
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
 
@@ -17,35 +20,23 @@ App.Router.map(function () {
 			this.route('create');
 		});
 
-		this.resource('user', { path:'/user/:user_id' }, function(){});
+		this.resource('user', { path:'/user' }, function(){});
 
 		this.resource('login', {path: '/login'} , function() {});
 	});
 });
 
+/**
+ * initialize the LSRESTAdapter
+ * @type {*|void|Object}
+ */
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
 	host : 'http://localhost/canban',
 	namespace : 'api',
 	lsnamespace: 'private_canban'
 });
 
-App.TicketAdapter = App.ApplicationAdapter.extend({
 
-	ajaxError: function(jqXHR) {
-		var error = this._super(jqXHR);
-		if (jqXHR && jqXHR.status === 500) {
-			var errorArray = jqXHR.responseJSON.error.split(',');
-			return {
-				serverError : 500,
-				sqlState : errorArray[0],
-				sqlError : errorArray[1],
-				errorMessage: errorArray[2]
-			}
-		} else {
-			return error;
-		}
-	}
-});
 
 App.ApplicationSerializer = DS.JSONSerializer.extend({});
 

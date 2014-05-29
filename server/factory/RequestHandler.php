@@ -99,7 +99,6 @@ class RequestHandler
 			throw $nrc_e;
 		}
 		$id = null;
-
 		if (!empty($_REQUEST['id'])) {
 			$id = $_REQUEST['id'];
 		}
@@ -133,7 +132,14 @@ class RequestHandler
 		}
 
 		$req_body = file_get_contents('php://input');
-		$json = json_decode($req_body, true);
+		if('logins' === $model && 'findAll' === $req_method && empty($req_body)) {
+			$req_method = 'findQuery';
+			$model = 'users';
+			$json = array('email' => $_REQUEST['email'], 'password' => $_REQUEST['password']);
+
+		} else {
+			$json = json_decode($req_body, true);
+		}
 		//Methods without Request Body
 		$allowed_values = array('find', 'findAll', 'delete');
 

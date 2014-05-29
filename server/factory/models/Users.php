@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'../utils'.DIRECTORY_SEPARATOR.'UserToken.php';
 
 /**
  * Class User
@@ -51,6 +52,20 @@ class Users extends ActiveRecord\Model {
 	 */
 	public function findAllUsers() {
 		return self::find('all');
+	}
+
+	public function findQueryUsers($params) {
+		$users = self::all(array('conditions' => array ('email = ? and password = ?', $params['email'], $params['password'])));
+		$user = null;
+		if(!empty($users)){
+			$user = $users[0];
+			$id = $user->id;
+			$user->token  = UserToken::getToken();
+			$user->save();
+			$user = self::find($id);
+		}
+
+		return array($user);
 	}
 
 	/**

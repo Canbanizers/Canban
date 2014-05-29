@@ -61,6 +61,8 @@ class ResponseFactory
 	}
 
 	/**
+	 * TODO: catch exceptions
+	 *
 	 * Encode array regardless of which depth to UTF
 	 *
 	 * @param array $array

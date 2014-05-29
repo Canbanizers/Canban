@@ -81,7 +81,6 @@ class ModelFactory implements SubjectInterface {
 	 */
 	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
-
 			$model = $this->getModel($model_name);
 
 			$model_class = ucfirst($model_name);
@@ -102,6 +101,8 @@ class ModelFactory implements SubjectInterface {
 					return $model->$method_name($params[array_shift(array_keys($params))]);
 				case 'findAll':
 					return $model->$method_name($since);
+				case 'findQuery':
+					return $model->$method_name($params);
 				default:
 					return $model->$method_name($id);
 			}

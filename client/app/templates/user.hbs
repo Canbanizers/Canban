@@ -10,7 +10,7 @@
 				<span>
 					{{#if firstnameError}}
 						{{view App.IconButtonView type='remove'}}
-						<span class="error-message">Please fill in.</span>
+						<span class="error_message">Please fill in.</span>
 					{{/if}}
 				</span>
 			</div>
@@ -21,7 +21,7 @@
 				<span>
 					{{#if lastnameError}}
 						{{view App.IconButtonView type='remove'}}
-						<span class="error-message">Please fill in.</span>
+						<span class="error_message">Please fill in.</span>
 					{{/if}}
 				</span>
 			</div>
@@ -37,7 +37,7 @@
 				<span>
 					{{#if passwordError}}
 						{{view App.IconButtonView type='remove'}}
-						<span class="error-message">Please fill in.</span>
+						<span class="error_message">Please fill in.</span>
 					{{/if}}
 				</span>
 			</div>
@@ -48,11 +48,11 @@
 				<span>
 					{{#if passwordConfirmationError}}
 						{{view App.IconButtonView type='remove'}}
-						<span class="error-message">Please confirm your password.</span>
+						<span class="error_message">Please confirm your password.</span>
 					{{else}}
 						{{#if passwordConfirmationCompareError}}
 							{{view App.IconButtonView type='remove'}}
-							<span class="error-message">Passwords don't match.</span>
+							<span class="error_message">Passwords don't match.</span>
 						{{/if}}
 					{{/if}}
 				</span>
@@ -60,8 +60,8 @@
 
 		<button {{action "save"}}> Save changes </button>
 			{{#if saveError}}
-			{{view App.IconButtonView type='remove'}}
-			<span class="error-message">Please check your input again.</span>
+				{{view App.IconButtonView type='remove'}}
+				<span class="error_message">Please check your input again.</span>
 			{{/if}}
 		<button {{action "cancel"}}> Cancel </button>
 		</form>

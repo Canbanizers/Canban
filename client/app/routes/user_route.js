@@ -1,5 +1,9 @@
 App.UserRoute = Ember.Route.extend({
-	model: function(params) {
-		return this.store.find('user', params.user_id);
+	model: function() {
+
+		/**
+		 * route should use the model of the PrivateCanbanRouter (logged in user)
+		 */
+		return this.controllerFor('private_canban').get('user');
 	}
 });
