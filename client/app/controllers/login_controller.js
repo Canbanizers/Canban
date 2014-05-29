@@ -1,5 +1,6 @@
 'use strict';
 App.LoginController = Ember.ObjectController.extend({
+	content: Ember.Object.create({}),
 	needs: ['validation', 'private_canban'],
 	noChanges: true,
 
@@ -19,17 +20,24 @@ App.LoginController = Ember.ObjectController.extend({
 		this.set('noChanges', false);
 	},
 	actions: {
+		/**
+		 * If all login fields are valid, this method sends a server request to check if there is a corresponding  entry
+		 * in the database. When there is a user with the specified email and password the model will be injected into
+		 * the PrivateCanbanController.
+		 */
 		login: function() {
 			if(this.get('controllers.validation').hasErrors() || this.noChanges) {
 				this.set('saveError', true);
 			} else {
 				this.set('saveError', false);
-				var user = this.store.find('user', {email: this.get('email'), password: this.get('password')});
 				var self = this;
-				user.then(function() {
-					//TODO: Transition don't work yet.
-					self.get('controllers.private_canban').user = user;
-					self.transitionToRoute('private_canban');
+				var userPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
+				userPromise.then(function(users) {
+					users.forEach(function(user){
+						self.set('controllers.private_canban.user', user);
+						self.get('controllers.private_canban').getData();
+
+					});
 				}, function() {
 				});
 			}

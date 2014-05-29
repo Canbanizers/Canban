@@ -1,33 +1,12 @@
 App.PrivateCanbanRoute = Ember.Route.extend({
-	loggedIn: true,
-	model : function() {
-		var self = this;
-		if (this.get('loggedIn')) {
-			var users = self.store.find('user'), tickets = null, boards = null;
-
-			var model = users.then(function() {
-				boards = self.store.find('board');
-				return boards.then(function() {
-					tickets = self.store.find('ticket');
-					return tickets.then(function() {
-						return {
-							boardCount : boards.get('length'),
-							ticketCount: tickets.get('length')
-						};
-					});
-				});
-			});
-			return Ember.RSVP.resolve(model);
-		} else {
-			return null;
-		}
-	},
-	setupController: function(controller, model) {
-		controller.set('model', model);
-		if (controller.get('user')) {
-			this.transitionTo('board', 'Personal Board');
-		} else {
+	/**
+	 * if user is logged in he will be redirected to his mainboard, if not he will be transfer back to login
+	 */
+	renderTemplate: function() {
+		if(!this.controllerFor('private_canban').get('user')) {
 			this.transitionTo('login');
+		} else {
+			this.transitionTo('board', 'Personal Board');
 		}
 	}
 });

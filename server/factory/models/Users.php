@@ -65,7 +65,7 @@ class Users extends ActiveRecord\Model {
 			$user = self::find($id);
 		}
 
-		return $user;
+		return array($user);
 	}
 
 	/**

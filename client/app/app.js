@@ -5,6 +5,9 @@ window.App = Ember.Application.create({
 	LOG_TRANSITIONS_INTERNAL: true
 });
 
+/**
+ * The function is responsible for mapping the URL to the corresponding Ember.Route
+ */
 App.Router.map(function () {
 	this.resource('private_canban', { path: '/' }, function () {
 
@@ -17,12 +20,16 @@ App.Router.map(function () {
 			this.route('create');
 		});
 
-		this.resource('user', { path:'/user/:user_id' }, function(){});
+		this.resource('user', { path:'/user' }, function(){});
 
 		this.resource('login', {path: '/login'} , function() {});
 	});
 });
 
+/**
+ * initialize the LSRESTAdapter
+ * @type {*|void|Object}
+ */
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
 	host : 'http://localhost/canban',
 	namespace : 'api',
