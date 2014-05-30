@@ -81,6 +81,13 @@ class ModelFactory implements SubjectInterface {
 	 */
 	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
+			if('users' === $model_name) {
+				if(!empty($params['password'])){
+					$params['password'] = md5($params['password']);
+				} elseif(!empty($params['user']['password'])){
+					$params['user']['password'] = md5($params['user']['password']);
+				}
+			}
 			$model = $this->getModel($model_name);
 
 			$model_class = ucfirst($model_name);

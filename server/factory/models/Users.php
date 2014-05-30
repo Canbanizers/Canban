@@ -32,15 +32,9 @@ class Users extends ActiveRecord\Model {
 				$index = array_search($param, $params);
 				unset($index);
 			}
-
-			// TODO Check if on new user an date will be set or not
 			if ('lastlogin' === $param) {
 				$date = new DateTime('now');
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
-			}
-
-			if('password' === $param) {
-				$params['password'] = password_hash($value, PASSWORD_DEFAULT);
 			}
 		}
 
@@ -64,7 +58,6 @@ class Users extends ActiveRecord\Model {
 			$user->save();
 			$user = self::find($id);
 		}
-
 		return array($user);
 	}
 
