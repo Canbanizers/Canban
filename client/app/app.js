@@ -23,6 +23,8 @@ App.Router.map(function () {
 		this.resource('user');
 
 		this.resource('login');
+
+		this.resource('registration');
 	});
 });
 

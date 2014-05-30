@@ -1,7 +1,7 @@
 App.ValidationController = Ember.ObjectController.extend({
 
 	content: Ember.Object.create({}),
-	needs: ['user', 'login'],
+	needs: ['user', 'login', 'registration'],
 	controller: null,
 	isError: {},
 
@@ -26,8 +26,6 @@ App.ValidationController = Ember.ObjectController.extend({
 		error = false;
 		if (!value.match(/^\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
 			error = true;
-			//Debugging
-			console.log("" + val + " has error");
 		}
 
 		var errors = this.get('isError');
@@ -46,14 +44,10 @@ App.ValidationController = Ember.ObjectController.extend({
 	comparePasswords: function(val) {
 		var error, value;
 		value = this.controller.get(val);
-		var password = this.controller.get('pwPlaceholder');
-		console.log(value);
-		console.log(password);
+		var password = this.controller.get('password');
 		error = false;
 		if(value !== password ) {
 			error = true;
-			//Debugging
-			console.log("" + val + "Compare has error");
 		}
 
 		var errors = this.get('isError');
@@ -74,8 +68,6 @@ App.ValidationController = Ember.ObjectController.extend({
 		error = false;
 		if (!(result = !!this.controller.get(val))) {
 			error = true;
-			//Debugging
-			console.log("" + val + " has error");
 		}
 		var errors = this.get('isError');
 		errors[val] = error;

@@ -1,0 +1,81 @@
+<div class="profile">
+	<div>
+		<form>
+			<button {{action "cancel"}}>Back to Login</button>
+			<div>
+				<label>Firstname</label>
+				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname"}}
+				<span>
+					{{#if firstnameError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error_message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
+
+			<div>
+				<label>Lastname</label>
+				{{view App.ValidationTextField viewName="lastname" valueBinding="lastname"}}
+				<span>
+					{{#if lastnameError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error_message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
+
+			<div>
+				<label>Email</label>
+				{{view App.ValidationTextField viewName="email" valueBinding="email"}}
+				<span>
+					{{#if emailError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error_message">Please fill in.</span>
+					{{else}}
+						{{#if emailInvalidError}}
+							{{view App.IconButtonView type='remove'}}
+							<span class="error_message">E-Mail is invalid.</span>
+						{{/if}}
+					{{/if}}
+				</span>
+			</div>
+
+			<div>
+				<label>Password</label>
+				{{view App.ValidationTextField type="password" viewName="password" valueBinding="password"}}
+				<span>
+					{{#if passwordError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error_message">Please fill in.</span>
+					{{/if}}
+				</span>
+			</div>
+
+			<div>
+				<label>Password Confirmation</label>
+				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation"}}
+				<span>
+					{{#if passwordConfirmationError}}
+						{{view App.IconButtonView type='remove'}}
+						<span class="error_message">Please confirm your password.</span>
+					{{else}}
+						{{#if passwordConfirmationCompareError}}
+							{{view App.IconButtonView type='remove'}}
+							<span class="error_message">Passwords don't match.</span>
+						{{/if}}
+					{{/if}}
+				</span>
+			</div>
+
+			<button {{action "save"}}>Register</button>
+			{{#if saveError}}
+				{{view App.IconButtonView type='remove'}}
+				<span class="error_message">Please check your input again.</span>
+			{{/if}}
+			{{#if success}}
+				{{view App.IconButtonView type='ok'}}
+				<span class="success_message">Successfully registered. Redirecting in 5 seconds.</span>
+			{{/if}}
+		</form>
+	</div>
+</div>
