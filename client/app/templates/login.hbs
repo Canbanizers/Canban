@@ -1,6 +1,10 @@
 <div class="form">
 	<form class="login_form" {{action "login" on="submit"}}>
 		<h2>Login</h2>
+        {{#if saveError}}
+            {{view App.IconButtonView type='remove' class="error_button"}}
+			<span class="error_message">Please check your input again.</span>
+        {{/if}}
 		<div>
 			<label>Email</label>
 			{{view App.ValidationTextField viewName="email" valueBinding="email" placeholder="E-Mail"}}
@@ -10,7 +14,7 @@
 					<span class="error_message">Please fill in.</span>
 				{{else}}
 					{{#if invalidEmailError}}
-						{{view App.IconButtonView type='remove'}}
+						{{view App.IconButtonView type='remove' class="error_button"}}
 						<span class="error_message">Invalid E-Mailaddress.</span>
 					{{/if}}
 				{{/if}}
@@ -26,11 +30,9 @@
 				{{/if}}
 			</span>
 		</div>
-		{{input id="login_button" type="submit" value="Sign In"}}
-		{{#if saveError}}
-			{{view App.IconButtonView type='remove' class="error_button"}}
-			<span class="error_message">Please check your input again.</span>
-		{{/if}}
-	{{#link-to "registration"}} Registration {{/link-to}}
+        <div class="actions">
+            <button id="login_button" class="btn btn-canban" type="submit">Sign In</button>
+            {{#link-to "registration" class="btn btn-canban" role="button"}} Registration {{/link-to}}
+        </div>
 	</form>
 </div>

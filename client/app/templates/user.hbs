@@ -1,8 +1,13 @@
 <div class="profile">
 	<div>
 		<form>
-			<button {{action "cancel"}}> Back to Board </button>
-			<button {{action "delete"}}>Delete</button>
+			<button class="btn btn-canban" {{action "cancel"}}> Back to Board </button>
+			<button class="btn btn-canban" {{action "delete"}}>Delete</button>
+
+            {{#if saveError}}
+                {{view App.IconButtonView type='remove'}}
+				<span class="error_message">Please check your input again.</span>
+            {{/if}}
 
 			<div>
 				<label>Firstname</label>
@@ -58,12 +63,8 @@
 				</span>
 			</div>
 
-		<button {{action "save"}}> Save changes </button>
-			{{#if saveError}}
-				{{view App.IconButtonView type='remove'}}
-				<span class="error_message">Please check your input again.</span>
-			{{/if}}
-		<button {{action "cancel"}}> Cancel </button>
+		<button class="btn btn-canban" {{action "save"}}> Save changes </button>
+		<button class="btn btn-canban" {{action "cancel"}}> Cancel </button>
 		</form>
 	</div>
 </div>

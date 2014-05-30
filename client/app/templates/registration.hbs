@@ -1,7 +1,7 @@
 <div class="profile">
 	<div>
 		<form>
-			<button {{action "cancel"}}>Back to Login</button>
+			<button class="btn btn-canban" {{action "cancel"}}>Back to Login</button>
 			<div>
 				<label>Firstname</label>
 				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname"}}
@@ -67,7 +67,7 @@
 				</span>
 			</div>
 
-			<button {{action "save"}}>Register</button>
+			<button class="btn btn-canban" {{action "save"}}>Register</button>
 			{{#if saveError}}
 				{{view App.IconButtonView type='remove'}}
 				<span class="error_message">Please check your input again.</span>
