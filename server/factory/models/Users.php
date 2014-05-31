@@ -57,8 +57,10 @@ class Users extends ActiveRecord\Model {
 			$user->token  = UserToken::getToken();
 			$user->save();
 			$user = self::find($id);
+			$users[0] = $user;
 		}
-		return array($user);
+
+		return $users;
 	}
 
 	/**
@@ -90,6 +92,9 @@ class Users extends ActiveRecord\Model {
 	 */
 	public function updateUsers($id, $params) {
 		$user = self::find($id);
+		if (!empty($params['password']) && $user->password !== $params['password']) {
+			$params['password'] = md5($params['password']);
+		}
 		foreach ($params as $param => $value) {
 			if (!empty($value)) {
 				$user->$param = $value;

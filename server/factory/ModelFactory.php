@@ -81,7 +81,7 @@ class ModelFactory implements SubjectInterface {
 	 */
 	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
-			if('users' === $model_name) {
+			if ('users' === $model_name && 'update' !== $req_method) {
 				if(!empty($params['password'])){
 					$params['password'] = md5($params['password']);
 				} elseif(!empty($params['user']['password'])){
