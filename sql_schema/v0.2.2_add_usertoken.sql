@@ -1,1 +1,2 @@
-ALTER TABLE `users` ADD `token` VARCHAR( 256 ) NOT NULL ;
+USE `canban`;
+ALTER TABLE `users` CHANGE COLUMN `token` `token` VARCHAR(256) NULL;

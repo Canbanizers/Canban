@@ -1,3 +1,5 @@
-{{view App.IconButtonView type='info-sign' title='Board Info' button=true}}
-{{view App.IconButtonView type='cog' title='Board Settings' button=true}}
+{{view App.IconButtonView type='info-sign' title='Board Info' action='boardInfo' button=true}}
+{{view App.IconButtonView type='cog' title='Board Settings' action='boardSettings' button=true}}
+{{#unless management}}
 {{view App.IconButtonView type='edit' title='New Ticket' action='createTicket' button=true}}
+{{/unless}}

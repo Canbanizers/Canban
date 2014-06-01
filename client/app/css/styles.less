@@ -50,6 +50,11 @@
 }
 
 @font-face {
+	font-family: DK_Cool_Crayon;
+	src: url('../fonts/DK%20Cool%20Crayon.ttf');
+}
+
+@font-face {
 	font-family: Fine_Liner;
 	src: url('../fonts/Fineliner%20Script.otf');
 }
@@ -77,10 +82,14 @@
 	float: right;
 }
 
+.inline_block {
+	display: inline-block;
+}
+
 /* ### Headings ### */
 
 .board_heading {
-	font-family: Angry_Chalk, sans-serif;
+	font-family: DK_Cool_Crayon, sans-serif;
 	text-decoration: underline;
 	padding: 50px 0 0 20px;
 }
@@ -166,7 +175,7 @@ body {
 	display: inline-block;
 	position: absolute;
 	text-decoration: underline;
-	font-family: Angry_Chalk, sans-serif;
+	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 25px;
 	font-weight: bold;
 	line-height: 30px;
@@ -221,7 +230,7 @@ body {
 }
 
 .main_table_head {
-	font-family: Angry_Chalk, sans-serif;
+	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 50px;
 }
 
@@ -237,7 +246,6 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid transparent;
 	width: 33%;
-
 }
 
 .main_table_body td {
@@ -344,6 +352,77 @@ body {
 	float: left;
 }
 
+/* ### Boards Management ### */
+
+.boards_list {
+	float: left;
+	max-width: 20%;
+	color: @white;
+
+	.boards_list_item {
+		font-family: DK_Cool_Crayon, sans-serif;
+		padding: 5px 10px;
+		.chalk_border;
+		border-bottom: 10px solid transparent;
+		border-right: 10px solid transparent;
+
+		.board_menu {
+			display: inline-block;
+			width: 20px;
+			margin: 5px 0 0 5px;
+			vertical-align: middle;
+		}
+	}
+}
+
+.board_info {
+	font-family: DK_Cool_Crayon, sans-serif;
+	color: @white;
+	font-size: 30px;
+
+	.content {
+		margin-left: 15px;
+		.styled_select {
+			display: inline-block;
+			select {
+				background: none transparent;
+				border: none 0 transparent;
+				border-bottom: 5px solid transparent;
+				.chalk_border;
+
+				option {
+					display: block;
+					background-color: @white;
+					color: #000000;
+					font-family: Fine_Liner, sans-serif;
+				}
+			}
+
+		}
+		input, button {
+			background: none transparent;
+			border: 0 transparent;
+			.chalk_border;
+		}
+
+		button {
+			border-bottom: 2px solid transparent;
+		}
+
+		button:hover {
+			color: @white_hover;
+		}
+		input:enabled {
+			border-bottom: 5px solid transparent;
+		}
+	}
+}
+
+.management_content {
+	float: left;
+	margin: 10px;
+}
+
 /* ### Board Menu ### */
 
 .main_content .board_menu {
@@ -379,7 +458,7 @@ form .btn.btn-canban {
 /* ### Login Component ### */
 
 .form {
-	font-family: Angry_Chalk, sans-serif;
+	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 25px;
 	margin-left: auto;
 	margin-right: auto;
@@ -426,7 +505,7 @@ form .btn.btn-canban {
 /* ### Profile Area ### */
 
 .profile {
-	font-family: Angry_Chalk, sans-serif;
+	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 25px;
 	margin-left: 50px;
 	margin-top: 10px;
