@@ -1,24 +1,31 @@
 'use strict';
 window.App = Ember.Application.create({
 	//for debugging
-	LOG_TRANSITIONS: true,
+	LOG_TRANSITIONS         : true,
 	LOG_TRANSITIONS_INTERNAL: true
 });
 
 /**
  * The function is responsible for mapping the URL to the corresponding Ember.Route
  */
-App.Router.map(function () {
-	this.resource('private_canban', { path: '/' }, function () {
+App.Router.map(function() {
+	this.resource('private_canban', { path: '/' }, function() {
 
-		this.resource('board', {path: '/board/:board_name'}, function(){});
+		this.resource('board', {path: '/board/:board_name'}, function() {
+			this.route('show')
+		});
 
-//		this.resource('groups', function(){
-//			this.resource('group', {path: '/:group_id'}, function(){
-//				this.route('edit');
-//			});
-//			this.route('create');
-//		});
+		this.resource('boards', {path: '/boards'}, function() {
+			this.route('management');
+
+		});
+
+		//		this.resource('groups', function(){
+		//			this.resource('group', {path: '/:group_id'}, function(){
+		//				this.route('edit');
+		//			});
+		//			this.route('create');
+		//		});
 
 		this.resource('user');
 
@@ -33,11 +40,10 @@ App.Router.map(function () {
  * @type {*|void|Object}
  */
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
-	host : 'http://localhost/canban',
-	namespace : 'api',
+	host       : 'http://localhost/canban',
+	namespace  : 'api',
 	lsnamespace: 'private_canban'
 });
-
 
 
 App.ApplicationSerializer = DS.JSONSerializer.extend({});

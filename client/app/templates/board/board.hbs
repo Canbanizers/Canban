@@ -1,0 +1,13 @@
+<nav class="main_menu">
+	{{#link-to "user" id="profile_button" class="menu_item"}} Profile {{/link-to}}
+	{{#link-to "boards.management" id="board_button" class="menu_item"}} Board Management {{/link-to}}
+	<button id="logout_button" class="menu_item" {{action "logout"}}> Logout </button>
+</nav>
+<header class="main_head">
+	<h1 class="board_heading">{{name}}</h1>
+</header>
+
+<section class="main_content">
+	{{board-menu createTicket='showCreateTicket'}}
+	{{outlet}}
+</section>
