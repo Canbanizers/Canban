@@ -117,7 +117,8 @@ module.exports = function(grunt) {
 		watch           : {
 			scripts: {
 				files  : ['app/lib/*.js', 'app/*.js', 'app/controllers/*.js', 'app/views/*.js', 'app/routes/*.js',
-						  'app/models/*.js', 'app/css/*.less', 'app/templates/**/*.hbs', 'app/transforms/*.js'],
+						  'app/models/*.js', 'app/css/*.less', 'app/templates/**/*.hbs', 'app/transforms/*.js',
+						  'app/adapters/*.js'],
 				tasks  : ['ember_handlebars', 'concat', 'less'],
 				options: {
 					debounceDelay: 100
