@@ -15,19 +15,21 @@ App.ValidationController = Ember.ObjectController.extend({
 	},
 
 	/**
-	 * check if mailaddress is valid and trigger the error-message in template
+	 * check if mail address is valid and trigger the error-message in template
 	 *
 	 * @param val
 	 * @returns {boolean}
 	 */
 	isValidEmail: function(val) {
 		var error, value;
-		value = this.controller.get(val);
-		error = false;
-		if (!value.match(/^\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
-			error = true;
+		error = true;
+		if(!this.getValue(val)) {
+			value = this.controller.get(val);
+			error = false;
+			if (!value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+				error = true;
+			}
 		}
-
 		var errors = this.get('isError');
 		errors['email'] = error;
 		this.set('isError', errors);
@@ -36,20 +38,22 @@ App.ValidationController = Ember.ObjectController.extend({
 
 	/**
 	 *
-	 * compare the two password-inputfields and trigger the error-message in template
+	 * compare the two password-input fields and trigger the error-message in template
 	 *
 	 * @param val
 	 * @returns {boolean}
 	 */
 	comparePasswords: function(val) {
 		var error, value;
-		value = this.controller.get(val);
-		var password = this.controller.get('password');
-		error = false;
-		if(value !== password ) {
-			error = true;
+		error = true;
+		if(!this.getValue(val)) {
+			value = this.controller.get(val);
+			var password = this.controller.get('password');
+			error = false;
+			if(value !== password ) {
+				error = true;
+			}
 		}
-
 		var errors = this.get('isError');
 		errors['comparePassword'] = error;
 		this.set('isError', errors);
@@ -58,15 +62,15 @@ App.ValidationController = Ember.ObjectController.extend({
 
 	/**
 	 *
-	 * check if inputfield is empty and trigger the error-message in template
+	 * check if input field is empty and trigger the error-message in template
 	 *
 	 * @param val
-	 * @returns {*}
+	 * @returns {boolean}
 	 */
 	getValue: function(val) {
-		var error,result;
+		var error;
 		error = false;
-		if (!(result = !!this.controller.get(val))) {
+		if (!this.controller.get(val)) {
 			error = true;
 		}
 		var errors = this.get('isError');
