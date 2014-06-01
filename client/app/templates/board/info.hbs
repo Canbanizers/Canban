@@ -1,0 +1,30 @@
+<section class="board_info">
+	<h1>{{name}}</h1>
+	<br/>
+	<form class="content">
+		{{#if info}}
+			Ticket Count: {{ticketCount}} <br/>
+			Creation Date:  {{input type="text" disabled=true value=creation_date}}  <br/>
+			{{#if parent}}
+				Parent: <button {{action "changeBoard" getParent}}>{{getParent.name}}</button> <br/>
+			{{/if}}
+			{{#with getChildren}}
+				{{#if this}}
+					Child Boards:
+					{{#each}}
+						 <button {{action "changeBoard" this}}>{{this.name}}</button> <br/>
+					{{/each}}
+				{{/if}}
+			{{/with}}
+		{{/if}}
+		Wip: {{input type="text" disabled=info value=wip}} <br/>
+		{{#unless info}}
+			Parent: <div class="styled_select">
+				{{view Ember.Select content=getBoards optionValuePath="content.id" optionLabelPath="content.name" selection="parent" valueBinding="parent"}}
+			</div>
+			<br/><br/>
+			<button {{action "save" this}}> Save changes </button>
+		<button {{action "cancel" this}}> Cancel </button>
+		{{/unless}}
+	</form>
+</section>
