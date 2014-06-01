@@ -9,7 +9,7 @@ class Boards extends ActiveRecord\Model {
 
 
 	private $searchArray = array(
-		'select' => 'boards.*, GROUP_CONCAT(tickets_id) AS tickets',
+		'select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets',
 		'joins'  => 'LEFT JOIN boardhasticket on id_board = boards.id',
 		'group'  => 'boards.id'
 	);
