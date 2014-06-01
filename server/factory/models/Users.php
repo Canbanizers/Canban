@@ -3,6 +3,23 @@
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'../utils'.DIRECTORY_SEPARATOR.'UserToken.php';
 
+
+/* tmp debugging */
+//class logger{
+//	public function log($sql){
+//		error_log($sql, 3, 'C:\xampp\htdocs\Canban\sql.log');
+//	}
+//}
+//$theLogger = new logger();
+//
+//ActiveRecord\Config::initialize(function($cfg) use($theLogger)
+//
+//{
+//	$cfg->set_logger($theLogger);
+//	$cfg->set_logging(true);
+//});
+
+
 /**
  * Class User
  *
@@ -32,9 +49,15 @@ class Users extends ActiveRecord\Model {
 				$index = array_search($param, $params);
 				unset($index);
 			}
+
+			//TODO sollten nicht das setzen fehlender Parameter aus dem model verschwinden?
 			if ('lastlogin' === $param) {
 				$date = new DateTime('now');
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
+			}
+
+			if ('token' === $param) {
+				$params['token'] = UserToken::getToken();
 			}
 		}
 
@@ -54,7 +77,7 @@ class Users extends ActiveRecord\Model {
 		if(!empty($users)){
 			$user = $users[0];
 			$id = $user->id;
-			$user->token  = UserToken::getToken();
+			$user->token = UserToken::getToken();
 			$user->save();
 			$user = self::find($id);
 			$users[0] = $user;
