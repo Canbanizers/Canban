@@ -1,0 +1,15 @@
+<aside class="boards_list">
+	<article class="boards_list_item">
+		Board Count: {{boardCount}} <br/>
+		Ticket Count: {{ticketCount}}
+	</article>
+	{{#each}}
+		<article class="boards_list_item">
+			{{board-menu management=true board=this boardInfo='boardInfo' boardSettings='boardSettings'}}
+			<h3 class="inline_block">{{name}}</h3><br/>
+		</article>
+	{{/each}}
+</aside>
+<section class="management_content">
+	{{outlet content}}
+</section>
