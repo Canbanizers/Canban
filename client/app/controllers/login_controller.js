@@ -23,7 +23,7 @@ App.LoginController = Ember.ObjectController.extend({
 		/**
 		 * If all login fields are valid, this method sends a server request to check if there is a corresponding  entry
 		 * in the database. When there is a user with the specified email and password the model will be injected into
-		 * the PrivateCanbanController.
+		 * the PrivateCanban Controller.
 		 */
 		login: function() {
 			if(this.get('controllers.validation').hasErrors() || this.noChanges) {
