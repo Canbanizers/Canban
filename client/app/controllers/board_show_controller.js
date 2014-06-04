@@ -3,11 +3,19 @@ App.BoardShowController = Ember.ObjectController.extend({
 	needs: ['board'],
 
 	dummyTicket: null,
+        
+        getDisplayTickets: function() {
+            if('Personal_Board' === this.get('name')) {
+                return this.store.find('ticket');
+            } else {
+                var self = this;
+                return this.store.filter('ticket', function(ticket) {
+                    return ticket.get('board.id') === self.get('id') || ticket.get('board.parent.id') === self.get('id');
+                });
+            }
+        }.property('tickets', 'children.@each.tickets'),
 
 	actions: {
-		switchBoard : function(board) {
-			this.transitionToRoute('board', board.id);
-		},
 		createTicket: function(ticket) {
 			ticket.set('creation_date', moment().format(window.timestampFormat));
 			var success = function(resp) {
@@ -15,11 +23,8 @@ App.BoardShowController = Ember.ObjectController.extend({
 			var secondError = function(resp) {
 				var serverError = -1, sqlState = -1, sqlError = -1, errorMessage = '';
 				if (resp.hasOwnProperty('serverError')) {
-					console.log('hasOwnProperty serverError');
 					serverError = resp['serverError'];
-				} else {
-					console.log('hasNoOwnProperty serverError');
-				}
+				} 
 				if (resp.hasOwnProperty('sqlState')) {
 					sqlState = resp['sqlState'];
 				}

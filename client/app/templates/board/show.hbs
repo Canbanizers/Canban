@@ -17,27 +17,27 @@
 				<tr>
 					<td>
 						<div class="ticket_wrapper">
-							{{#each tickets}}
+							{{#each getDisplayTickets}}
 								{{#if isTodo}}
-									{{ticket-comp ticket=this currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
 								{{/if}}
 							{{/each}}
 						</div>
 					</td>
 					<td>
 						<div class="ticket_wrapper">
-							{{#each tickets}}
+							{{#each getDisplayTickets}}
 								{{#if isDoing}}
-									{{ticket-comp ticket=this currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
 								{{/if}}
 							{{/each}}
 						</div>
 					</td>
 					<td>
 						<div class="ticket_wrapper">
-							{{#each tickets}}
+							{{#each getDisplayTickets}}
 								{{#if isDone}}
-									{{ticket-comp ticket=this currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
 								{{/if}}
 							{{/each}}
 						</div>
