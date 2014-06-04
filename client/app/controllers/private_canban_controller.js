@@ -11,11 +11,10 @@ App.PrivateCanbanController = Ember.ObjectController.extend({
 	 * if a user is logged in, this function will load all of his existing data and redirect him to his mainboard
 	 */
 	getData: function() {
-		var self = this;
-		if (this.get('user') != null) {
-			self.transitionToRoute('board.show', 'PersonalBoard');
+		if (this.get('user') !== null) {
+			this.transitionToRoute('board.show', 'Personal_Board');
 		} else {
 			this.transitionToRoute('login');
 		}
-	}//.property('user'),
+	}
 });
