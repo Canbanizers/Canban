@@ -1,15 +1,17 @@
 App.BoardEditController = Ember.ObjectController.extend({
 	needs: ['boards'],
 	info : false,
-
+        
 	getBoards: function() {
 		var self = this;
-		var boards = this.get('controllers.boards.model').filter(function(board) {
-			console.log(board.get('id'));
-			console.log(self.get('id'));
+                var boards = [];
+		boards.pushObject(null);
+		var tempBoards = this.get('controllers.boards.model').filter(function(board) {
 			return board.get('id') !== self.get('id');
 		});
-		boards.pushObject(null);
+                tempBoards.forEach(function(board) {
+                    boards.pushObject(board);
+                })
 		return boards;
-	}.property('controllers.boards.model', 'id')
+	}.property('controllers.boards.model')
 });

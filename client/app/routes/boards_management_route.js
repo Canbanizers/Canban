@@ -27,6 +27,10 @@ App.BoardsManagementRoute = Ember.Route.extend({
 				controller: controller
 			});
 
-		}
+		},
+                
+                showBoard: function(board) {
+                    this.transitionTo('board.show', board.get('name'));
+                }
 	}
 });

@@ -9,9 +9,12 @@ class Boards extends ActiveRecord\Model {
 
 
 	private $searchArray = array(
-		'select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets',
-		'joins'  => 'LEFT JOIN boardhasticket on id_board = boards.id',
+		'select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children',
+		'joins'  => array('LEFT JOIN boardhasticket ON id_board = boards.id', 'LEFT JOIN boards AS b ON b.parent = boards.id'),
 		'group'  => 'boards.id'
+
+
+
 	);
 
 	public function createBoards($params) {
@@ -21,7 +24,7 @@ class Boards extends ActiveRecord\Model {
 				unset($index);
 			}
 
-			if ('tickets' === $param || 'owner' === $param) {
+			if ('tickets' === $param || 'owner' === $param || 'children' === $param) {
 				unset($params[$param]);
 			}
 		};
@@ -40,7 +43,7 @@ class Boards extends ActiveRecord\Model {
 	public function findAllBoards($since) {
 		$boards = null;
 		if (null !== $since) {
-			$this->searchArray['conditions'] = array('creation_date > ?', $since);
+			$this->searchArray['conditions'] = array('boards.creation_date > ?', $since);
 			$boards = self::all($this->searchArray);
 		} else {
 			$this->searchArray['conditions'] = array();
@@ -53,6 +56,11 @@ class Boards extends ActiveRecord\Model {
 			} else {
 				$board->tickets = array();
 			}
+                        if($board->children) {
+                            $board->children = explode(',', $board->children);
+                        } else {
+                            $board->children = array();
+                        }
 		}
 
 		return $boards;
@@ -74,9 +82,8 @@ class Boards extends ActiveRecord\Model {
 	public function updateBoards($id, $params) {
 		$board = self::find($id);
 		foreach ($params as $param => $value) {
-			if ('owner' !== $param && 'tickets' !== $param) {
+			if ('owner' !== $param && 'tickets' !== $param && 'children' !== $param) {
 				$board->$param = $value;
-
 			}
 		}
 		$board->save();

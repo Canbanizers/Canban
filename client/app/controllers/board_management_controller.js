@@ -6,6 +6,11 @@ App.BoardsManagementController = Ember.ArrayController.extend({
 	}.property('model.length'),
 
 	ticketCount: function() {
-		return this.get('model.@each.tickets.length');
-	}.property('@each.tickets.length')
+		var boards = this.get('model');
+                var ticketCount = 0;
+                boards.forEach(function(board) {       
+                    ticketCount += board.get('ticketCount');
+                });
+                return ticketCount;
+	}.property('@each.ticketCount')
 });

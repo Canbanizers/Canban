@@ -13,6 +13,9 @@ App.BoardMenuComponent = Ember.Component.extend({
 		},
 		boardSettings: function() {
 			this.sendAction('boardSettings', this.get('board'));
-		}
+		},
+                showBoard: function() {
+                    this.sendAction('showBoard', this.get('board'));
+                }
 	}
 });
