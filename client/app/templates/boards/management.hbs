@@ -5,8 +5,8 @@
 	</article>
 	{{#each}}
 		<article class="boards_list_item">
-			{{board-menu management=true board=this boardInfo='boardInfo' boardSettings='boardSettings'}}
 			<h3 class="inline_block">{{name}}</h3><br/>
+			{{board-menu management=true board=this boardInfo='boardInfo' boardSettings='boardSettings' showBoard='showBoard'}}
 		</article>
 	{{/each}}
 </aside>
