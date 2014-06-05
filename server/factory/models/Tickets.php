@@ -10,7 +10,7 @@ class Tickets extends ActiveRecord\Model {
 
 	private $searchArray = array(
 		'select' => 'tickets.*, id_board AS board',
-		'joins'  => 'LEFT JOIN boardhasticket on id_ticket = tickets.id'
+		'joins' => 'LEFT JOIN boardhasticket on id_ticket = tickets.id'
 	);
 
 	public function createTickets($params) {

@@ -1,6 +1,6 @@
 <?php
-class RmBldg extends ActiveRecord\Model {
-
+class RmBldg extends ActiveRecord\Model
+{
 	static $table = 'rm-bldg';
 
 	static $validates_presence_of = array(
@@ -22,7 +22,7 @@ class RmBldg extends ActiveRecord\Model {
 	);
 
 	static $validates_format_of = array(
-		array('space_out', 'with' => '/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i')
+		array('space_out', 'with' => '/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i' )
 	);
 
 	static $validates_numericality_of = array(
@@ -30,5 +30,4 @@ class RmBldg extends ActiveRecord\Model {
 		array('rm_id', 'less_than' => 10, 'odd' => null)
 	);
 }
-
 ?>
