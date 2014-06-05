@@ -3,23 +3,6 @@
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'../utils'.DIRECTORY_SEPARATOR.'UserToken.php';
 
-
-/* tmp debugging */
-//class logger{
-//	public function log($sql){
-//		error_log($sql, 3, 'C:\xampp\htdocs\Canban\sql.log');
-//	}
-//}
-//$theLogger = new logger();
-//
-//ActiveRecord\Config::initialize(function($cfg) use($theLogger)
-//
-//{
-//	$cfg->set_logger($theLogger);
-//	$cfg->set_logging(true);
-//});
-
-
 /**
  * Class User
  *
@@ -38,6 +21,10 @@ class Users extends ActiveRecord\Model {
 	 */
 	public static $primary_key = 'id';
 
+	public function __construct($user) {
+
+	}
+
 	/**
 	 * @param array $params
 	 *
@@ -49,15 +36,9 @@ class Users extends ActiveRecord\Model {
 				$index = array_search($param, $params);
 				unset($index);
 			}
-
-			//TODO sollten nicht das setzen fehlender Parameter aus dem model verschwinden?
 			if ('lastlogin' === $param) {
 				$date = new DateTime('now');
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
-			}
-
-			if ('token' === $param) {
-				$params['token'] = UserToken::getToken();
 			}
 		}
 
@@ -71,19 +52,53 @@ class Users extends ActiveRecord\Model {
 		return self::find('all');
 	}
 
+	public function findByToken($token){
+		return self::find(array('conditions' => array ('token = ?', $token)));
+	}
+
 	public function findQueryUsers($params) {
+		//findbysql
 		$users = self::all(array('conditions' => array ('email = ? and password = ?', $params['email'], $params['password'])));
+		echo ($users);
+		/*,array( $params['email'], $params['password'])*/
+		$email = (string)$params["email"];
+		$password = (string)$params['password'];
+//		$sql_string = "SELECT * FROM users WHERE email='".$email. "' AND password='" . $password."'";
+		$sql = "SELECT *
+			   FROM users
+WHERE email = 'a@a.aa'
+	  AND PASSWORD = '0cc175b9c0f1b6a831c399e269772661'
+LIMIT 0 , 30";
+		try
+		{
+			$users = $this->find_by_sql($sql);
+			var_dump($users);
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
+		die;
 		$user = null;
+		die;
 		if(!empty($users)){
 			$user = $users[0];
 			$id = $user->id;
-			$user->token = UserToken::getToken();
+			$token = '';
+			$token_found = false;
+			while(!$token_found) {
+				$token = UserToken::getToken();
+				$token_exist = self::find(array('conditions' => array ('token = ?', $token)));
+				if(null === $token_exist) {
+					$token_found = true;
+				}
+			}
+			$user->token = $token;
 			$user->save();
 			$user = self::find($id);
 			$users[0] = $user;
 		}
-
-		return $users;
+		return $user;
 	}
 
 	/**

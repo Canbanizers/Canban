@@ -2,5 +2,5 @@
 
 interface ObserverInterface {
 
-	public function update();
+	public function update($response);
 } 

@@ -24,16 +24,6 @@ ActiveRecord\Config::initialize(
 	}
 );
 
-
-//TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
-
-//class MethodNotExistException extends AbstractException {
-//
-//	public function __construct() {
-//		$this->setStatusCode(500);
-//	}
-//}
-
 /**
  * Class ModelFactory
  *
@@ -49,12 +39,13 @@ class ModelFactory implements SubjectInterface {
 	/**
 	 * Function get the $model_name, build and return the correct classname for the model
 	 *
+	 * @param ActiveRecord\Model $user
 	 * @param string $model_name
 	 *
-	 * @return ActiveRecord\Model
 	 * @throws FileNotFoundException
+	 * @return ActiveRecord\Model
 	 */
-	private function getModel($model_name) {
+	private function getModel($user, $model_name) {
 		$path_to_models = __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR;
 
 		if (!file_exists($path_to_models.ucfirst($model_name).'.php')) {
@@ -65,12 +56,13 @@ class ModelFactory implements SubjectInterface {
 
 		require_once($path_to_models.ucfirst($model_name).'.php');
 
-		return new $model_name();
+		return new $model_name($user);
 	}
 
 	/**
 	 * Function build the right REST-operation for the request (e.g. create, delete ....) and execute it on the modelclass
 	 *
+	 * @param ActiveRecord\Model $user
 	 * @param string $model_name
 	 * @param array $params
 	 * @param string $req_method
@@ -79,7 +71,8 @@ class ModelFactory implements SubjectInterface {
 	 *
 	 * @return FileNotFoundException|MethodNotExistException|ActiveRecord\Model
 	 */
-	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
+	public function execute($user, $model_name, $params, $req_method, $id = 0, $since = null) {
+
 		try {
 			if ('users' === $model_name && 'update' !== $req_method) {
 				if(!empty($params['password'])){
@@ -88,7 +81,7 @@ class ModelFactory implements SubjectInterface {
 					$params['user']['password'] = md5($params['user']['password']);
 				}
 			}
-			$model = $this->getModel($model_name);
+			$model = $this->getModel($user, $model_name);
 
 			$model_class = ucfirst($model_name);
 
@@ -100,27 +93,32 @@ class ModelFactory implements SubjectInterface {
 				throw $fnf_e;
 			}
 
-
+			$response = null;
 			switch ($req_method) {
 				case 'update':
-					return $model->$method_name($id, $params[array_shift(array_keys($params))]);
+					$response =  $model->$method_name($id, $params[array_shift(array_keys($params))]);
+					break;
 				case 'create':
-					return $model->$method_name($params[array_shift(array_keys($params))]);
+					$response =  $model->$method_name($params[array_shift(array_keys($params))]);
+					break;
 				case 'findAll':
-					return $model->$method_name($since);
+					$response =  $model->$method_name($since);
+					break;
 				case 'findQuery':
-					return $model->$method_name($params);
+					$response =  $model->$method_name($params);
+					break;
 				default:
-					return $model->$method_name($id);
+					$response =  $model->$method_name($id);
 			}
-
+			if(!$response){
+				//TODO: throw error
+			}
+			$this->notify($response);
 		} catch (Exception $e) {
 			return $e;
 		}
 	}
 
-
-	//TODO: Bleibt erstmal drin!
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
@@ -129,7 +127,8 @@ class ModelFactory implements SubjectInterface {
 		$this->observer = null;
 	}
 
-	public function notify() {
-		$this->observer->update();
+	public function notify($response) {
+		var_dump($response);
+		$this->observer->update($response);
 	}
 }

@@ -35,7 +35,6 @@ class ResponseFactory
 			}
 			$response_array = $this->utf8Encode($response_array);
 			$jsonResponse = json_encode($response_array);
-
 			echo $jsonResponse;
 		} else {
 			echo $response_models;

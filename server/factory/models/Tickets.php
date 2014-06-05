@@ -4,9 +4,19 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-a
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'models/BoardHasTicket.php';
 
 class Tickets extends ActiveRecord\Model {
+	private $user = null;
 
 	public static $table_name = 'tickets';
 	public static $primary_key = 'id';
+
+	public $searArray = array(
+		'select' => 'tickets.*, id_board AS board',
+		'joins' => array('boardhasticket', 'userhasboard')
+	);
+
+	public function _construct($user) {
+		$this->user = $user;
+	}
 
 	public function createTickets($params) {
 		$id_board = null;
@@ -24,7 +34,7 @@ class Tickets extends ActiveRecord\Model {
 
 		$bhs = new BoardHasTicket();
 		$ticket = self::create($params);
-		$resp = $bhs->createBoardHasTicket($id_board, $ticket->id);
+		$bhs->createBoardHasTicket($id_board, $ticket->id);
 
 		return $ticket;
 	}
@@ -36,18 +46,12 @@ class Tickets extends ActiveRecord\Model {
 	 */
 	public function findAllTickets($since) {
 		if (null !== $since) {
-			return self::find_by_sql(
-				'SELECT tickets.*, id_board as board FROM tickets '.
-				'JOIN boardhasticket on tickets.id = id_ticket '.
-				'WHERE creation_date > ? OR last_modify_date > ?'
-				, array($since, $since)
-			);
+			$this->searArray['conditions'] = array('id_user = ? AND (creation_date > ? OR last_modify_date > ?)',
+												   $this->user->id, $since, $since);
+			return self::find($this->searArray);
 		}
-
-		return self::find_by_sql(
-			'SELECT tickets.*, id_board as board FROM tickets '.
-			'JOIN boardhasticket on tickets.id = id_ticket'
-		);
+		$this->searArray['conditions'] = array('id_user = ?', $this->user->id);
+		return self::find($this->searArray);
 	}
 
 	public function deleteTickets($id) {
