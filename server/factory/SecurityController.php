@@ -1,16 +1,16 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Users.php';
+//require_once __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Users.php';
 require_once(__DIR__ . '\ModelFactory.php');
 
 
 class SecurityController
 {
 
-	/**
-	 * @var ActiveRecord\Model
-	 */
-	private $usermodel;
+//	/**
+//	 * @var ActiveRecord\Model
+//	 */
+//	private $usermodel;
 	/**
 	 * @var ObserverInterface
 	 */
@@ -32,9 +32,9 @@ class SecurityController
 		if('logins' === $model || ('users' ===  $model && 'create' === $req_method)) {
 			return true;
 		}
-		$users_class = new Users(null);
-		$this->usermodel = $users_class->findByToken($token);
-		if(!$this->usermodel) {
+		$users_class = new Users();
+		$usermodel = $users_class->findByToken($token);
+		if(empty($usermodel)) {
 			return false;
 		}
 		return true;
@@ -51,6 +51,6 @@ class SecurityController
 	{
 		$modelfactory = new ModelFactory();
 		$modelfactory->addObserver($this->observer);
-		$modelfactory->execute($this->usermodel, $model, $json, $req_method, $id, $since);
+		$modelfactory->execute($model, $json, $req_method, $id, $since);
 	}
 } 

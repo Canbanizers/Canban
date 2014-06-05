@@ -21,10 +21,6 @@ class Users extends ActiveRecord\Model {
 	 */
 	public static $primary_key = 'id';
 
-	public function __construct($user) {
-
-	}
-
 	/**
 	 * @param array $params
 	 *
@@ -52,53 +48,18 @@ class Users extends ActiveRecord\Model {
 		return self::find('all');
 	}
 
-	public function findByToken($token){
-		return self::find(array('conditions' => array ('token = ?', $token)));
-	}
-
 	public function findQueryUsers($params) {
-		//findbysql
 		$users = self::all(array('conditions' => array ('email = ? and password = ?', $params['email'], $params['password'])));
-		echo ($users);
-		/*,array( $params['email'], $params['password'])*/
-		$email = (string)$params["email"];
-		$password = (string)$params['password'];
-//		$sql_string = "SELECT * FROM users WHERE email='".$email. "' AND password='" . $password."'";
-		$sql = "SELECT *
-			   FROM users
-WHERE email = 'a@a.aa'
-	  AND PASSWORD = '0cc175b9c0f1b6a831c399e269772661'
-LIMIT 0 , 30";
-		try
-		{
-			$users = $this->find_by_sql($sql);
-			var_dump($users);
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
-		die;
 		$user = null;
-		die;
 		if(!empty($users)){
 			$user = $users[0];
 			$id = $user->id;
-			$token = '';
-			$token_found = false;
-			while(!$token_found) {
-				$token = UserToken::getToken();
-				$token_exist = self::find(array('conditions' => array ('token = ?', $token)));
-				if(null === $token_exist) {
-					$token_found = true;
-				}
-			}
-			$user->token = $token;
+			$user->token = UserToken::getToken();
 			$user->save();
 			$user = self::find($id);
 			$users[0] = $user;
 		}
-		return $user;
+		return $users;
 	}
 
 	/**
