@@ -1,6 +1,6 @@
 <?php
-class Venue extends ActiveRecord\Model {
-
+class Venue extends ActiveRecord\Model
+{
 	static $has_many = array(
 		array('events'),
 		array('hosts', 'through' => 'events')
@@ -10,9 +10,7 @@ class Venue extends ActiveRecord\Model {
 
 	static $alias_attribute = array(
 		'marquee' => 'name',
-		'mycity'  => 'city'
+		'mycity' => 'city'
 	);
-}
-
-;
+};
 ?>

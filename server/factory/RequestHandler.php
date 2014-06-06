@@ -1,47 +1,22 @@
 <?php
-require_once(__DIR__ . '\ModelFactory.php');
 require_once(__DIR__ . '\ResponseFactory.php');
+require_once(__DIR__ . '\SecurityController.php');
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException.php';
-
-
-//TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
-
-//class RequestModelEmptyException extends AbstractException
-//{
-//
-//	public function __construct()
-//	{
-//		$this->setStatusCode(400);
-//	}
-//}
-
-//class HttpMethodNotAllowedException extends AbstractException
-//{
-//
-//	public function __construct()
-//	{
-//		$this->setStatusCode(405);
-//	}
-//}
-
-//class InvalidJsonException extends AbstractException
-//{
-//
-//	public function __construct()
-//	{
-//		$this->setStatusCode(400);
-//	}
-//}
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'observer_subject' . DIRECTORY_SEPARATOR . 'ObserverInterface.php';
 
 /**
  * Class RequestHandler
  *
  * Handler to process the request
  */
-class RequestHandler
+class RequestHandler implements ObserverInterface
 {
+	/**
+	 * @var mixed
+	 */
+	private $response;
 
 	/**
 	 * function to start the whole process, one and only accessible function from external services
@@ -52,12 +27,11 @@ class RequestHandler
 	{
 		$response_factory = new ResponseFactory();
 		try {
-			$response = $this->handleRequest();
-
-			if ($response instanceof Exception) {
-				$response_factory->sendErrorResponse($response);
+			$this->handleRequest();
+			if ($this->response instanceof Exception) {
+				$response_factory->sendErrorResponse($this->response);
 			} else {
-				$response_factory->sendResponse($response);
+				$response_factory->sendResponse($this->response);
 			}
 
 		} catch (Exception $e) {
@@ -98,6 +72,7 @@ class RequestHandler
 			$nrc_e->setMessage('No model in request given.');
 			throw $nrc_e;
 		}
+
 		$id = null;
 		if (!empty($_REQUEST['id'])) {
 			$id = $_REQUEST['id'];
@@ -131,6 +106,17 @@ class RequestHandler
 				break;
 		}
 
+		$security_controller = new SecurityController($this);
+		$token = null;
+		try {
+			$token = @$_SERVER['x-token'];
+		} catch (Exception $e) {
+		}
+//		if(!$security_controller->hasPermission($model, $req_method, $token)) {
+//			var_dump("TEST");
+//			die;
+//		}
+
 		$req_body = file_get_contents('php://input');
 		if('logins' === $model && 'findAll' === $req_method && empty($req_body)) {
 			$req_method = 'findQuery';
@@ -149,15 +135,14 @@ class RequestHandler
 			throw $ij_e;
 		}
 
-		$modelfactory = new ModelFactory();
-
-		if (null !== $id) {
-			return $modelfactory->execute($model, $json, $req_method, $id);
-		} else if (null !== $since) {
-			return $modelfactory->execute($model, $json, $req_method, null, $since);
-		} else {
-			return $modelfactory->execute($model, $json, $req_method);
-		}
+		$security_controller->execute($model, $json, $req_method, $id, $since);
 	}
 
+	/**
+	 * @param mixed $response
+	 */
+	public function update($response)
+	{
+		$this->response = $response;
+	}
 }

@@ -7,6 +7,16 @@ class Boards extends ActiveRecord\Model {
 	public static $table_name = 'boards';
 	public static $primary_key = 'id';
 
+
+	private $searchArray = array(
+		'select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children',
+		'joins'  => array('LEFT JOIN boardhasticket ON id_board = boards.id', 'LEFT JOIN boards AS b ON b.parent = boards.id'),
+		'group'  => 'boards.id'
+
+
+
+	);
+
 	public function createBoards($params) {
 		foreach ($params as $param => $value) {
 			if (empty($value)) {
@@ -14,7 +24,7 @@ class Boards extends ActiveRecord\Model {
 				unset($index);
 			}
 
-			if ('tickets' === $param || 'owner' === $param) {
+			if ('tickets' === $param || 'owner' === $param || 'children' === $param) {
 				unset($params[$param]);
 			}
 		};
@@ -33,18 +43,11 @@ class Boards extends ActiveRecord\Model {
 	public function findAllBoards($since) {
 		$boards = null;
 		if (null !== $since) {
-			$boards = self::find_by_sql(
-				"SELECT boards.*, GROUP_CONCAT(id_ticket) AS tickets FROM boards ".
-				"LEFT JOIN boardhasticket ON id_board = boards.id ".
-				"WHERE creation_date > ?".
-				"GROUP BY id_board"
-				, array($since));
+			$this->searchArray['conditions'] = array('boards.creation_date > ?', $since);
+			$boards = self::all($this->searchArray);
 		} else {
-			$boards = self::find_by_sql(
-				"SELECT boards.*, GROUP_CONCAT(id_ticket) AS tickets FROM boards ".
-				"LEFT JOIN boardhasticket ON id_board = boards.id ".
-				"GROUP BY id_board"
-			);
+			$this->searchArray['conditions'] = array();
+			$boards = self::all($this->searchArray);
 		}
 
 		foreach ($boards as $board) {
@@ -53,6 +56,11 @@ class Boards extends ActiveRecord\Model {
 			} else {
 				$board->tickets = array();
 			}
+                        if($board->children) {
+                            $board->children = explode(',', $board->children);
+                        } else {
+                            $board->children = array();
+                        }
 		}
 
 		return $boards;
@@ -66,18 +74,20 @@ class Boards extends ActiveRecord\Model {
 	}
 
 	public function findBoards($id) {
-		return self::find($id);
+		$this->searchArray['conditions'] = array('boards.id = ?', $id);
+
+		return self::find($this->searchArray);
 	}
 
 	public function updateBoards($id, $params) {
 		$board = self::find($id);
 		foreach ($params as $param => $value) {
-			if (!empty($value)) {
+			if ('owner' !== $param && 'tickets' !== $param && 'children' !== $param) {
 				$board->$param = $value;
 			}
 		}
 		$board->save();
 
-		return $board;
+		return $this->findBoards($id);
 	}
 }

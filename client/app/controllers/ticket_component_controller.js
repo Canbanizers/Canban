@@ -13,7 +13,7 @@ App.TicketCompComponent = Ember.Component.extend({
 
 	create: function() {
 		var creationDate = this.get('ticket.creation_date');
-		if (creationDate != null) {
+		if (creationDate !== null) {
 			return false;
 		}
 		if (!this.get('isDialog')) {
@@ -72,7 +72,7 @@ App.TicketCompComponent = Ember.Component.extend({
 	}.property('parentBoard.name'),
 
 	fromCurrentBoard: function() {
-		return this.get('currentBoardID') == this.get('parentBoard.id');
+		return this.get('currentBoardID') === this.get('parentBoard.id');
 	}.property('currentBoardID', 'parentBoard.id'),
 
 	actions: {

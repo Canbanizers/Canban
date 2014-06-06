@@ -12,8 +12,8 @@ namespace ActiveRecord;
  *
  * @package ActiveRecord
  */
-abstract class Singleton {
-
+abstract class Singleton
+{
 	/**
 	 * Array of cached singleton objects.
 	 *
@@ -26,12 +26,12 @@ abstract class Singleton {
 	 *
 	 * @return object
 	 */
-	final public static function instance() {
+	final public static function instance()
+	{
 		$class_name = get_called_class();
 
-		if (!isset(self::$instances[$class_name])) {
+		if (!isset(self::$instances[$class_name]))
 			self::$instances[$class_name] = new $class_name;
-		}
 
 		return self::$instances[$class_name];
 	}
@@ -41,19 +41,17 @@ abstract class Singleton {
 	 *
 	 * @return void
 	 */
-	final private function __clone() {
-	}
+	final private function __clone() {}
 
 	/**
 	 * Similar to a get_called_class() for a child class to invoke.
 	 *
 	 * @return string
 	 */
-	final protected function get_called_class() {
+	final protected function get_called_class()
+	{
 		$backtrace = debug_backtrace();
-
-		return get_class($backtrace[2]['object']);
+    	return get_class($backtrace[2]['object']);
 	}
 }
-
 ?>

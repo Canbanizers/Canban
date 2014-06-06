@@ -1,29 +1,30 @@
 App.UserController = Ember.ObjectController.extend({
-	content: Ember.Object.create({}),
-	editMode: false,
+	content   : Ember.Object.create({}),
+	editMode  : false,
 	deleteMode: false,
-	needs: ['validation'],
-	noChanges: true,
+	needs     : ['validation'],
+	noChanges : true,
 
 	/**
 	 * validate functions
 	 */
-	validateFirstname: function() {
+	validateFirstname           : function() {
 		this.set("firstnameError", this.get('controllers.validation').getValue('firstname'));
 	},
-	validateLastname: function() {
+	validateLastname            : function() {
 		this.set('lastnameError', this.get('controllers.validation').getValue('lastname'));
 	},
-	validateEmail: function() {
+	validateEmail               : function() {
 		this.set('emailError', this.get('controllers.validation').getValue('email'));
 	},
-	validatePassword: function() {
+	validatePassword            : function() {
 		this.set('passwordError', this.get('controllers.validation').getValue('password'));
 		this.set('noChanges', false);
 	},
 	validatePasswordConfirmation: function() {
 		this.set('passwordConfirmationError', this.get('controllers.validation').getValue('passwordConfirmation'));
-		this.set('passwordConfirmationCompareError', this.get('controllers.validation').comparePasswords('passwordConfirmation'));
+		this.set('passwordConfirmationCompareError',
+			this.get('controllers.validation').comparePasswords('passwordConfirmation'));
 	},
 
 	/**
@@ -38,26 +39,26 @@ App.UserController = Ember.ObjectController.extend({
 	 */
 	actions: {
 
-	/**
+		/**
 		 * delete user when clicking ok in popup
 		 */
-		delete: function(){
+		delete      : function() {
 			this.toggleProperty('deleteMode');
-			if(confirm('Really?')){
+			if (confirm('Really?')) {
 				this.send('confirmDelete');
 				this.transitionToRoute('login');
-			} else{
+			} else {
 				this.send('cancelDelete');
 			}
 		},
-		cancelDelete: function(){
+		cancelDelete: function() {
 			this.set('deleteMode', false);
 		},
 
 		/**
 		 * delete user
 		 */
-		confirmDelete: function(){
+		confirmDelete: function() {
 			this.get('model').deleteRecord();
 			this.get('model').save();
 			this.set('deleteMode', false);
@@ -66,9 +67,9 @@ App.UserController = Ember.ObjectController.extend({
 		/**
 		 * save new user-profile
 		 */
-		save: function(){
+		save: function() {
 
-			if(this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
+			if (this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
 				this.set('saveError', true);
 			} else {
 				this.set('saveError', false);
@@ -82,8 +83,8 @@ App.UserController = Ember.ObjectController.extend({
 		/**
 		 * cancel and go back to personal board
 		 */
-		cancel: function(){
-			this.transitionToRoute('board', 'Personal Board');
+		cancel: function() {
+			this.transitionToRoute('board.show', 'PersonalBoard');
 		}
 	}
 });

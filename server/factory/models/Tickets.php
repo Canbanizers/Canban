@@ -8,9 +8,13 @@ class Tickets extends ActiveRecord\Model {
 	public static $table_name = 'tickets';
 	public static $primary_key = 'id';
 
+	private $searchArray = array(
+		'select' => 'tickets.*, id_board AS board',
+		'joins' => 'LEFT JOIN boardhasticket on id_ticket = tickets.id'
+	);
+
 	public function createTickets($params) {
 		$id_board = null;
-		$id_ticket = null;
 		foreach ($params as $param => $value) {
 			if (empty($value)) {
 				$index = array_search($param, $params);
@@ -24,7 +28,10 @@ class Tickets extends ActiveRecord\Model {
 
 		$bhs = new BoardHasTicket();
 		$ticket = self::create($params);
-		$resp = $bhs->createBoardHasTicket($id_board, $ticket->id);
+		$id_ticket = $ticket->id;
+		$bhs->createBoardHasTicket($id_board, $id_ticket);
+
+		$ticket = $this->findTickets($id_ticket);
 
 		return $ticket;
 	}
@@ -36,18 +43,13 @@ class Tickets extends ActiveRecord\Model {
 	 */
 	public function findAllTickets($since) {
 		if (null !== $since) {
-			return self::find_by_sql(
-				'SELECT tickets.*, id_board as board FROM tickets '.
-				'JOIN boardhasticket on tickets.id = id_ticket '.
-				'WHERE creation_date > ? OR last_modify_date > ?'
-				, array($since, $since)
-			);
-		}
+			$this->searchArray['conditions'] = array('creation_date > ? OR last_modify_date > ?', $since, $since);
 
-		return self::find_by_sql(
-			'SELECT tickets.*, id_board as board FROM tickets '.
-			'JOIN boardhasticket on tickets.id = id_ticket'
-		);
+			return self::all($this->searchArray);
+		}
+		$this->searchArray['conditions'] = array();
+
+		return self::all($this->searchArray);
 	}
 
 	public function deleteTickets($id) {
@@ -58,7 +60,9 @@ class Tickets extends ActiveRecord\Model {
 	}
 
 	public function findTickets($id) {
-		return self::find($id);
+		$this->searchArray['conditions'] = array('tickets.id = ?', $id);
+
+		return self::first($this->searchArray);
 	}
 
 	public function updateTickets($id, $params) {
@@ -69,6 +73,7 @@ class Tickets extends ActiveRecord\Model {
 			}
 		}
 		$ticket->save();
+		$ticket = $this->findTickets($id);
 
 		return $ticket;
 	}

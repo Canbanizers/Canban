@@ -34,6 +34,11 @@ App.LoginController = Ember.ObjectController.extend({
 				var userPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
 				userPromise.then(function(users) {
 					users.forEach(function(user){
+						App.ApplicationAdapter.reopen({
+								headers: {
+									'x-token': user.get('token')
+								}
+						});
 						self.set('controllers.private_canban.user', user);
 						self.get('controllers.private_canban').getData();
 
