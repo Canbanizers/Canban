@@ -1,21 +1,17 @@
 <?php
 
+require_once 'UserIdInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
-class Boards extends ActiveRecord\Model {
+class Boards extends ActiveRecord\Model implements UserIdInterface{
 
 	public static $table_name = 'boards';
 	public static $primary_key = 'id';
 
-
-	private $searchArray = array(
-		'select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children',
-		'joins'  => array('LEFT JOIN boardhasticket ON id_board = boards.id', 'LEFT JOIN boards AS b ON b.parent = boards.id'),
-		'group'  => 'boards.id'
-
-
-
-	);
+	/**
+	 * @var int
+	 */
+	private $user_id;
 
 	public function createBoards($params) {
 		foreach ($params as $param => $value) {
@@ -41,13 +37,14 @@ class Boards extends ActiveRecord\Model {
 	 * @return array|mixed
 	 */
 	public function findAllBoards($since) {
+		$search_array = $this->getSearchArray();
 		$boards = null;
 		if (null !== $since) {
-			$this->searchArray['conditions'] = array('boards.creation_date > ?', $since);
-			$boards = self::all($this->searchArray);
+			$search_array['conditions'] = array('boards.creation_date > ?', $since);
+			$boards = self::all($search_array);
 		} else {
-			$this->searchArray['conditions'] = array();
-			$boards = self::all($this->searchArray);
+			$search_array['conditions'] = array();
+			$boards = self::all($search_array);
 		}
 
 		foreach ($boards as $board) {
@@ -74,9 +71,9 @@ class Boards extends ActiveRecord\Model {
 	}
 
 	public function findBoards($id) {
-		$this->searchArray['conditions'] = array('boards.id = ?', $id);
+		$search_array['conditions'] = array('boards.id = ?', $id);
 
-		return self::find($this->searchArray);
+		return self::find($search_array);
 	}
 
 	public function updateBoards($id, $params) {
@@ -89,5 +86,20 @@ class Boards extends ActiveRecord\Model {
 		$board->save();
 
 		return $this->findBoards($id);
+	}
+
+	public function setUserId($user_id)
+	{
+		$this->user_id = $user_id;
+	}
+
+
+	private function getSearchArray() {
+		$select = array('select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children');
+		$user_join = 'JOIN userhasboard ON id_user = ' . $this->user_id . ' AND userhasboard.id_board = boardhasticket.id_board';
+		$joins = array('joins' => array('LEFT JOIN boardhasticket ON boardhasticket.id_board = boards.id', 'LEFT JOIN boards AS b ON b.parent = boards.id', $user_join));
+		$group = array('group' => 'boards.id');
+
+		return array_merge($select, $joins, $group);
 	}
 }
