@@ -78,7 +78,7 @@ class ModelFactory implements SubjectInterface {
 					$params['user']['password'] = md5($params['user']['password']);
 				}
 			}
-			$model = $this->getModel($model_name, $model_name);
+			$model = $this->getModel($model_name);
 
 			$model_class = ucfirst($model_name);
 
