@@ -62,6 +62,10 @@ class Users extends ActiveRecord\Model {
 		return $users;
 	}
 
+	public function findByToken($token) {
+		return self::find(array('conditions' => array ('token = ?', $token)));
+	}
+
 	/**
 	 * @param int $id
 	 *
