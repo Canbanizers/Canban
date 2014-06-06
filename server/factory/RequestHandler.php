@@ -112,11 +112,12 @@ class RequestHandler implements ObserverInterface
 			$token = @$_SERVER['HTTP_X_TOKEN'];
 		} catch (Exception $e) {
 		}
-//		if(!$security_controller->hasPermission($model, $req_method, $token)) {
-//			var_dump("TEST");
-//			die;
-//		}
+		if(!$security_controller->hasPermission($model, $req_method, $token)) {
+			//TODO: error_message!
+			die;
+		}
 
+		//Permission only area
 		$req_body = file_get_contents('php://input');
 		if('logins' === $model && 'findAll' === $req_method && empty($req_body)) {
 			$req_method = 'findQuery';

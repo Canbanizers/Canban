@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'UserIdInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
@@ -36,6 +37,17 @@ class ModelFactory implements SubjectInterface {
 	 */
 	private $observer = null;
 
+	/**
+	 * @var mixed
+	 */
+	private $user_id;
+
+	/**
+	 * @param mixed $user_id
+	 */
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
 	/**
 	 * Function get the $model_name, build and return the correct classname for the model
 	 *
@@ -79,9 +91,10 @@ class ModelFactory implements SubjectInterface {
 				}
 			}
 			$model = $this->getModel($model_name);
-
+			if($model instanceof UserIdInterface) {
+				$model->setUserId($this->user_id);
+			}
 			$model_class = ucfirst($model_name);
-
 			$method_name = $req_method.$model_class;
 
 			if (!method_exists($model, $method_name)) {

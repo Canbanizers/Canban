@@ -1,22 +1,26 @@
 <?php
 
-//require_once __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Users.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Users.php';
 require_once(__DIR__ . '\ModelFactory.php');
 
 
 class SecurityController
 {
-
-//	/**
-//	 * @var ActiveRecord\Model
-//	 */
-//	private $usermodel;
 	/**
 	 * @var ObserverInterface
 	 */
 	private $observer;
 
-	public function __construct(ObserverInterface $observer){
+	/**
+	 * @var
+	 */
+	private $user_id = null;
+
+	/**
+	 * @param ObserverInterface $observer
+	 */
+	public function __construct(ObserverInterface $observer)
+	{
 		$this->observer = $observer;
 	}
 
@@ -29,7 +33,7 @@ class SecurityController
 	 */
 	public function hasPermission($model, $req_method, $token)
 	{
-		if('logins' === $model || ('users' ===  $model && 'create' === $req_method)) {
+		if('logins' === $model || ('users' ===  $model && ('create' === $req_method))) {
 			return true;
 		}
 		$users_class = new Users();
@@ -37,6 +41,7 @@ class SecurityController
 		if(empty($usermodel)) {
 			return false;
 		}
+		$this->user_id = $usermodel->id;
 		return true;
 	}
 
@@ -49,7 +54,7 @@ class SecurityController
 	 */
 	public function execute($model, $json, $req_method, $id, $since)
 	{
-		$modelfactory = new ModelFactory();
+		$modelfactory = new ModelFactory($this->user_id);
 		$modelfactory->addObserver($this->observer);
 		$modelfactory->execute($model, $json, $req_method, $id, $since);
 	}
