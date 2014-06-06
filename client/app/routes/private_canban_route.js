@@ -15,12 +15,10 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		 * afterwards he will be redirected to login page
 		 */
 		logout: function(){
-			var self = this;
 			var user = this.controllerFor('private_canban').get('user');
 			user.set('token', null);
-			user.save().then(function() {
-				self.transitionTo('login');
-			});
+			user.save();
+			window.location = 'http://localhost/canban/client/debug';
 		}
 	}
 });

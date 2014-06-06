@@ -109,7 +109,7 @@ class RequestHandler implements ObserverInterface
 		$security_controller = new SecurityController($this);
 		$token = null;
 		try {
-			$token = @$_SERVER['x-token'];
+			$token = @$_SERVER['HTTP_X_TOKEN'];
 		} catch (Exception $e) {
 		}
 //		if(!$security_controller->hasPermission($model, $req_method, $token)) {
