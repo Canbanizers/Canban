@@ -12,7 +12,7 @@ App.PrivateCanbanController = Ember.ObjectController.extend({
 	 */
 	getData: function() {
 		if (this.get('user') !== null) {
-			this.transitionToRoute('board.show', 'Personal_Board');
+			this.transitionToRoute('board.show', 'Personal Board');
 		} else {
 			this.transitionToRoute('login');
 		}

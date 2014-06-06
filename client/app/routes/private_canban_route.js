@@ -6,7 +6,7 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		if(!this.controllerFor('private_canban').get('user')) {
 			this.transitionTo('login');
 		} else {
-			this.transitionTo('board.show', 'Personal_Board');
+			this.transitionTo('board.show', 'Personal Board');
 		}
 	},
 	actions: {
