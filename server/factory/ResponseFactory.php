@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'ResponseModelEmptyException.php';
+
 /**
  * Class ResponseFactory
  *
@@ -13,13 +15,15 @@ class ResponseFactory {
 	 *
 	 * @param mixed $response_models
 	 * @param int $status_code
+	 * @param bool $delete_mode
+	 *
+	 * @throws ResponseModelEmptyException
 	 */
-	public function sendResponse($response_models, $status_code = 200) {
+	public function sendResponse($response_models, $status_code, $delete_mode = false) {
 		mb_internal_encoding('UTF-8');
 		header("HTTP/1.0 {$status_code}");
 		header('Content-Type: application/json');
 
-		//		$debug = ($response_models[0] instanceof Tickets);
 		if (200 === $status_code) {
 			$response_array = array();
 			if (is_array($response_models)) {
@@ -32,7 +36,13 @@ class ResponseFactory {
 				$data_array = $response_models->to_array();
 				$response_array = array(strtolower(get_class($response_models)) => $data_array);
 			}
-			$response_array = $this->utf8Encode($response_array);
+			if(null !== $response_array) {
+				$response_array = $this->utf8Encode($response_array);
+			} elseif(!$delete_mode) {
+				$rme_e = new ResponseModelEmptyException();
+				$rme_e->setMessage("No corresponding resource");
+				throw $rme_e;
+			}
 			$jsonResponse = json_encode($response_array);
 			echo $jsonResponse;
 		} else {

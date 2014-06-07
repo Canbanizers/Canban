@@ -19,6 +19,11 @@ class RequestHandler implements ObserverInterface {
 	private $response;
 
 	/**
+	 * @var bool
+	 */
+	private $delete_mode = false;
+
+	/**
 	 * function to start the whole process, one and only accessible function from external services
 	 * and will be called in index.php (centralized entry point)
 	 *
@@ -31,7 +36,7 @@ class RequestHandler implements ObserverInterface {
 			if ($this->response instanceof Exception) {
 				$response_factory->sendErrorResponse($this->response);
 			} else {
-				$response_factory->sendResponse($this->response);
+				$response_factory->sendResponse($this->response,200,  $this->delete_mode);
 			}
 
 		} catch (Exception $e) {
@@ -98,6 +103,7 @@ class RequestHandler implements ObserverInterface {
 				break;
 			case 'DELETE':
 				$req_method = strtolower($req_method);
+				$this->delete_mode = true;
 				break;
 			default:
 				$hmna_e = new HttpMethodNotAllowedException();
@@ -114,6 +120,7 @@ class RequestHandler implements ObserverInterface {
 		}
 		if (!$security_controller->hasPermission($model, $req_method, $token)) {
 			//TODO: error_message!
+			var_dump('#### NO PERMISSION ####');
 			die;
 		}
 
