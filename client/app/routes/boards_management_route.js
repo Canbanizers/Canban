@@ -20,6 +20,7 @@ App.BoardsManagementRoute = Ember.Route.extend({
 				this.send('saveTransition', 'board.show', board.get('name'));
 			} else {
 				var controller = this.controllerFor('board.' + type);
+				controller.set('model', board);
 				this.send('renderInfoWithController', controller);
 			}
 		}
