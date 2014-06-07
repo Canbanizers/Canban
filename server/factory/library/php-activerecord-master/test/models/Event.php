@@ -1,6 +1,7 @@
 <?php
-class Event extends ActiveRecord\Model
-{
+
+class Event extends ActiveRecord\Model {
+
 	static $belongs_to = array(
 		array('host'),
 		array('venue')
@@ -10,5 +11,7 @@ class Event extends ActiveRecord\Model
 		array('state', 'address', 'to' => 'venue'),
 		array('name', 'to' => 'host', 'prefix' => 'woot')
 	);
-};
+}
+
+;
 ?>

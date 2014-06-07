@@ -3,7 +3,7 @@
 require_once 'UserIdInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
-class Boards extends ActiveRecord\Model implements UserIdInterface{
+class Boards extends ActiveRecord\Model implements UserIdInterface {
 
 	public static $table_name = 'boards';
 	public static $primary_key = 'id';
@@ -53,11 +53,11 @@ class Boards extends ActiveRecord\Model implements UserIdInterface{
 			} else {
 				$board->tickets = array();
 			}
-                        if($board->children) {
-                            $board->children = explode(',', $board->children);
-                        } else {
-                            $board->children = array();
-                        }
+			if ($board->children) {
+				$board->children = explode(',', $board->children);
+			} else {
+				$board->children = array();
+			}
 		}
 
 		return $boards;
@@ -88,16 +88,18 @@ class Boards extends ActiveRecord\Model implements UserIdInterface{
 		return $this->findBoards($id);
 	}
 
-	public function setUserId($user_id)
-	{
+	public function setUserId($user_id) {
 		$this->user_id = $user_id;
 	}
 
 
 	private function getSearchArray() {
-		$select = array('select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children');
-		$user_join = 'JOIN userhasboard ON id_user = ' . $this->user_id . ' AND userhasboard.id_board = boardhasticket.id_board';
-		$joins = array('joins' => array('LEFT JOIN boardhasticket ON boardhasticket.id_board = boards.id', 'LEFT JOIN boards AS b ON b.parent = boards.id', $user_join));
+		$select =
+			array('select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children');
+		$user_join =
+			'JOIN userhasboard ON id_user = '.$this->user_id.' AND userhasboard.id_board = boardhasticket.id_board';
+		$joins = array('joins' => array('LEFT JOIN boardhasticket ON boardhasticket.id_board = boards.id',
+			'LEFT JOIN boards AS b ON b.parent = boards.id', $user_join));
 		$group = array('group' => 'boards.id');
 
 		return array_merge($select, $joins, $group);

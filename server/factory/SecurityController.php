@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Users.php';
-require_once(__DIR__ . '\ModelFactory.php');
+require_once __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'Users.php';
+require_once(__DIR__.'\ModelFactory.php');
 
 
-class SecurityController
-{
+class SecurityController {
+
 	/**
 	 * @var ObserverInterface
 	 */
@@ -19,8 +19,7 @@ class SecurityController
 	/**
 	 * @param ObserverInterface $observer
 	 */
-	public function __construct(ObserverInterface $observer)
-	{
+	public function __construct(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
 
@@ -31,17 +30,17 @@ class SecurityController
 	 *
 	 * @return bool
 	 */
-	public function hasPermission($model, $req_method, $token)
-	{
-		if('logins' === $model || ('users' ===  $model && ('create' === $req_method))) {
+	public function hasPermission($model, $req_method, $token) {
+		if ('logins' === $model || ('users' === $model && ('create' === $req_method))) {
 			return true;
 		}
 		$users_class = new Users();
 		$usermodel = $users_class->findByToken($token);
-		if(empty($usermodel)) {
+		if (empty($usermodel)) {
 			return false;
 		}
 		$this->user_id = $usermodel->id;
+
 		return true;
 	}
 
@@ -52,8 +51,7 @@ class SecurityController
 	 * @param string $id
 	 * @param string $since
 	 */
-	public function execute($model, $json, $req_method, $id, $since)
-	{
+	public function execute($model, $json, $req_method, $id, $since) {
 		$modelfactory = new ModelFactory($this->user_id);
 		$modelfactory->addObserver($this->observer);
 		$modelfactory->execute($model, $json, $req_method, $id, $since);

@@ -1,18 +1,18 @@
 <?php
 require_once(__DIR__ . '\ResponseFactory.php');
-require_once(__DIR__ . '\SecurityController.php');
+require_once(__DIR__.'\SecurityController.php');
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'observer_subject' . DIRECTORY_SEPARATOR . 'ObserverInterface.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'ObserverInterface.php';
 
 /**
  * Class RequestHandler
  *
  * Handler to process the request
  */
-class RequestHandler implements ObserverInterface
-{
+class RequestHandler implements ObserverInterface {
+
 	/**
 	 * @var mixed
 	 */
@@ -112,7 +112,7 @@ class RequestHandler implements ObserverInterface
 			$token = @$_SERVER['HTTP_X_TOKEN'];
 		} catch (Exception $e) {
 		}
-		if(!$security_controller->hasPermission($model, $req_method, $token)) {
+		if (!$security_controller->hasPermission($model, $req_method, $token)) {
 			//TODO: error_message!
 			die;
 		}
@@ -142,8 +142,7 @@ class RequestHandler implements ObserverInterface
 	/**
 	 * @param mixed $response
 	 */
-	public function update($response)
-	{
+	public function update($response) {
 		$this->response = $response;
 	}
 }

@@ -3,7 +3,7 @@
  * @type {*|void|Object|extend|extend|extend}
  */
 App.ValidationView = Ember.View.extend({
-//	templateName: 'user'
+	//	templateName: 'user'
 });
 
 /**
@@ -14,7 +14,6 @@ App.ValidationView = Ember.View.extend({
  */
 App.ValidationTextField = Ember.TextField.extend({
 	focusOut: function(event) {
-		console.log(event);
 		var controller, validatorName, viewName;
 		controller = this.get('parentView.controller');
 		controller.setController();
