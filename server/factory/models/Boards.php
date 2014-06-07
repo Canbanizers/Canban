@@ -41,12 +41,8 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		$boards = null;
 		if (null !== $since) {
 			$search_array['conditions'] = array('boards.creation_date > ?', $since);
-			$boards = self::all($search_array);
-		} else {
-			$search_array['conditions'] = array();
-			$boards = self::all($search_array);
 		}
-
+		$boards = self::all($search_array);
 		foreach ($boards as $board) {
 			if ($board->tickets) {
 				$board->tickets = explode(',', $board->tickets);
@@ -97,7 +93,7 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		$select =
 			array('select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children');
 		$user_join =
-			'JOIN userhasboard ON id_user = '.$this->user_id.' AND userhasboard.id_board = boardhasticket.id_board';
+			'JOIN userhasboard ON id_user = '.$this->user_id.' AND userhasboard.id_board = boards.id';
 		$joins = array('joins' => array('LEFT JOIN boardhasticket ON boardhasticket.id_board = boards.id',
 			'LEFT JOIN boards AS b ON b.parent = boards.id', $user_join));
 		$group = array('group' => 'boards.id');
