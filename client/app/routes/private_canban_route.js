@@ -19,8 +19,12 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		logout: function(){
 			var user = this.controllerFor('private_canban').get('user');
 			user.set('token', null);
+			var self = this;
 			user.save().then(function() {
-				window.location = 'http://localhost/canban/client/debug';
+				self.store.unloadAll('board');
+				self.store.unloadAll('ticket');
+				self.store.unloadAll('user');
+				self.transitionTo('login');
 				}, function() {
 					console.log('##### ERROR ON LOGOUT! #####')
 				});
