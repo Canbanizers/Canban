@@ -81,10 +81,11 @@ App.UserController = Ember.ObjectController.extend({
 		},
 
 		/**
-		 * cancel and go back to personal board
+		 * cancel (roll back the model) and go back to personal board
 		 */
 		cancel: function() {
-			this.transitionToRoute('board.show', 'PersonalBoard');
+			this.get('model').rollback();
+			this.send('saveTransition', 'board.show', 'Personal Board');
 		}
 	}
 });

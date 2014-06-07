@@ -1,7 +1,9 @@
 {{view App.IconButtonView type='info-sign' title='Board Info' action='boardInfo' button=true}}
+{{#unless board.isMainboard}}
 {{view App.IconButtonView type='cog' title='Board Settings' action='boardSettings' button=true}}
+{{/unless}}
 {{#if management}}
-    {{view App.IconButtonView type='th' title='Show Board' action='showBoard' button=true}}
+{{view App.IconButtonView type='th' title='Show Board' action='showBoard' button=true}}
 {{else}}
-    {{view App.IconButtonView type='edit' title='New Ticket' action='createTicket' button=true}}
+{{view App.IconButtonView type='edit' title='New Ticket' action='createTicket' button=true}}
 {{/if}}

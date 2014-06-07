@@ -4,7 +4,7 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-a
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'models/BoardHasTicket.php';
 require_once 'UserIdInterface.php';
 
-class Tickets extends ActiveRecord\Model implements UserIdInterface{
+class Tickets extends ActiveRecord\Model implements UserIdInterface {
 
 	public static $table_name = 'tickets';
 	public static $primary_key = 'id';
@@ -47,6 +47,7 @@ class Tickets extends ActiveRecord\Model implements UserIdInterface{
 			return self::all($search_array);
 		}
 		$search_array['conditions'] = array();
+
 		return self::all($search_array);
 	}
 
@@ -77,15 +78,16 @@ class Tickets extends ActiveRecord\Model implements UserIdInterface{
 		return $ticket;
 	}
 
-	public function setUserId($user_id)
-	{
+	public function setUserId($user_id) {
 		$this->user_id = $user_id;
 	}
 
 	private function getSearchArray() {
 		$select = array('select' => 'tickets.*, userhasboard.id_board AS board');
-		$user_join = 'JOIN userhasboard ON id_user = ' . $this->user_id . ' AND userhasboard.id_board = boardhasticket.id_board';
+		$user_join =
+			'JOIN userhasboard ON id_user = '.$this->user_id.' AND userhasboard.id_board = boardhasticket.id_board';
 		$joins = array('joins' => array('LEFT JOIN boardhasticket on id_ticket = tickets.id', $user_join));
+
 		return array_merge($select, $joins);
 	}
 }

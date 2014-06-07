@@ -4,9 +4,11 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 	 */
 	renderTemplate: function() {
 		if(!this.controllerFor('private_canban').get('user')) {
+			// example for redirecting to another page then login from the beginning: 
+			// this.transitionTo('boards.management');
 			this.transitionTo('login');
 		} else {
-			this.transitionTo('board.show', 'Personal Board');
+			this.send('saveTransition', 'board.show', 'Personal Board');
 		}
 	},
 	actions: {
@@ -17,8 +19,21 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		logout: function(){
 			var user = this.controllerFor('private_canban').get('user');
 			user.set('token', null);
-			user.save();
-			window.location = 'http://localhost/canban/client/debug';
+			user.save().then(function() {
+				window.location = 'http://localhost/canban/client/debug';
+				}, function() {
+					console.log('##### ERROR ON LOGOUT! #####')
+				});
+		},
+
+		/**
+		 * replaces all whitespaces in param before transitioning to target
+		 * @param {String} target
+		 * @param {String} param
+		 */
+		saveTransition: function(target, param) {
+			param = param.replace(/ /g, '_');
+			this.transitionTo(target, param);
 		}
 	}
 });

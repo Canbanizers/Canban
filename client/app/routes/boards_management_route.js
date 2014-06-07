@@ -1,25 +1,11 @@
 'use strict';
 
 App.BoardsManagementRoute = Ember.Route.extend({
-	toRender: null,
-
 	model: function() {
-		return this.store.find('board');
+		return this.modelFor('boards');
 	},
 
 	actions: {
-		boardInfo: function(board) {
-			var controller = this.controllerFor('board.info');
-			controller.send('changeBoard', board);
-			this.send('renderInfoWithController', controller);
-		},
-
-		boardSettings: function(board) {
-			var controller = this.controllerFor('board.edit');
-			controller.set('model', board);
-			this.send('renderInfoWithController', controller);
-		},
-
 		renderInfoWithController: function(controller) {
 			this.render('board.info', {
 				into      : 'boards.management',
@@ -28,9 +14,14 @@ App.BoardsManagementRoute = Ember.Route.extend({
 			});
 
 		},
-                
-                showBoard: function(board) {
-                    this.transitionTo('board.show', board.get('name'));
-                }
+
+		showBoard: function(board, type) {
+			if (!type) {
+				this.send('saveTransition', 'board.show', board.get('name'));
+			} else {
+				var controller = this.controllerFor('board.' + type);
+				this.send('renderInfoWithController', controller);
+			}
+		}
 	}
 });

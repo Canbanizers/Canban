@@ -3,17 +3,17 @@ App.BoardShowController = Ember.ObjectController.extend({
 	needs: ['board'],
 
 	dummyTicket: null,
-        
-        getDisplayTickets: function() {
-            if('Personal_Board' === this.get('name')) {
-                return this.store.find('ticket');
-            } else {
-                var self = this;
-                return this.store.filter('ticket', function(ticket) {
-                    return ticket.get('board.id') === self.get('id') || ticket.get('board.parent.id') === self.get('id');
-                });
-            }
-        }.property('tickets', 'children.@each.tickets'),
+
+	getDisplayTickets: function() {
+		if (this.get('isMainboard')) {
+			return this.store.find('ticket');
+		} else {
+			var self = this;
+			return this.store.filter('ticket', function(ticket) {
+				return ticket.get('board.id') === self.get('id') || ticket.get('board.parent.id') === self.get('id');
+			});
+		}
+	}.property('tickets', 'children.@each.tickets'),
 
 	actions: {
 		createTicket: function(ticket) {

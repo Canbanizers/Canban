@@ -1,8 +1,8 @@
 <?php
-require_once dirname(__FILE__) . '/../../ActiveRecord.php';
+require_once dirname(__FILE__).'/../../ActiveRecord.php';
 
-class Book extends ActiveRecord\Model
-{
+class Book extends ActiveRecord\Model {
+
 	// explicit table name since our table is not "books"
 	static $table_name = 'simple_book';
 
@@ -18,14 +18,13 @@ class Book extends ActiveRecord\Model
 
 $connections = array(
 	'development' => 'mysql://invalid',
-	'production' => 'mysql://test:test@127.0.0.1/test'
+	'production'  => 'mysql://test:test@127.0.0.1/test'
 );
 
 // initialize ActiveRecord
-ActiveRecord\Config::initialize(function($cfg) use ($connections)
-{
-    $cfg->set_model_directory('.');
-    $cfg->set_connections($connections);
+ActiveRecord\Config::initialize(function ($cfg) use ($connections) {
+	$cfg->set_model_directory('.');
+	$cfg->set_connections($connections);
 });
 
 print_r(Book::first()->attributes());

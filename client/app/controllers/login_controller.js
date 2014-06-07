@@ -31,17 +31,22 @@ App.LoginController = Ember.ObjectController.extend({
 			} else {
 				this.set('saveError', false);
 				var self = this;
-				var userPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
-				userPromise.then(function(users) {
-					users.forEach(function(user){
+				var usersPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
+				usersPromise.then(function(users) {
+					users.forEach(function(user) {
+						var temp = self.store.find('user', user.get('id'));
+						if (!temp) {
+							console.log('DELETE LS!!')
+						} else {
+							console.log('DONT DELETE LS!!')
+						}
 						App.ApplicationAdapter.reopen({
-								headers: {
-									'x-token': user.get('token')
-								}
+							headers: {
+								'x-token': user.get('token')
+							}
 						});
 						self.set('controllers.private_canban.user', user);
 						self.get('controllers.private_canban').getData();
-
 					});
 				}, function() {
 				});

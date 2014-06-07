@@ -5,8 +5,8 @@
  *
  * Factory to get and prepare the Response for the client
  */
-class ResponseFactory
-{
+class ResponseFactory {
+
 	/**
 	 * function to send the response to the client with the correct http-header
 	 * the response will be decoded to json
@@ -14,8 +14,7 @@ class ResponseFactory
 	 * @param mixed $response_models
 	 * @param int $status_code
 	 */
-	public function sendResponse($response_models, $status_code = 200)
-	{
+	public function sendResponse($response_models, $status_code = 200) {
 		mb_internal_encoding('UTF-8');
 		header("HTTP/1.0 {$status_code}");
 		header('Content-Type: application/json');
@@ -46,8 +45,7 @@ class ResponseFactory
 	 *
 	 * @param Exception $e
 	 */
-	public function sendErrorResponse(Exception $e)
-	{
+	public function sendErrorResponse(Exception $e) {
 		$data_array = array('error' => $e->getMessage());
 		$json = json_encode($data_array, JSON_FORCE_OBJECT);
 

@@ -19,8 +19,9 @@ class CredentialsReader {
 
 	const PATH_TO_XML = '..\xml';
 	const PROTOCOL = 'mysql';
+	//	const SERVER = 'mysql17.000webhost.com';
 	const SERVER = 'localhost';
-	const DB_NAME = 'canban';
+	const DB_NAME = 'a8089495_canban';
 	/**
 	 * database login name
 	 * @var string

@@ -9,15 +9,15 @@ namespace ActiveRecord;
  *
  * @package ActiveRecord
  */
-class Column
-{
+class Column {
+
 	// types for $type
-	const STRING	= 1;
-	const INTEGER	= 2;
-	const DECIMAL	= 3;
-	const DATETIME	= 4;
-	const DATE		= 5;
-	const TIME		= 6;
+	const STRING = 1;
+	const INTEGER = 2;
+	const DECIMAL = 3;
+	const DATETIME = 4;
+	const DATE = 5;
+	const TIME = 6;
 
 	/**
 	 * Map a type to an column type.
@@ -25,22 +25,22 @@ class Column
 	 * @var array
 	 */
 	static $TYPE_MAPPING = array(
-		'datetime'	=> self::DATETIME,
-		'timestamp'	=> self::DATETIME,
-		'date'		=> self::DATE,
-		'time'		=> self::TIME,
+		'datetime'  => self::DATETIME,
+		'timestamp' => self::DATETIME,
+		'date'      => self::DATE,
+		'time'      => self::TIME,
 
-		'int'		=> self::INTEGER,
-		'tinyint'	=> self::INTEGER,
-		'smallint'	=> self::INTEGER,
-		'mediumint'	=> self::INTEGER,
-		'bigint'	=> self::INTEGER,
+		'int'       => self::INTEGER,
+		'tinyint'   => self::INTEGER,
+		'smallint'  => self::INTEGER,
+		'mediumint' => self::INTEGER,
+		'bigint'    => self::INTEGER,
 
-		'float'		=> self::DECIMAL,
-		'double'	=> self::DECIMAL,
-		'numeric'	=> self::DECIMAL,
-		'decimal'	=> self::DECIMAL,
-		'dec'		=> self::DECIMAL);
+		'float'     => self::DECIMAL,
+		'double'    => self::DECIMAL,
+		'numeric'   => self::DECIMAL,
+		'decimal'   => self::DECIMAL,
+		'dec'       => self::DECIMAL);
 
 	/**
 	 * The true name of this column.
@@ -107,31 +107,38 @@ class Column
 	 *
 	 * @param mixed $value The value to cast
 	 * @param Connection $connection The Connection this column belongs to
+	 *
 	 * @return mixed type-casted value
 	 */
-	public function cast($value, $connection)
-	{
-		if ($value === null)
+	public function cast($value, $connection) {
+		if ($value === null) {
 			return null;
+		}
 
-		switch ($this->type)
-		{
-			case self::STRING:	return (string)$value;
-			case self::INTEGER:	return (int)$value;
-			case self::DECIMAL:	return (double)$value;
+		switch ($this->type) {
+			case self::STRING:
+				return (string) $value;
+			case self::INTEGER:
+				return (int) $value;
+			case self::DECIMAL:
+				return (double) $value;
 			case self::DATETIME:
 			case self::DATE:
-				if (!$value)
+				if (!$value) {
 					return null;
+				}
 
-				if ($value instanceof DateTime)
+				if ($value instanceof DateTime) {
 					return $value;
+				}
 
-				if ($value instanceof \DateTime)
+				if ($value instanceof \DateTime) {
 					return new DateTime($value->format('Y-m-d H:i:s T'));
+				}
 
 				return $connection->string_to_datetime($value);
 		}
+
 		return $value;
 	}
 
@@ -139,17 +146,19 @@ class Column
 	 * Sets the $type member variable.
 	 * @return mixed
 	 */
-	public function map_raw_type()
-	{
-		if ($this->raw_type == 'integer')
+	public function map_raw_type() {
+		if ($this->raw_type == 'integer') {
 			$this->raw_type = 'int';
+		}
 
-		if (array_key_exists($this->raw_type,self::$TYPE_MAPPING))
+		if (array_key_exists($this->raw_type, self::$TYPE_MAPPING)) {
 			$this->type = self::$TYPE_MAPPING[$this->raw_type];
-		else
+		} else {
 			$this->type = self::STRING;
+		}
 
 		return $this->type;
 	}
 }
+
 ?>

@@ -40,6 +40,7 @@ App.Router.map(function() {
  * @type {*|void|Object}
  */
 App.ApplicationAdapter = DS.LSRESTAdapter.extend({
+	//	host       : 'http://canban.comule.com',
 	host       : 'http://localhost/canban',
 	namespace  : 'api',
 	lsnamespace: 'private_canban'

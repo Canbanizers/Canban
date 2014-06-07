@@ -45,9 +45,10 @@ class ModelFactory implements SubjectInterface {
 	/**
 	 * @param mixed $user_id
 	 */
-	public function __construct($user_id){
+	public function __construct($user_id) {
 		$this->user_id = $user_id;
 	}
+
 	/**
 	 * Function get the $model_name, build and return the correct classname for the model
 	 *
@@ -84,14 +85,14 @@ class ModelFactory implements SubjectInterface {
 	public function execute($model_name, $params, $req_method, $id = 0, $since = null) {
 		try {
 			if ('users' === $model_name && 'update' !== $req_method) {
-				if(!empty($params['password'])){
+				if (!empty($params['password'])) {
 					$params['password'] = md5($params['password']);
-				} elseif(!empty($params['user']['password'])){
+				} elseif (!empty($params['user']['password'])) {
 					$params['user']['password'] = md5($params['user']['password']);
 				}
 			}
 			$model = $this->getModel($model_name);
-			if($model instanceof UserIdInterface) {
+			if ($model instanceof UserIdInterface) {
 				$model->setUserId($this->user_id);
 			}
 			$model_class = ucfirst($model_name);
@@ -106,21 +107,21 @@ class ModelFactory implements SubjectInterface {
 			$response = null;
 			switch ($req_method) {
 				case 'update':
-					$response =  $model->$method_name($id, $params[array_shift(array_keys($params))]);
+					$response = $model->$method_name($id, $params[array_shift(array_keys($params))]);
 					break;
 				case 'create':
-					$response =  $model->$method_name($params[array_shift(array_keys($params))]);
+					$response = $model->$method_name($params[array_shift(array_keys($params))]);
 					break;
 				case 'findAll':
-					$response =  $model->$method_name($since);
+					$response = $model->$method_name($since);
 					break;
 				case 'findQuery':
-					$response =  $model->$method_name($params);
+					$response = $model->$method_name($params);
 					break;
 				default:
-					$response =  $model->$method_name($id);
+					$response = $model->$method_name($id);
 			}
-			if(!$response){
+			if (!$response) {
 				//TODO: throw error
 			}
 			$this->notify($response);

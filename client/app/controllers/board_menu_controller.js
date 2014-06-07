@@ -4,18 +4,18 @@ App.BoardMenuComponent = Ember.Component.extend({
 
 	board: null,
 
-	actions   : {
-		createTicket: function() {
+	actions: {
+		createTicket : function() {
 			this.sendAction('createTicket');
 		},
-		boardInfo   : function() {
-			this.sendAction('boardInfo', this.get('board'));
+		boardInfo    : function() {
+			this.sendAction('showBoard', this.get('board'), 'info');
 		},
 		boardSettings: function() {
-			this.sendAction('boardSettings', this.get('board'));
+			this.sendAction('showBoard', this.get('board'), 'edit');
 		},
-                showBoard: function() {
-                    this.sendAction('showBoard', this.get('board'));
-                }
+		showBoard    : function() {
+			this.sendAction('showBoard', this.get('board'));
+		}
 	}
 });
