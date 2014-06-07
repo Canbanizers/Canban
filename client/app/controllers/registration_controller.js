@@ -42,9 +42,9 @@ App.RegistrationController = Ember.ObjectController.extend({
 		save: function(){
 
 			if(this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
-				this.set('saveError', true);
+				this.set('wrongInputError', true);
 			} else {
-				this.set('saveError', false);
+				this.set('wrongInputError', false);
 				var user = this.get('model');
 				var self = this;
 				user.save().then(function(){
@@ -52,6 +52,8 @@ App.RegistrationController = Ember.ObjectController.extend({
 					setTimeout(function() {
 						self.transitionToRoute('login');
 					}, 5000);
+				}, function(error){
+					self.set('saveError', true);
 				});
 			}
 		},

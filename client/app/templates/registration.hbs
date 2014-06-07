@@ -68,9 +68,13 @@
 			</div>
 
 			<button class="btn btn-canban" {{action "save"}}>Register</button>
-			{{#if saveError}}
+			{{#if wrongInputError}}
 				{{view App.IconButtonView type='remove'}}
 				<span class="error_message">Please check your input again.</span>
+			{{/if}}
+			{{#if saveError}}
+				{{view App.IconButtonView type='remove'}}
+				<span class="error_message">An Account with this Email alread exists..</span>
 			{{/if}}
 			{{#if success}}
 				{{view App.IconButtonView type='ok'}}
