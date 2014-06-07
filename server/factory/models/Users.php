@@ -54,13 +54,16 @@ class Users extends ActiveRecord\Model {
 		if(!empty($users)){
 			$user = $users[0];
 			$id = $user->id;
-			$user->token  = UserToken::getToken();
+			$user->token = UserToken::getToken();
 			$user->save();
 			$user = self::find($id);
 			$users[0] = $user;
 		}
-
 		return $users;
+	}
+
+	public function findByToken($token) {
+		return self::find(array('conditions' => array ('token = ?', $token)));
 	}
 
 	/**

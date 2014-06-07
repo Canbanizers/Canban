@@ -2,16 +2,14 @@
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'models/BoardHasTicket.php';
+require_once 'UserIdInterface.php';
 
-class Tickets extends ActiveRecord\Model {
+class Tickets extends ActiveRecord\Model implements UserIdInterface{
 
 	public static $table_name = 'tickets';
 	public static $primary_key = 'id';
 
-	private $searchArray = array(
-		'select' => 'tickets.*, id_board AS board',
-		'joins'  => 'LEFT JOIN boardhasticket on id_ticket = tickets.id'
-	);
+	private $user_id;
 
 	public function createTickets($params) {
 		$id_board = null;
@@ -42,14 +40,14 @@ class Tickets extends ActiveRecord\Model {
 	 * @return array|mixed
 	 */
 	public function findAllTickets($since) {
+		$search_array = $this->getSearchArray();
 		if (null !== $since) {
-			$this->searchArray['conditions'] = array('creation_date > ? OR last_modify_date > ?', $since, $since);
+			$search_array['conditions'] = array('creation_date > ? OR last_modify_date > ?', $since, $since);
 
-			return self::all($this->searchArray);
+			return self::all($search_array);
 		}
-		$this->searchArray['conditions'] = array();
-
-		return self::all($this->searchArray);
+		$search_array['conditions'] = array();
+		return self::all($search_array);
 	}
 
 	public function deleteTickets($id) {
@@ -60,9 +58,10 @@ class Tickets extends ActiveRecord\Model {
 	}
 
 	public function findTickets($id) {
-		$this->searchArray['conditions'] = array('tickets.id = ?', $id);
+		$search_array = $this->getSearchArray();
+		$search_array['conditions'] = array('tickets.id = ?', $id);
 
-		return self::first($this->searchArray);
+		return self::first($search_array);
 	}
 
 	public function updateTickets($id, $params) {
@@ -76,5 +75,17 @@ class Tickets extends ActiveRecord\Model {
 		$ticket = $this->findTickets($id);
 
 		return $ticket;
+	}
+
+	public function setUserId($user_id)
+	{
+		$this->user_id = $user_id;
+	}
+
+	private function getSearchArray() {
+		$select = array('select' => 'tickets.*, userhasboard.id_board AS board');
+		$user_join = 'JOIN userhasboard ON id_user = ' . $this->user_id . ' AND userhasboard.id_board = boardhasticket.id_board';
+		$joins = array('joins' => array('LEFT JOIN boardhasticket on id_ticket = tickets.id', $user_join));
+		return array_merge($select, $joins);
 	}
 }

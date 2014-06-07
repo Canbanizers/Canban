@@ -4,7 +4,8 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 	 */
 	renderTemplate: function() {
 		if(!this.controllerFor('private_canban').get('user')) {
-			//			this.transitionTo('boards.management');
+			// example for redirecting to another page then login from the beginning: 
+			// this.transitionTo('boards.management');
 			this.transitionTo('login');
 		} else {
 			this.send('saveTransition', 'board.show', 'Personal Board');
@@ -16,11 +17,10 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 		 * afterwards he will be redirected to login page
 		 */
 		logout: function(){
-			var self = this;
 			var user = this.controllerFor('private_canban').get('user');
 			user.set('token', null);
 			user.save().then(function() {
-				self.transitionTo('login');
+				window.location = 'http://localhost/canban/client/debug';
 			});
 		},
 

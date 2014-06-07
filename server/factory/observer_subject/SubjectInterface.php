@@ -6,5 +6,5 @@ interface SubjectInterface {
 
 	public function removeObserver(ObserverInterface $observer);
 
-	public function notify();
+	public function notify($response);
 } 

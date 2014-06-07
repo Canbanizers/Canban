@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'UserIdInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
@@ -24,16 +25,6 @@ ActiveRecord\Config::initialize(
 	}
 );
 
-
-//TODO: auskommentiertes kann weg, wenn keine weiteren fehler beim includen auftreten
-
-//class MethodNotExistException extends AbstractException {
-//
-//	public function __construct() {
-//		$this->setStatusCode(500);
-//	}
-//}
-
 /**
  * Class ModelFactory
  *
@@ -47,12 +38,23 @@ class ModelFactory implements SubjectInterface {
 	private $observer = null;
 
 	/**
+	 * @var mixed
+	 */
+	private $user_id;
+
+	/**
+	 * @param mixed $user_id
+	 */
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
+	/**
 	 * Function get the $model_name, build and return the correct classname for the model
 	 *
 	 * @param string $model_name
 	 *
-	 * @return ActiveRecord\Model
 	 * @throws FileNotFoundException
+	 * @return ActiveRecord\Model
 	 */
 	private function getModel($model_name) {
 		$path_to_models = __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR;
@@ -89,9 +91,10 @@ class ModelFactory implements SubjectInterface {
 				}
 			}
 			$model = $this->getModel($model_name);
-
+			if($model instanceof UserIdInterface) {
+				$model->setUserId($this->user_id);
+			}
 			$model_class = ucfirst($model_name);
-
 			$method_name = $req_method.$model_class;
 
 			if (!method_exists($model, $method_name)) {
@@ -100,27 +103,32 @@ class ModelFactory implements SubjectInterface {
 				throw $fnf_e;
 			}
 
-
+			$response = null;
 			switch ($req_method) {
 				case 'update':
-					return $model->$method_name($id, $params[array_shift(array_keys($params))]);
+					$response =  $model->$method_name($id, $params[array_shift(array_keys($params))]);
+					break;
 				case 'create':
-					return $model->$method_name($params[array_shift(array_keys($params))]);
+					$response =  $model->$method_name($params[array_shift(array_keys($params))]);
+					break;
 				case 'findAll':
-					return $model->$method_name($since);
+					$response =  $model->$method_name($since);
+					break;
 				case 'findQuery':
-					return $model->$method_name($params);
+					$response =  $model->$method_name($params);
+					break;
 				default:
-					return $model->$method_name($id);
+					$response =  $model->$method_name($id);
 			}
-
+			if(!$response){
+				//TODO: throw error
+			}
+			$this->notify($response);
 		} catch (Exception $e) {
 			return $e;
 		}
 	}
 
-
-	//TODO: Bleibt erstmal drin!
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
@@ -129,7 +137,7 @@ class ModelFactory implements SubjectInterface {
 		$this->observer = null;
 	}
 
-	public function notify() {
-		$this->observer->update();
+	public function notify($response) {
+		$this->observer->update($response);
 	}
 }
