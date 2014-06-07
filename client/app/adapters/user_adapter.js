@@ -11,11 +11,17 @@ App.UserAdapter = App.ApplicationAdapter.extend({
 	 * @returns {Promise|*}
 	 */
 	findQuery: function(store, type, query) {
-		return this.ajax(this.buildURL('login'), 'GET', { data: query }).then(function(users) {
-			return users;
-			})
+		var promise = this.ajax(this.buildURL('login'), 'GET', { data: query });
+		var self = this;
+		promise.then(function(response) {
+			console.log(response);
+			var namespace = self._namespaceForType(type);
+			self._addRecordToNamespace(namespace, response['users'][0], true);
+			self._saveData();
+		});
+		return promise;
 	}
-});
+})
 
 /**
  * The UserAdapter needs to use the DS.RESTSerializer instead of the normally used DS.JSONSerializer

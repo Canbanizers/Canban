@@ -34,12 +34,6 @@ App.LoginController = Ember.ObjectController.extend({
 				var usersPromise = this.store.find('user', {email: this.get('email'), password: this.get('password')});
 				usersPromise.then(function(users) {
 					users.forEach(function(user) {
-						var temp = self.store.find('user', user.get('id'));
-						if (!temp) {
-							console.log('DELETE LS!!')
-						} else {
-							console.log('DONT DELETE LS!!')
-						}
 						App.ApplicationAdapter.reopen({
 							headers: {
 								'x-token': user.get('token')
