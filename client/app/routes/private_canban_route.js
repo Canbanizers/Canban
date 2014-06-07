@@ -4,9 +4,10 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 	 */
 	renderTemplate: function() {
 		if(!this.controllerFor('private_canban').get('user')) {
+			//			this.transitionTo('boards.management');
 			this.transitionTo('login');
 		} else {
-			this.transitionTo('board.show', 'Personal_Board');
+			this.send('saveTransition', 'board.show', 'Personal Board');
 		}
 	},
 	actions: {
@@ -21,6 +22,16 @@ App.PrivateCanbanRoute = Ember.Route.extend({
 			user.save().then(function() {
 				self.transitionTo('login');
 			});
+		},
+
+		/**
+		 * replaces all whitespaces in param before transitioning to target
+		 * @param {String} target
+		 * @param {String} param
+		 */
+		saveTransition: function(target, param) {
+			param = param.replace(/ /g, '_');
+			this.transitionTo(target, param);
 		}
 	}
 });
