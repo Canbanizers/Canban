@@ -11,13 +11,15 @@
 			{{#if hasChildren}}
 				Child Boards: 
 				{{#each children}}
-                                         <br />
+                                         <br/>
 					 <button {{action "changeBoard" this}}>{{this.name}}</button>
-				{{/each}}
-                                <br />
+		{{/each}}
+                                <br/>
 			{{/if}}
 		{{/if}}
-		Wip: {{input type="text" disabled=info value=wip}} <br/>
+		{{#unless isMainboard}}
+			Wip: {{input type="text" disabled=info value=wip}} <br/>
+		{{/unless}}
 		{{#unless info}}
 			Parent: <div class="styled_select">
 				{{view Ember.Select 
