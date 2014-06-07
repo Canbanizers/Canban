@@ -99,12 +99,10 @@ class Users extends ActiveRecord\Model {
 			$params['password'] = md5($params['password']);
 		}
 		foreach ($params as $param => $value) {
-			if (!empty($value)) {
-				$user->$param = $value;
-			}
+			$user->$param = $value;
 		}
-		$user->save();
 
+		$user->save();
 		return $user;
 	}
 }
