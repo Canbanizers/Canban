@@ -15,8 +15,4 @@ class BoardHasTicket extends ActiveRecord\Model {
 
 		return self::create($params);
 	}
-
-	public function findTicketsByBoard($id_board) {
-		return self::find('all');
-	}
 }
