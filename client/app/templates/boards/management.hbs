@@ -1,13 +1,17 @@
 <aside class="boards_list">
 	<article class="boards_list_item">
-		Board Count: {{boardCount}} <br/>
+		Board Count: {{boardCount}}
+		{{view App.IconButtonView button=true type='plus' action='createBoard' title='New Board'}}
+		<br/>
 		Ticket Count: {{ticketCount}}
 	</article>
 	{{#each}}
-		<article class="boards_list_item">
-			<h3 class="inline_block">{{name}}</h3><br/>
-			{{board-menu management=true board=this showBoard='showBoard'}}
-		</article>
+		{{#if creation_date}}
+			<article class="boards_list_item">
+				<h3 class="inline_block">{{name}}</h3><br/>
+				{{board-menu management=true board=this showBoard='showBoard'}}
+			</article>
+		{{/if}}
 	{{/each}}
 </aside>
 <section class="management_content">
