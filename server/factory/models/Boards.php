@@ -20,13 +20,22 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				unset($index);
 			}
 
-			if ('tickets' === $param || 'owner' === $param || 'children' === $param) {
+			if ('tickets' === $param || 'children' === $param) {
 				unset($params[$param]);
 			}
 		};
-		$board = self::create($params);
-		//FIXME I need to fetch the board again to get the right creation_date which is created by default value
-		$board = $this->findBoards($board->id);
+		$board = null;
+		try {
+			$uhb = new UserHasBoard();
+			$board = self::create($params);
+			$id_board = $board->id;
+			$uhb->createUserHasBoard($this->user_id, $id_board);
+			//FIXME I need to fetch the board again to get the right creation_date which is created by default value
+			$board = $this->findBoards($board->id);
+		} catch (Exception $e) {
+
+			var_dump($e);
+		}
 
 		return $board;
 	}
