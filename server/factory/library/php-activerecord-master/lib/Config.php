@@ -78,7 +78,7 @@ class Config extends Singleton {
 	 *
 	 * @var string
 	 */
-	private $date_format = \DateTime::ISO8601;
+	private $date_format = 'Y-m-d H:i:s';
 
 	/**
 	 * Allows config initialization using a closure.
