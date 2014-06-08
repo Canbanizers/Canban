@@ -75,8 +75,17 @@ App.UserController = Ember.ObjectController.extend({
 				this.set('saveError', false);
 				var user = this.get('model');
 				user.set('password', this.get('pwPlaceholder'));
-				user.save();
-				this.transitionToRoute('user', user.id);
+				var self = this;
+				user.save().then(
+					function() {
+						self.set('success', true);
+					},
+					function() {
+						self.set('saveError', true);
+					}
+				);
+
+//				this.transitionToRoute('user', user.id);
 			}
 		},
 

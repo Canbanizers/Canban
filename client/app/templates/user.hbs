@@ -1,4 +1,5 @@
 <div class="profile">
+	<h1>Profile</h1>
 	<div>
 		<form>
 			<button class="btn btn-canban" {{action "cancel"}}> Back to Board </button>
@@ -63,8 +64,16 @@
 				</span>
 			</div>
 
-		<button class="btn btn-canban" {{action "save"}}> Save changes </button>
-		<button class="btn btn-canban" {{action "cancel"}}> Cancel </button>
+			<button class="btn btn-canban" {{action "save"}}> Save changes </button>
+			<button class="btn btn-canban" {{action "cancel"}}> Cancel </button>
+			{{#if success}}
+				{{view App.IconButtonView type='ok'}}
+				<span class="success_message">Profile updated successfull.</span>
+			{{/if}}
+			{{#if saveError}}
+				{{view App.IconButtonView type='remove'}}
+				<span class="error_message">Failed to update profile.</span>
+			{{/if}}
 		</form>
 	</div>
 </div>
