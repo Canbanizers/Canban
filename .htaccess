@@ -1,6 +1,6 @@
 #Options +FollowSymlinks
 RewriteEngine on
-RewriteBase /canban/
+RewriteBase /
 
 RewriteRule ^api/([A-Za-z]+)?/([0-9]+)/?$ server/factory/index.php?model=$1&id=$2 [QSA,L]
 RewriteRule ^api/([A-Za-z]+)?$ server/factory/index.php?model=$1 [QSA,L]

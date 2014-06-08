@@ -1,12 +1,13 @@
 <?php
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'UserIdInterface.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'MethodNotExistException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'UserIdInterface.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'SubjectInterface.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'CredentialsReader.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'MethodNotExistException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'SQLException.php';
 
 /**
  * Loading credentials and initialize connection to database
@@ -65,10 +66,12 @@ class ModelFactory implements SubjectInterface {
 			$fnf_e->setMessage("File {$model_name} in {$path_to_models} not found");
 			throw $fnf_e;
 		}
-
-		require_once($path_to_models.ucfirst($model_name).'.php');
-
-		return new $model_name();
+		require_once realpath($path_to_models.ucfirst($model_name).'.php');
+		try{
+			return new $model_name();
+		} catch (\Exception $e){
+			var_dump($e->getMessage());
+		}
 	}
 
 	/**
@@ -97,7 +100,6 @@ class ModelFactory implements SubjectInterface {
 			}
 			$model_class = ucfirst($model_name);
 			$method_name = $req_method.$model_class;
-
 			if (!method_exists($model, $method_name)) {
 				$fnf_e = new MethodNotExistException();
 				$fnf_e->setMessage("Method {$method_name} in class {$model_class} not found");
@@ -105,21 +107,28 @@ class ModelFactory implements SubjectInterface {
 			}
 
 			$response = null;
-			switch ($req_method) {
-				case 'update':
-					$response = $model->$method_name($id, $params[array_shift(array_keys($params))]);
-					break;
-				case 'create':
-					$response = $model->$method_name($params[array_shift(array_keys($params))]);
-					break;
-				case 'findAll':
-					$response = $model->$method_name($since);
-					break;
-				case 'findQuery':
-					$response = $model->$method_name($params);
-					break;
-				default:
-					$response = $model->$method_name($id);
+			try {
+				switch ($req_method) {
+					case 'update':
+						$response = $model->$method_name($id, $params[array_shift(array_keys($params))]);
+						break;
+					case 'create':
+						$response = $model->$method_name($params[array_shift(array_keys($params))]);
+						break;
+					case 'findAll':
+						$response = $model->$method_name($since);
+						break;
+					case 'findQuery':
+						$response = $model->$method_name($params);
+						break;
+					default:
+						$response = $model->$method_name($id);
+				}
+			} catch (Exception $e) {
+				var_dump($e->getMessage());
+				$sql_e = new SQLException();
+				$sql_e->setMessage('Unable to execute ' . $req_method . 'on model ' . $model_name. '. Reason: '.$e->getMessage());
+				throw $sql_e;
 			}
 			if (!$response) {
 				//TODO: throw error

@@ -1,7 +1,10 @@
 <?php
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'../utils'.DIRECTORY_SEPARATOR.'UserToken.php';
+//require_once getcwd().DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+
+require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'UserToken.php';
+//require_once getcwd().DIRECTORY_SEPARATOR.'utils'.DIRECTORY_SEPARATOR.'UserToken.php';
 
 /**
  * Class User
@@ -15,6 +18,10 @@ class Users extends ActiveRecord\Model {
 	 * @var string
 	 */
 	public static $tablename = 'users';
+
+//	public function __construct() {
+//		parent::__construct();
+//	}
 
 	/**
 	 * @var string
@@ -37,7 +44,6 @@ class Users extends ActiveRecord\Model {
 				$params['lastlogin'] = $date->format('Y-m-d H:i:s');
 			}
 		}
-
 		return self::create($params);
 	}
 

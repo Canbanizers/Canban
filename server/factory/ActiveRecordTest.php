@@ -107,7 +107,7 @@ ActiveRecord\Config::initialize(function ($cfg) {
 
 $users = User::find_by_id(13);
 $users->firstname = 'WhateverYouWant';
-var_dump($users);
+//var_dump($users);
 
 /*
  * ...und speichern
