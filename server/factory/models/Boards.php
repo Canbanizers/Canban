@@ -55,7 +55,6 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				$board->children = array();
 			}
 		}
-
 		return $boards;
 	}
 
@@ -75,7 +74,7 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 	public function updateBoards($id, $params) {
 		$board = self::find($id);
 		foreach ($params as $param => $value) {
-			if ('owner' !== $param && 'tickets' !== $param && 'children' !== $param) {
+			if ('tickets' !== $param && 'children' !== $param) {
 				$board->$param = $value;
 			}
 		}
