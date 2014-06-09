@@ -24,6 +24,8 @@ class Tickets extends ActiveRecord\Model implements UserIdInterface {
 			}
 		}
 
+		$date = new DateTime('now');
+		$params['creation_date'] = $date->format('Y-m-d H:i:s');
 		$bhs = new BoardHasTicket();
 		$ticket = self::create($params);
 		$id_ticket = $ticket->id;

@@ -25,6 +25,8 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				unset($params[$param]);
 			}
 		};
+		$date = new DateTime('now');
+		$params['creation_date'] = $date->format('Y-m-d H:i:s');
 		$board = self::create($params);
 		//FIXME I need to fetch the board again to get the right creation_date which is created by default value
 		$board = $this->findBoards($board->id);
