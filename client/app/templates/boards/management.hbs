@@ -6,12 +6,12 @@
 		Ticket Count: {{ticketCount}}
 	</article>
 	{{#each}}
-		{{#if creation_date}}
-			<article class="boards_list_item">
-				<h3 class="inline_block">{{name}}</h3><br/>
-				{{board-menu management=true board=this showBoard='showBoard' deleteBoard='deleteBoard'}}
-			</article>
-		{{/if}}
+	{{#if creation_date}}
+	<article class="boards_list_item">
+		<h3 class="inline_block">{{name}}</h3><br/>
+		{{board-menu management=true board=this showBoard='showBoard' deleteBoard='deleteBoard'}}
+	</article>
+	{{/if}}
 	{{/each}}
 </aside>
 <section class="management_content">

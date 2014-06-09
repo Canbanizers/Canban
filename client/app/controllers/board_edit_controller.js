@@ -11,7 +11,7 @@ App.BoardEditController = Ember.ObjectController.extend({
 		});
                 tempBoards.forEach(function(board) {
                     boards.pushObject(board);
-                })
+                });
 		return boards;
 	}.property('controllers.boards.model')
 });

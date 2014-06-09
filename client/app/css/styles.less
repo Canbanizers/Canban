@@ -82,6 +82,10 @@
 	float: right;
 }
 
+.clear {
+	clear: both;
+}
+
 .inline_block {
 	display: inline-block;
 }
@@ -91,7 +95,7 @@
 .board_heading {
 	font-family: DK_Cool_Crayon, sans-serif;
 	text-decoration: underline;
-	padding: 50px 0 0 20px;
+	padding: 0 0 0 20px;
 }
 
 h1 {
@@ -129,7 +133,6 @@ html, body {
 }
 
 body {
-	overflow: hidden;
 	padding: 0;
 	background: url('../img/green_chalkboard2.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -157,12 +160,9 @@ body {
 .btn-canban {
 	font-size: 20px;
 	display: block;
-	border: 1px solid #CCCCCC;
 	padding: 2px 10px;
 	margin-top: 10px;
-	background: #EEEEEE;
-	opacity: 0.4;
-	color: inherit;
+	color: @white;
 }
 
 .btn-canban:hover {
@@ -171,9 +171,20 @@ body {
 
 /* ### Main Menu ### */
 
-.menu_item, .menu_item:active, .menu_item:link {
-	display: inline-block;
-	position: absolute;
+.main_menu {
+	float: right;
+}
+
+.main_menu ul {
+	list-style: none;
+}
+
+.main_menu ul li {
+	float: left;
+	margin-right: 15px;
+}
+
+.menu_item a, .menu_item a:active, .menu_item a:link {
 	text-decoration: underline;
 	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 25px;
@@ -181,37 +192,16 @@ body {
 	line-height: 30px;
 	color: @white;
 	border-bottom: solid 1px @white;
-	z-index: 1;
 }
 
-.menu_item:hover {
+.menu_item a:hover {
 	color: @white_hover;
 	border-color: @white_hover;
-}
-
-#profile_button {
-	top: 60px;
-	right: 550px;
-	.rotate(30deg);
-}
-
-#group_button {
-	top: 60px;
-	right: 310px;
-	.rotate(-25deg);
-}
-
-#board_button {
-	top: 70px;
-	right: 220px;
-	.rotate(-30deg);
 }
 
 #logout_button {
 	color: @red_chalk;
 	border-bottom-color: @red_chalk;
-	top: 20px;
-	right: 20px;
 }
 
 #logout_button:hover, #logout_button:active {
@@ -279,6 +269,11 @@ body {
 		border-bottom: solid 1px #000000;
 	}
 
+	.ticket_title label,
+	.ticket_content label {
+		font-size: 20px;
+	}
+
 	.ticket_title {
 		display: block;
 		height: 49px;
@@ -287,6 +282,14 @@ body {
 
 	.ticket_title h3 {
 		margin: auto 0;
+	}
+
+	.ticket_content {
+		.center;
+	}
+
+	.ticket_content label {
+		display: block;
 	}
 }
 
@@ -364,7 +367,7 @@ body {
 		padding: 5px 10px;
 		.chalk_border;
 		border-bottom: 10px solid transparent;
-                text-align: center;
+		text-align: center;
 		border-right: 10px solid transparent;
 		.board_menu {
 			display: block;
@@ -450,109 +453,126 @@ body {
 	margin-left: 0 !important;
 }
 
-form .btn.btn-canban {
-	pointer-events: auto;
-}
-
-/* ### Login Component ### */
-
-.form {
+form {
 	font-family: DK_Cool_Crayon, sans-serif;
 	font-size: 25px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
-	max-width: auto;
-	padding: 15px;
-
-	label {
-		display: block;
-	}
 }
 
-.form h2 {
-	color: @red_chalk;
+form .title {
 	padding-bottom: 20px;
+	text-align: center;
 }
 
-.form .actions .btn-canban {
-	float: left;
-	margin-top: 20px;
-}
-
-.form .actions .btn-canban:last-child{
-	margin-left: 10px;
-}
-
-.form input, textarea {
-	border: 1px solid #CCCCCC;
-	border-radius: 3px;
-	box-shadow: none;
-	min-width: 220px;
-	padding: 5px;
-}
-
-
-#signup {
-	background: none;
-	border: none;
-	color: #75A671;
-	.rotate(15deg);
-	margin-left: 5%;
-}
-
-/* ### Profile Area ### */
-
-.profile {
-	font-family: DK_Cool_Crayon, sans-serif;
-	font-size: 25px;
-	margin-left: 50px;
-	margin-top: 10px;
-}
-
-.profile label {
+form label {
 	display: block;
 	padding-top: 10px;
 	padding-bottom: 5px;
 	color: @white;
 }
 
-.profile input, textarea {
-	border: 1px solid #CCCCCC;
-	border-radius: 3px;
-	box-shadow: none;
+form input,
+form textarea {
+	font-size: 30px;
+	background: none transparent;
+	border: 0 transparent;
+	.chalk_border;
 	min-width: 220px;
 	padding: 5px;
-
 }
 
-.profile span button {
-	display: inline-block;
-	color: @error_red;
-	border: none;
-	background: none;
-	opacity: 1;
-	font-size: 16px;
+form input:enabled {
+	border-bottom: 5px solid transparent;
 }
+
+form .btn-canban {
+	background: none transparent;
+	color: @white;
+	font-size: inherit;
+	border: 0 transparent;
+	border-bottom: 2px solid transparent;
+	.chalk_border;
+	pointer-events: auto;
+	text-decoration: none;
+}
+
+
+form .btn-canban:hover {
+	color: @white_hover;
+}
+form .actions .btn-canban {
+	float: left;
+	margin-top: 20px;
+}
+
+form .actions .btn-canban:last-child{
+	margin-left: 10px;
+}
+
+.form_center {
+	margin: 0 auto;
+	max-width: 40%;
+}
+
+/* ### Login Component ### */
+
+.form {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	max-width: auto;
+	padding: 15px;
+}
+
+/* ### Profile Area ### */
+
+//.profile {
+//	font-family: DK_Cool_Crayon, sans-serif;
+//	font-size: 25px;
+//	margin-left: 50px;
+//	margin-top: 10px;
+//}
+//
+//.profile label {
+//	display: block;
+//	padding-top: 10px;
+//	padding-bottom: 5px;
+//	color: @white;
+//}
+//
+//.profile input, textarea {
+//	border: 1px solid #CCCCCC;
+//	border-radius: 3px;
+//	box-shadow: none;
+//	min-width: 220px;
+//	padding: 5px;
+//
+//}
+//
+//.profile span button {
+//	display: inline-block;
+//	color: @error_red;
+//	border: none;
+//	background: none;
+//	opacity: 1;
+//	font-size: 16px;
+//}
 
 /* ### Errors ### */
 
-.error_button {
-	display: inline-block;
+.message.error {
 	color: @error_red;
+}
+
+.message.success {
+	color: @success_green;
+}
+
+.message button {
+	display: inline-block;
 	border: none;
 	background: none;
 	opacity: 1;
 	font-size: 16px;
-}
-
-.error_message {
-	color: @error_red;
-}
-
-/* ### Success ### */
-.success_message {
-	color: @success_green;
 }
 
 

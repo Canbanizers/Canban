@@ -1,85 +1,94 @@
-<div class="profile">
+<div class="registration form_center">
 	<div>
 		<form>
-			<button class="btn btn-canban" {{action "cancel"}}>Back to Login</button>
+			<h2 class="title">Registration</h2>
+			{{#if wrongInputError}}
+                <span class="message error">
+                    {{view App.IconButtonView type='remove'}}
+                    <span>Please check your input again.</span>
+                </span>
+			{{/if}}
+			{{#if success}}
+            <span class="message success">
+                {{view App.IconButtonView type='ok'}}
+				<span>Successfully registered. <br> Redirecting in 5 seconds.</span>
+            </span>
+			{{/if}}
+			{{#if saveError}}
+				<span class="message error">
+					{{view App.IconButtonView type='remove'}}
+					<span>An Account with this Email alread exists.</span>
+				</span>
+			{{/if}}
 			<div>
 				<label>Firstname</label>
-				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname"}}
-				<span>
-					{{#if firstnameError}}
+				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname" placeholder="firstname" tabindex=1 }}
+				{{#if firstnameError}}
+                    <span class="message error">
 						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+						<span>Please fill in.</span>
+				    </span>
+				{{/if}}
 			</div>
-
 			<div>
 				<label>Lastname</label>
-				{{view App.ValidationTextField viewName="lastname" valueBinding="lastname"}}
-				<span>
-					{{#if lastnameError}}
+				{{view App.ValidationTextField viewName="lastname" valueBinding="lastname" placeholder="lastname" tabindex=2}}
+				{{#if lastnameError}}
+                    <span class="message error">
 						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+						<span>Please fill in.</span>
+				    </span>
+				{{/if}}
 			</div>
 
 			<div>
 				<label>Email</label>
-				{{view App.ValidationTextField viewName="email" valueBinding="email"}}
-				<span>
-					{{#if emailError}}
+				{{view App.ValidationTextField viewName="email" valueBinding="email" placeholder="email" tabindex=3}}
+				{{#if emailError}}
+                    <span class="message error">
 						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{else}}
-						{{#if emailInvalidError}}
-							{{view App.IconButtonView type='remove'}}
-							<span class="error_message">E-Mail is invalid.</span>
-						{{/if}}
-					{{/if}}
-				</span>
+						<span>Please fill in.</span>
+                    </span>
+				{{else}}
+				{{#if emailInvalidError}}
+                            <span class="message error">
+                                {{view App.IconButtonView type='remove'}}
+                                <span>E-Mail is invalid.</span>
+                            </span>
+				{{/if}}
+				{{/if}}
 			</div>
-
 			<div>
 				<label>Password</label>
-				{{view App.ValidationTextField type="password" viewName="password" valueBinding="password"}}
-				<span>
-					{{#if passwordError}}
+				{{view App.ValidationTextField type="password" viewName="password" valueBinding="password" placeholder="password" tabindex=4}}
+				{{#if passwordError}}
+                    <span class="message error">
 						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+						<span>Please fill in.</span>
+				    </span>
+				{{/if}}
 			</div>
-
 			<div>
 				<label>Password Confirmation</label>
-				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation"}}
-				<span>
-					{{#if passwordConfirmationError}}
+				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation" placeholder="password confirmation" tabindex=5}}
+				{{#if passwordConfirmationError}}
+				    <span class="message error">
 						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please confirm your password.</span>
-					{{else}}
-						{{#if passwordConfirmationCompareError}}
-							{{view App.IconButtonView type='remove'}}
-							<span class="error_message">Passwords don't match.</span>
-						{{/if}}
-					{{/if}}
-				</span>
+						<span>Please confirm your password.</span>
+                    </span>
+				{{else}}
+				{{#if passwordConfirmationCompareError}}
+                            <span class="message error">
+                                {{view App.IconButtonView type='remove'}}
+                                <span>Passwords don't match.</span>
+                            </span>
+				{{/if}}
+				{{/if}}
 			</div>
-
-			<button class="btn btn-canban" {{action "save"}}>Register</button>
-			{{#if wrongInputError}}
-				{{view App.IconButtonView type='remove'}}
-				<span class="error_message">Please check your input again.</span>
-			{{/if}}
-			{{#if saveError}}
-				{{view App.IconButtonView type='remove'}}
-				<span class="error_message">An Account with this Email alread exists..</span>
-			{{/if}}
-			{{#if success}}
-				{{view App.IconButtonView type='ok'}}
-				<span class="success_message">Successfully registered. Redirecting in 5 seconds.</span>
-			{{/if}}
+			<div class="actions">
+				<button class="btn btn-canban" tabindex=6 {{action "save"}}>Register</button>
+				<button class="btn btn-canban" tabindex=7 {{action "cancel"}}>Back to Login</button>
+			</div>
 		</form>
 	</div>
 </div>

@@ -1,54 +1,54 @@
 {{#if edit}}
 
-	<div class="ticket_title">
-		Title: {{#input type="text" value=ticket.title}}{{/input}}
-	</div>
-	<div class="ticket_content">
-		{{#textarea value=ticket.content}}{{/textarea}}
-	</div>
+<div class="ticket_title">
+	<label>Title:</label> {{#input type="text" value=ticket.title}}{{/input}}
+</div>
+<div class="ticket_content">
+	<label>Content:</label> {{#textarea value=ticket.content}}{{/textarea}}
+</div>
 
 {{else}}
 {{#if create}}
-		<div class="ticket_title">
-			Title: {{#input type="text" value=ticket.title}}{{/input}}
-		</div>
-		<div class="ticket_content">
-			{{#textarea value=ticket.content}}{{/textarea}}
-		</div>
+<div class="ticket_title">
+	<label>Title:</label> {{#input type="text" value=ticket.title}}{{/input}}
+</div>
+<div class="ticket_content">
+	<label>Content:</label> {{#textarea value=ticket.content}}{{/textarea}}
+</div>
 {{view App.IconButtonView type='ok'}}
 {{else}}
 
 {{#if basic}}
 
-		<nav class="ticket_menu">
-			{{#if displayPrevious}}
-				{{view App.IconButtonView type='chevron-left' title='Previous Column' action='toPreviousColumn' button=true}}
-			{{/if}}
-			{{#if basic}}
-				{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails' button=true}}
-			{{/if}}
+<nav class="ticket_menu">
+	{{#if displayPrevious}}
+	{{view App.IconButtonView type='chevron-left' title='Previous Column' action='toPreviousColumn' button=true}}
+	{{/if}}
+	{{#if basic}}
+	{{view App.IconButtonView type='info-sign' title='Show Details' action='showDetails' button=true}}
+	{{/if}}
 
-			{{view App.IconButtonView type='pencil' title='Edit' action='showEdit' button=true}}
+	{{view App.IconButtonView type='pencil' title='Edit' action='showEdit' button=true}}
 
-			{{#unless fromCurrentBoard}}
-				{{view App.IconButtonView type='th' title=parentName action='showParentBoard' button=true}}
-			{{/unless}}
+	{{#unless fromCurrentBoard}}
+	{{view App.IconButtonView type='th' title=parentName action='showParentBoard' button=true}}
+	{{/unless}}
 
-			{{#if displayNext}}
-				{{view App.IconButtonView class='float_right' type='chevron-right' title='Next Column' action='toNextColumn' button=true}}
-			{{/if}}
+	{{#if displayNext}}
+	{{view App.IconButtonView class='float_right' type='chevron-right' title='Next Column' action='toNextColumn' button=true}}
+	{{/if}}
 
-			{{view App.IconButtonView class='float_right' type='remove' title='Delete' action='showDelete' button=true}}
-		</nav>
+	{{view App.IconButtonView class='float_right' type='remove' title='Delete' action='showDelete' button=true}}
+</nav>
 
-		<div class="ticket_title">
-			<h3>{{ticket.title}}</h3>
-		</div>
+<div class="ticket_title">
+	<h3>{{ticket.title}}</h3>
+</div>
 
 {{else}}
-		<div class="ticket_content">
-			{{ticket.content}}
-		</div>
+<div class="ticket_content">
+	{{ticket.content}}
+</div>
 
 {{/if}}
 {{/if}}

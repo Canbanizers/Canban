@@ -48,12 +48,14 @@ App.RegistrationController = Ember.ObjectController.extend({
 				var user = this.get('model');
 				var self = this;
 				user.save().then(function(){
+					self.set('saveError', false);
 					self.set('success', true);
 					setTimeout(function() {
 						self.transitionToRoute('login');
 					}, 5000);
-				}, function(error){
+				}, function(){
 					self.set('saveError', true);
+					self.set('success', false);
 				});
 			}
 		},

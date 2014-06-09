@@ -1,48 +1,48 @@
 {{#with this as self}}
-		<table class="main_table">
-			<thead class="main_table_head">
-				<tr>
-					<th>
-						Todo
-					</th>
-					<th>
-						Doing
-					</th>
-					<th>
-						Done
-					</th>
-				</tr>
-			</thead>
-			<tbody class="main_table_body">
-				<tr>
-					<td>
-						<div class="ticket_wrapper">
-							{{#each getDisplayTickets}}
-								{{#if isTodo}}
-									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
-								{{/if}}
-							{{/each}}
-						</div>
-					</td>
-					<td>
-						<div class="ticket_wrapper">
-							{{#each getDisplayTickets}}
-								{{#if isDoing}}
-									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
-								{{/if}}
-							{{/each}}
-						</div>
-					</td>
-					<td>
-						<div class="ticket_wrapper">
-							{{#each getDisplayTickets}}
-								{{#if isDone}}
-									{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
-								{{/if}}
-							{{/each}}
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<table class="main_table">
+	<thead class="main_table_head">
+	<tr>
+		<th>
+			Todo
+		</th>
+		<th>
+			Doing
+		</th>
+		<th>
+			Done
+		</th>
+	</tr>
+	</thead>
+	<tbody class="main_table_body">
+	<tr>
+		<td>
+			<div class="ticket_wrapper">
+				{{#each getDisplayTickets}}
+				{{#if isTodo}}
+				{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+				{{/if}}
+				{{/each}}
+			</div>
+		</td>
+		<td>
+			<div class="ticket_wrapper">
+				{{#each getDisplayTickets}}
+				{{#if isDoing}}
+				{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+				{{/if}}
+				{{/each}}
+			</div>
+		</td>
+		<td>
+			<div class="ticket_wrapper">
+				{{#each getDisplayTickets}}
+				{{#if isDone}}
+				{{ticket-comp ticket=this showParentBoard='switchBoard' currentBoardID=self.id createAction='createTicket' editAction='updateTicket' deleteAction='deleteTicket'}}
+				{{/if}}
+				{{/each}}
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
 {{/with}}

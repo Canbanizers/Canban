@@ -2,33 +2,33 @@
 	<form class="content">
 		<h1>{{input type="text" disabled=info value=name placeholder='name'}}</h1> <br/>
 		{{#if info}}
-			Ticket Count: {{ticketCount}} <br/>
-			Creation Date:  {{input type="text" disabled=true value=creation_date}}  <br/>
-			{{#if parent}}
-				Parent: <button {{action "showBoard" parent 'info'}}>{{parent.name}}</button> <br/>
-			{{/if}}
-			{{#if hasChildren}}
-				Child Boards: 
-				{{#each children}}
-                                         <br/>
-					 <button {{action "showBoard" this 'info'}}>{{this.name}}</button>
+		Ticket Count: {{ticketCount}} <br/>
+		Creation Date:  {{input type="text" disabled=true value=creation_date}}  <br/>
+		{{#if parent}}
+		Parent: <button {{action "showBoard" parent 'info'}}>{{parent.name}}</button> <br/>
+		{{/if}}
+		{{#if hasChildren}}
+		Child Boards:
+		{{#each children}}
+		<br/>
+		<button {{action "showBoard" this 'info'}}>{{this.name}}</button>
 		{{/each}}
-                                <br/>
-			{{/if}}
+		<br/>
+		{{/if}}
 		{{/if}}
 		{{#unless isMainboard}}
-			Wip: {{input type="text" disabled=info value=wip}} <br/>
+		Wip: {{input type="text" disabled=info value=wip}} <br/>
 		{{/unless}}
 		{{#unless info}}
-			Parent: <div class="styled_select">
-				{{view Ember.Select 
-                                    content=getBoards 
-                                    optionValuePath="content.id" 
-                                    optionLabelPath="content.name" 
-                                    selectionBinding="parent"}}
-			</div>
-			<br/><br/>
-			<button {{action "save" this}}> Save changes </button>
+		Parent: <div class="styled_select">
+		{{view Ember.Select
+		content=getBoards
+		optionValuePath="content.id"
+		optionLabelPath="content.name"
+		selectionBinding="parent"}}
+	</div>
+		<br/><br/>
+		<button {{action "save" this}}> Save changes </button>
 		<button {{action "cancel" this}}> Cancel </button>
 		{{/unless}}
 	</form>

@@ -1,78 +1,82 @@
-<div class="profile">
+<div class="profile form_center">
 	<h1>Profile</h1>
 	<div>
 		<form>
-			<button class="btn btn-canban" {{action "cancel"}}> Back to Board </button>
-			<button class="btn btn-canban" {{action "delete"}}>Delete</button>
-
-            {{#if saveError}}
-                {{view App.IconButtonView type='remove'}}
-				<span class="error_message">Please check your input again.</span>
-            {{/if}}
+			<div class="actions">
+				<button class="btn btn-canban" {{action "cancel"}}> Back to Board </button>
+				<button class="btn btn-canban" {{action "delete"}}>Delete</button>
+			</div>
+			<div class="clear"></div>
+			{{#if saveError}}
+                <span class="message error">
+                    {{view App.IconButtonView type='remove'}}
+                    <span>Please check your input again.</span>
+                </span>
+			{{/if}}
 
 			<div>
 				<label>Firstname</label>
 				{{view App.ValidationTextField viewName="firstname" valueBinding="firstname"}}
-				<span>
-					{{#if firstnameError}}
-						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+				{{#if firstnameError}}
+                    <span class="message error">
+                        {{view App.IconButtonView type='remove'}}
+                        <span class="error_message">Please fill in.</span>
+                    </span>
+				{{/if}}
 			</div>
-
 			<div>
 				<label>Lastname</label>
 				{{view App.ValidationTextField viewName="lastname" valueBinding="lastname"}}
-				<span>
-					{{#if lastnameError}}
-						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+				{{#if lastnameError}}
+                    <span class="message error">
+                        {{view App.IconButtonView type='remove'}}
+                        <span class="error_message">Please fill in.</span>
+                    </span>
+				{{/if}}
 			</div>
-
 			<div>
 				<label>Email</label>
 				{{view App.ValidationTextField disabled="disabled" viewName="email" valueBinding="email"}}
 			</div>
-
 			<div>
 				<label>Password</label>
 				{{view App.ValidationTextField type="password" viewName="password" valueBinding="pwPlaceholder"}}
-				<span>
-					{{#if passwordError}}
-						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please fill in.</span>
-					{{/if}}
-				</span>
+				{{#if passwordError}}
+                    <span class="message error">
+                        {{view App.IconButtonView type='remove'}}
+                        <span class="error_message">Please fill in.</span>
+                    </span>
+				{{/if}}
 			</div>
 
 			<div>
 				<label>Password Confirmation</label>
-				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation"}}
-				<span>
-					{{#if passwordConfirmationError}}
-						{{view App.IconButtonView type='remove'}}
-						<span class="error_message">Please confirm your password.</span>
-					{{else}}
-						{{#if passwordConfirmationCompareError}}
-							{{view App.IconButtonView type='remove'}}
-							<span class="error_message">Passwords don't match.</span>
-						{{/if}}
-					{{/if}}
-				</span>
+				{{view App.ValidationTextField type="password" viewName="passwordConfirmation" valueBinding="passwordConfirmation" placeholder="passwordConfirmation"}}
+				{{#if passwordConfirmationError}}
+                    <span class="message error">
+                        {{view App.IconButtonView type='remove'}}
+                        <span class="error_message">Please confirm your password.</span>
+                    </span>
+				{{else}}
+				{{#if passwordConfirmationCompareError}}
+                        <span class="message error">
+                            {{view App.IconButtonView type='remove'}}
+                            <span class="error_message">Passwords don't match.</span>
+                        </span>
+				{{/if}}
+				{{/if}}
 			</div>
-
-			<button class="btn btn-canban" {{action "save"}}> Save changes </button>
-			<button class="btn btn-canban" {{action "cancel"}}> Cancel </button>
+			<div class="actions">
+				<button class="btn btn-canban" {{action "save"}}> Save changes </button>
+				<button class="btn btn-canban" {{action "cancel"}}> Cancel </button>
+			</div>
 			{{#if success}}
-				{{view App.IconButtonView type='ok'}}
-				<span class="success_message">Profile updated successfull.</span>
+			{{view App.IconButtonView type='ok'}}
+			<span class="success_message">Profile updated successfull.</span>
 			{{/if}}
 			{{#if saveError}}
-				{{view App.IconButtonView type='remove'}}
-				<span class="error_message">Failed to update profile.</span>
+			{{view App.IconButtonView type='remove'}}
+			<span class="error_message">Failed to update profile.</span>
 			{{/if}}
 		</form>
 	</div>
