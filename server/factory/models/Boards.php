@@ -1,8 +1,7 @@
 <?php
 
-//require_once 'UserIdInterface.php';
-//require_once getcwd().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once getcwd().DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+require_once 'UserIdInterface.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
 class Boards extends ActiveRecord\Model implements UserIdInterface {
 
@@ -21,15 +20,18 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				unset($index);
 			}
 
-			if ('tickets' === $param || 'owner' === $param || 'children' === $param) {
+			if ('tickets' === $param || 'children' === $param) {
 				unset($params[$param]);
 			}
 		};
 		$date = new DateTime('now');
 		$params['creation_date'] = $date->format('Y-m-d H:i:s');
 		$board = self::create($params);
+		$uhb = new UserHasBoard();
+		$id_board = $board->id;
+		$uhb->createUserHasBoard($this->user_id, $id_board);
 		//FIXME I need to fetch the board again to get the right creation_date which is created by default value
-		$board = $this->findBoards($board->id);
+		$board = $this->findBoards($id_board);
 
 		return $board;
 	}
@@ -78,7 +80,7 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 	public function updateBoards($id, $params) {
 		$board = self::find($id);
 		foreach ($params as $param => $value) {
-			if ('owner' !== $param && 'tickets' !== $param && 'children' !== $param) {
+			if ('tickets' !== $param && 'children' !== $param) {
 				$board->$param = $value;
 			}
 		}

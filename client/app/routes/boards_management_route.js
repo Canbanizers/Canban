@@ -23,6 +23,19 @@ App.BoardsManagementRoute = Ember.Route.extend({
 				controller.set('model', board);
 				this.send('renderInfoWithController', controller);
 			}
+		},
+
+		createBoard: function() {
+			var board = this.store.createRecord('board', {
+				name: '',
+				wip : 0
+			});
+			this.send('showBoard', board, 'edit');
+		},
+
+		deleteBoard: function(board) {
+			board.deleteRecord();
+			board.save();
 		}
 	}
 });
