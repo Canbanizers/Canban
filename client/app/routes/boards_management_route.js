@@ -31,6 +31,12 @@ App.BoardsManagementRoute = Ember.Route.extend({
 				wip : 0
 			});
 			this.send('showBoard', board, 'edit');
+		},
+
+		deleteBoard: function(board) {
+			console.log(board);
+			board.deleteRecord();
+			board.save();
 		}
 	}
 });
