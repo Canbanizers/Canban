@@ -3,9 +3,22 @@
 require_once 'UserIdInterface.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
+/**
+ * Class Boards
+ *
+ * Represents our boards-table in database.
+ * The class provide the necessary REST-operations which are called dynamic in ModelFactory.
+ */
 class Boards extends ActiveRecord\Model implements UserIdInterface {
 
+	/**
+	 * @var string
+	 */
 	public static $table_name = 'boards';
+
+	/**
+	 * @var string
+	 */
 	public static $primary_key = 'id';
 
 	/**
@@ -13,6 +26,13 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 	 */
 	private $user_id;
 
+	/**
+	 * Function creates a board associated with a user
+	 *
+	 * @param array $params
+	 *
+	 * @return \ActiveRecord\Model
+	 */
 	public function createBoards($params) {
 		foreach ($params as $param => $value) {
 			if (empty($value)) {
@@ -30,14 +50,16 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		$uhb = new UserHasBoard();
 		$id_board = $board->id;
 		$uhb->createUserHasBoard($this->user_id, $id_board);
-		//FIXME I need to fetch the board again to get the right creation_date which is created by default value
 		$board = $this->findBoards($id_board);
 
 		return $board;
 	}
 
 	/**
-	 * @param $since
+	 * Function to get all boards from a single user.
+	 * Only executed once when a user is logging in and retrieving all of his data.
+	 *
+	 * @param string $since
 	 *
 	 * @return array|mixed
 	 */
@@ -64,6 +86,13 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		return $boards;
 	}
 
+	/**
+	 * Function delete a board in database. It's not resettable!
+	 *
+	 * @param int $id
+	 *
+	 * @return null
+	 */
 	public function deleteBoards($id) {
 		$board = self::find($id);
 		$board->delete();
@@ -71,12 +100,27 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		return null;
 	}
 
+	/**
+	 * Retrieve a single board by the id of the board.
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 */
 	public function findBoards($id) {
 		$search_array['conditions'] = array('boards.id = ?', $id);
 
 		return self::find($search_array);
 	}
 
+	/**
+	 * Update board settings like name, WIP and so on.
+	 *
+	 * @param int $id
+	 * @param array $params
+	 *
+	 * @return mixed
+	 */
 	public function updateBoards($id, $params) {
 		$board = self::find($id);
 		foreach ($params as $param => $value) {
@@ -89,11 +133,18 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 		return $this->findBoards($id);
 	}
 
+	/**
+	 * @param int $user_id
+	 */
 	public function setUserId($user_id) {
 		$this->user_id = $user_id;
 	}
 
-
+	/**
+	 * Getter for query-parameters which are the same for several functions in this class.
+	 *
+	 * @return array
+	 */
 	private function getSearchArray() {
 		$select =
 			array('select' => 'boards.*, GROUP_CONCAT(id_ticket) AS tickets, GROUP_CONCAT(distinct b.id) AS children');

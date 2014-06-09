@@ -12,7 +12,7 @@ class SecurityController {
 	private $observer;
 
 	/**
-	 * @var
+	 * @var mixed
 	 */
 	private $user_id = null;
 
@@ -24,6 +24,9 @@ class SecurityController {
 	}
 
 	/**
+	 * Function check if an validated user is requesting any actions.
+	 * Only if the token in the request match with the token in database the user can execute the actions.
+	 *
 	 * @param string $model
 	 * @param string $req_method
 	 * @param string $token
@@ -45,6 +48,8 @@ class SecurityController {
 	}
 
 	/**
+	 * Initialize the ModelFactory and add the RequestHandler as an observer.
+	 *
 	 * @param string $model
 	 * @param string $json
 	 * @param string $req_method

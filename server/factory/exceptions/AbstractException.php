@@ -2,6 +2,9 @@
 
 abstract class AbstractException extends Exception {
 
+	/**
+	 * @var int
+	 */
 	private $status_code = 0;
 
 	/**

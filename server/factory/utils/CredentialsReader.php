@@ -18,6 +18,9 @@ class UndefinedOffsetException extends AbstractException {
  */
 class CredentialsReader {
 
+	/**
+	 * Constant database parameters
+	 */
 	const PATH_TO_XML = '../xml';
 	const PROTOCOL = 'mysql';
 	const SERVER = 'localhost';

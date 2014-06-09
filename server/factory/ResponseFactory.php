@@ -67,10 +67,8 @@ class ResponseFactory {
 		$this->sendResponse($json, $status_code);
 	}
 
-	/**
-	 * TODO: catch exceptions
-	 *
-	 * Encode array regardless of which depth to UTF
+	/**	 *
+	 * Encode array, regardless of which depth, to UTF
 	 *
 	 * @param array $array
 	 *
@@ -89,6 +87,5 @@ class ResponseFactory {
 		}
 
 		return $utf8_encoded;
-
 	}
 } 

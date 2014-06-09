@@ -19,16 +19,14 @@ class Users extends ActiveRecord\Model {
 	 */
 	public static $tablename = 'users';
 
-//	public function __construct() {
-//		parent::__construct();
-//	}
-
 	/**
 	 * @var string
 	 */
 	public static $primary_key = 'id';
 
 	/**
+	 * Create a single user (e.g in registration)
+	 *
 	 * @param array $params
 	 *
 	 * @return \ActiveRecord\Model
@@ -54,6 +52,13 @@ class Users extends ActiveRecord\Model {
 		return self::find('all');
 	}
 
+	/**
+	 * Find the user by params with unique values. This function will be called in loginprocess to validate the user.
+	 *
+	 * @param $params
+	 *
+	 * @return array
+	 */
 	public function findQueryUsers($params) {
 		$users = self::all(array('conditions' => array ('email = ? and password = ?', $params['email'], $params['password'])));
 		$user = null;
@@ -68,11 +73,22 @@ class Users extends ActiveRecord\Model {
 		return $users;
 	}
 
+	/**
+	 * Check if a user with the given validation-token exists in database.
+	 * If there is a corresponding entry in database the user has the permission to do other actions,
+	 * if not he will get logged out.
+	 *
+	 * @param string $token
+	 *
+	 * @return mixed
+	 */
 	public function findByToken($token) {
 		return self::find(array('conditions' => array('token = ?', $token)));
 	}
 
 	/**
+	 * Function delete a user in database. It's not resettable!
+	 *
 	 * @param int $id
 	 *
 	 * @return null
@@ -85,6 +101,8 @@ class Users extends ActiveRecord\Model {
 	}
 
 	/**
+	 * Find a single user by his id.
+	 *
 	 * @param int $id
 	 *
 	 * @return mixed
@@ -94,6 +112,8 @@ class Users extends ActiveRecord\Model {
 	}
 
 	/**
+	 * Update userattributes like if an user will update his personal data in profile area.
+	 *
 	 * @param int $id
 	 * @param array $params
 	 *

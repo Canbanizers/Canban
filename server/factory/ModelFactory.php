@@ -56,6 +56,8 @@ class ModelFactory implements SubjectInterface {
 	 * @param string $model_name
 	 *
 	 * @throws FileNotFoundException
+	 * @throws Exception
+	 *
 	 * @return ActiveRecord\Model
 	 */
 	private function getModel($model_name) {
@@ -70,7 +72,7 @@ class ModelFactory implements SubjectInterface {
 		try{
 			return new $model_name();
 		} catch (\Exception $e){
-			var_dump($e->getMessage());
+			throw($e);
 		}
 	}
 
@@ -125,13 +127,9 @@ class ModelFactory implements SubjectInterface {
 						$response = $model->$method_name($id);
 				}
 			} catch (Exception $e) {
-				var_dump($e->getMessage());
 				$sql_e = new SQLException();
 				$sql_e->setMessage('Unable to execute ' . $req_method . 'on model ' . $model_name. '. Reason: '.$e->getMessage());
 				throw $sql_e;
-			}
-			if (!$response) {
-				//TODO: throw error
 			}
 			$this->notify($response);
 		} catch (Exception $e) {
@@ -139,14 +137,23 @@ class ModelFactory implements SubjectInterface {
 		}
 	}
 
+	/**
+	 * @param ObserverInterface $observer
+	 */
 	public function addObserver(ObserverInterface $observer) {
 		$this->observer = $observer;
 	}
 
+	/**
+	 * @param ObserverInterface $observer
+	 */
 	public function removeObserver(ObserverInterface $observer) {
 		$this->observer = null;
 	}
 
+	/**
+	 * @param mixed $response
+	 */
 	public function notify($response) {
 		$this->observer->update($response);
 	}

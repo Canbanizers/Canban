@@ -63,10 +63,11 @@ class RequestHandler implements ObserverInterface {
 	 *         }
 	 * }
 	 *
-	 * @return Exception|FileNotFoundException|MethodNotExistException|ActiveRecord\Model
 	 * @throws HttpMethodNotAllowedException
 	 * @throws InvalidJsonException
 	 * @throws RequestModelEmptyException
+	 *
+	 * @return Exception|FileNotFoundException|MethodNotExistException|ActiveRecord\Model
 	 */
 	private function handleRequest()
 	{
@@ -112,19 +113,17 @@ class RequestHandler implements ObserverInterface {
 				break;
 		}
 
-		$security_controller = new SecurityController($this);
 		$token = null;
 		try {
 			$token = @$_SERVER['HTTP_X_TOKEN'];
 		} catch (Exception $e) {
 		}
+
+		$security_controller = new SecurityController($this);
 		if (!$security_controller->hasPermission($model, $req_method, $token)) {
-			//TODO: error_message!
-			var_dump('#### NO PERMISSION ####');
 			die;
 		}
 
-		//Permission only area
 		$req_body = file_get_contents('php://input');
 		if('logins' === $model && 'findAll' === $req_method && empty($req_body)) {
 			$req_method = 'findQuery';
