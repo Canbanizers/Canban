@@ -7,11 +7,10 @@ App.BoardRoute = Ember.Route.extend({
 					return null;
 				} else {
 					var board = self.store.createRecord('board', {
-						name: "Personal Board"
+						name: "Personal Board",
+						wip: -1
 					});
-					return board.save().then(function() {
-						return board
-					})
+					return board.save();
 				}
 		});
 	},

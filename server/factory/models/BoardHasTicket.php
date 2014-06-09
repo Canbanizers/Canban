@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+//require_once getcwd().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
 
 class BoardHasTicket extends ActiveRecord\Model {
 

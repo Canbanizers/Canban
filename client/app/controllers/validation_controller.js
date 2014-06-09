@@ -49,8 +49,9 @@ App.ValidationController = Ember.ObjectController.extend({
 		if(!this.getValue(val)) {
 			value = this.controller.get(val);
 			var password = this.controller.get('password');
+			var pwPlaceholder = this.controller.get('pwPlaceholder');
 			error = false;
-			if(value !== password ) {
+			if(value !== password && value !== pwPlaceholder) {
 				error = true;
 			}
 		}

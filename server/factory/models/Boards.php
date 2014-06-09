@@ -24,18 +24,14 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				unset($params[$param]);
 			}
 		};
-		$board = null;
-		try {
-			$uhb = new UserHasBoard();
-			$board = self::create($params);
-			$id_board = $board->id;
-			$uhb->createUserHasBoard($this->user_id, $id_board);
-			//FIXME I need to fetch the board again to get the right creation_date which is created by default value
-			$board = $this->findBoards($board->id);
-		} catch (Exception $e) {
-
-			var_dump($e);
-		}
+		$date = new DateTime('now');
+		$params['creation_date'] = $date->format('Y-m-d H:i:s');
+		$board = self::create($params);
+		$uhb = new UserHasBoard();
+		$id_board = $board->id;
+		$uhb->createUserHasBoard($this->user_id, $id_board);
+		//FIXME I need to fetch the board again to get the right creation_date which is created by default value
+		$board = $this->findBoards($id_board);
 
 		return $board;
 	}
@@ -64,6 +60,7 @@ class Boards extends ActiveRecord\Model implements UserIdInterface {
 				$board->children = array();
 			}
 		}
+
 		return $boards;
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'ResponseModelEmptyException.php';
+require_once getcwd() . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'ResponseModelEmptyException.php';
 
 /**
  * Class ResponseFactory

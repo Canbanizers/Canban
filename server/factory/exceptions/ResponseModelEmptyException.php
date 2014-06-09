@@ -1,6 +1,6 @@
 <?php
 
-require_once 'AbstractException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
 
 class ResponseModelEmptyException extends AbstractException
 {

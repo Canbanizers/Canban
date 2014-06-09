@@ -1,7 +1,8 @@
 <?php
 
+//require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
 require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'AbstractException.php';
-require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
+//require_once getcwd().DIRECTORY_SEPARATOR.'exceptions'.DIRECTORY_SEPARATOR.'FileNotFoundException.php';
 
 class UndefinedOffsetException extends AbstractException {
 
@@ -17,12 +18,11 @@ class UndefinedOffsetException extends AbstractException {
  */
 class CredentialsReader {
 
-	const PATH_TO_XML = '..\xml';
+	const PATH_TO_XML = '../xml';
 	const PROTOCOL = 'mysql';
-	//	const SERVER = 'mysql17.000webhost.com';
 	const SERVER = 'localhost';
-//	const DB_NAME = 'a8089495_canban';
-	const DB_NAME = 'canban';
+	const DB_NAME = '816150';
+//	const DB_NAME = 'canban';
 	/**
 	 * database login name
 	 * @var string
@@ -44,8 +44,7 @@ class CredentialsReader {
 	 */
 	private function setDBCredentials() {
 
-		$full_path_to_xml = __DIR__.'/'.self::PATH_TO_XML.'\db_credentials.xml';
-
+		$full_path_to_xml = __DIR__.'/'.self::PATH_TO_XML.'/db_credentials.xml';
 		if (!file_exists($full_path_to_xml)) {
 			$fnf_e = new FileNotFoundException();
 			$fnf_e->setMessage("Config-File db_credentials.xml in {$full_path_to_xml} not found");
@@ -74,7 +73,6 @@ class CredentialsReader {
 	 */
 	public function getSqlConnectionString() {
 		$this->setDBCredentials();
-
 		return
 			self::PROTOCOL.'://'.trim($this->db_login).':'.trim($this->db_password).'@'.self::SERVER.'/'.self::DB_NAME;
 	}

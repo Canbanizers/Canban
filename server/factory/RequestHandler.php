@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . '\ResponseFactory.php');
-require_once(__DIR__.'\SecurityController.php');
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'ObserverInterface.php';
+require_once getcwd() . DIRECTORY_SEPARATOR.'ResponseFactory.php';
+require_once getcwd() . DIRECTORY_SEPARATOR.'SecurityController.php';
+require_once getcwd() . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'RequestModelEmptyException.php';
+require_once getcwd() . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'HttpMethodNotAllowedException.php';
+require_once getcwd() . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . 'InvalidJsonException.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'observer_subject'.DIRECTORY_SEPARATOR.'ObserverInterface.php';
 
 /**
  * Class RequestHandler

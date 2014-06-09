@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'Users.php';
-require_once(__DIR__.'\ModelFactory.php');
+require_once getcwd().DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'Users.php';
+require_once getcwd().DIRECTORY_SEPARATOR.'ModelFactory.php';
 
 
 class SecurityController {

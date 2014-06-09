@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'library/php-activerecord-master/ActiveRecord.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'models/BoardHasTicket.php';
+require_once 'BoardHasTicket.php';
 require_once 'UserIdInterface.php';
 
 class Tickets extends ActiveRecord\Model implements UserIdInterface {
@@ -24,6 +24,8 @@ class Tickets extends ActiveRecord\Model implements UserIdInterface {
 			}
 		}
 
+		$date = new DateTime('now');
+		$params['creation_date'] = $date->format('Y-m-d H:i:s');
 		$bhs = new BoardHasTicket();
 		$ticket = self::create($params);
 		$id_ticket = $ticket->id;
