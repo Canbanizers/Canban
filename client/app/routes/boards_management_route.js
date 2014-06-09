@@ -34,7 +34,6 @@ App.BoardsManagementRoute = Ember.Route.extend({
 		},
 
 		deleteBoard: function(board) {
-			console.log(board);
 			board.deleteRecord();
 			board.save();
 		}

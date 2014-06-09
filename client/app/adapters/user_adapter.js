@@ -14,7 +14,6 @@ App.UserAdapter = App.ApplicationAdapter.extend({
 		var promise = this.ajax(this.buildURL('login'), 'GET', { data: query });
 		var self = this;
 		promise.then(function(response) {
-			console.log(response);
 			var namespace = self._namespaceForType(type);
 			self._addRecordToNamespace(namespace, response['users'][0], true);
 			self._saveData();
