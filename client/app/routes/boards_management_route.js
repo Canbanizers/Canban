@@ -1,6 +1,12 @@
 'use strict';
 
 App.BoardsManagementRoute = Ember.Route.extend({
+
+	/**
+	 * loads the model used by the BoardsRoute
+	 *
+	 * @returns {*|Object}
+	 */
 	model: function() {
 		return this.modelFor('boards');
 	},
@@ -15,6 +21,12 @@ App.BoardsManagementRoute = Ember.Route.extend({
 
 		},
 
+		/**
+		 * Switches to a board (type == null) or display the info/edit page for the board
+		 *
+		 * @param {Board extends DS.Model} board
+		 * @param {String} type (info, edit, null)
+		 */
 		showBoard: function(board, type) {
 			if (!type) {
 				this.send('saveTransition', 'board.show', board.get('name'));
@@ -25,6 +37,9 @@ App.BoardsManagementRoute = Ember.Route.extend({
 			}
 		},
 
+		/**
+		 * creates a new board
+		 */
 		createBoard: function() {
 			var board = this.store.createRecord('board', {
 				name: '',
@@ -33,6 +48,11 @@ App.BoardsManagementRoute = Ember.Route.extend({
 			this.send('showBoard', board, 'edit');
 		},
 
+		/**
+		 * deletes the selectedboard
+		 *
+		 * @param board
+		 */
 		deleteBoard: function(board) {
 			board.deleteRecord();
 			board.save();

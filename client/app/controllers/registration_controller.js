@@ -1,28 +1,29 @@
 App.RegistrationController = Ember.ObjectController.extend({
-	content: Ember.Object.create({}),
-	needs: ['validation'],
+	content  : Ember.Object.create({}),
+	needs    : ['validation'],
 	noChanges: true,
 
 	/**
 	 * validate functions
 	 */
-	validateFirstname: function() {
+	validateFirstname           : function() {
 		this.set("firstnameError", this.get('controllers.validation').getValue('firstname'));
 	},
-	validateLastname: function() {
+	validateLastname            : function() {
 		this.set('lastnameError', this.get('controllers.validation').getValue('lastname'));
 	},
-	validateEmail: function() {
+	validateEmail               : function() {
 		this.set('emailError', this.get('controllers.validation').getValue('email'));
 		this.set('emailInvalidError', this.get('controllers.validation').isValidEmail('email'));
 	},
-	validatePassword: function() {
+	validatePassword            : function() {
 		this.set('passwordError', this.get('controllers.validation').getValue('password'));
 		this.set('noChanges', false);
 	},
 	validatePasswordConfirmation: function() {
 		this.set('passwordConfirmationError', this.get('controllers.validation').getValue('passwordConfirmation'));
-		this.set('passwordConfirmationCompareError', this.get('controllers.validation').comparePasswords('passwordConfirmation'));
+		this.set('passwordConfirmationCompareError',
+			this.get('controllers.validation').comparePasswords('passwordConfirmation'));
 	},
 
 	/**
@@ -37,23 +38,24 @@ App.RegistrationController = Ember.ObjectController.extend({
 	 */
 	actions: {
 		/**
-		 * save new user-profile
+		 * if there are no input errors this action saves a new user-profile
+		 * on success the user is redirected to login after 5 seconds.
 		 */
-		save: function(){
+		save: function() {
 
-			if(this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
+			if (this.get('controllers.validation').hasErrors() || this.get('noChanges')) {
 				this.set('wrongInputError', true);
 			} else {
 				this.set('wrongInputError', false);
 				var user = this.get('model');
 				var self = this;
-				user.save().then(function(){
+				user.save().then(function() {
 					self.set('saveError', false);
 					self.set('success', true);
 					setTimeout(function() {
 						self.transitionToRoute('login');
 					}, 5000);
-				}, function(){
+				}, function() {
 					self.set('saveError', true);
 					self.set('success', false);
 				});
@@ -61,9 +63,9 @@ App.RegistrationController = Ember.ObjectController.extend({
 		},
 
 		/**
-		 * cancel and go back to login
+		 * cancel registration and go back to login
 		 */
-		cancel: function(){
+		cancel: function() {
 			this.transitionToRoute('login');
 		}
 	}

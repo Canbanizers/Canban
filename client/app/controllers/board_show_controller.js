@@ -4,6 +4,10 @@ App.BoardShowController = Ember.ObjectController.extend({
 
 	dummyTicket: null,
 
+	/**
+	 * If the current model of BoardShowController is a Mainboard this function returns
+	 * all tickets of the user else it will just return the tickets belonging to the current model
+	 */
 	getDisplayTickets: function() {
 		if (this.get('isMainboard')) {
 			return this.store.find('ticket');
@@ -16,28 +20,18 @@ App.BoardShowController = Ember.ObjectController.extend({
 	}.property('tickets', 'children.@each.tickets'),
 
 	actions: {
+		/**
+		 * persists ticket
+		 * on an server error it tries to save again and on second error it displays an error message to the user
+		 * @param ticket
+		 */
 		createTicket: function(ticket) {
 			ticket.set('creation_date', moment().format(window.timestampFormat));
 			var success = function(resp) {
 			};
 			var secondError = function(resp) {
-				var serverError = -1, sqlState = -1, sqlError = -1, errorMessage = '';
-				if (resp.hasOwnProperty('serverError')) {
-					serverError = resp['serverError'];
-				} 
-				if (resp.hasOwnProperty('sqlState')) {
-					sqlState = resp['sqlState'];
-				}
-				if (resp.hasOwnProperty('sqlError')) {
-					sqlError = resp['sqlError'];
-				}
-				if (resp.hasOwnProperty('errorMessage')) {
-					errorMessage = resp['errorMessage'];
-				}
 				alert("Sorry, we have internal server errors and can't save your ticket at this moment.\n" +
-					  "It will be gone on next page reload, so be sure to save your ticket content in a local file.\n" +
-					  "\n" + "serverError: " + serverError + "\n" + "sqlState: " + sqlState + "\n" + "sqlError: " +
-					  sqlError + "\n" + "errorMessage: " + errorMessage);
+					  "It will be gone on next page reload, so be sure to save your ticket content in a local file.");
 			};
 			var error = function(resp) {
 				ticket.save().then(success, secondError);

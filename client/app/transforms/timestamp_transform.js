@@ -1,5 +1,10 @@
 window.timestampFormat = 'YYYY-MM-DD HH:mm:ss';
 
+/**
+ * Used to serialize/deserialize timestamps obtained from the server
+ *
+ * @type {*|void|Object}
+ */
 App.TimestampTransform = DS.Transform.extend({
 	deserialize: function(serialized) {
 		if (serialized) {

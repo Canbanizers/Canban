@@ -1,3 +1,8 @@
+/**
+ * The BoardMenuComponent will send different actions on user interactions (clicks on buttons)
+ *
+ * @type {*|void|Object}
+ */
 App.BoardMenuComponent = Ember.Component.extend({
 	tagName   : 'nav',
 	classNames: ['board_menu'],

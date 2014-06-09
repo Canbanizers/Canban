@@ -4,14 +4,25 @@ App.TicketCompComponent = Ember.Component.extend({
 	classNameBindings: ['basic', 'ticket.isDone:done', 'ticket.isImportant:important'],
 	attributeBindings: ['title'],
 
-	ticket        : null,
-	currentBoardID: 0,
-	edit          : false,
-	details       : false,
-	delete        : false,
-	isDialog      : false,
+	/**
+	 * {Ticket extends DS.Model} the model that this component displays
+	 */
+	ticket: null,
 
-	create: function() {
+	/**
+	 * the id of the board this ticket is displayed on at the moment
+	 */
+	currentBoardID: 0,
+
+	isDialog: false,
+
+	/**
+	 * switches to specify the display-mode of the ticket
+	 */
+	edit   : false,
+	details: false,
+	delete : false,
+	create : function() {
 		var creationDate = this.get('ticket.creation_date');
 		if (creationDate !== null) {
 			return false;
@@ -26,6 +37,10 @@ App.TicketCompComponent = Ember.Component.extend({
 		return !(this.get('edit') || this.get('details') || this.get('create') || this.get('delete'));
 	}.property('details', 'edit', 'create', 'delete'),
 
+
+	/**
+	 * used for dynamically setting the title attribute on the article tag used to display this ticket
+	 */
 	title: function() {
 		if (this.get('details')) {
 			return this.get('ticket.title');
@@ -40,46 +55,67 @@ App.TicketCompComponent = Ember.Component.extend({
 		}
 	}.property('ticket.title', 'basic'),
 
-
+	/**
+	 * calculates the width of the title to set the minimal width of the dialog displaying ticket details
+	 */
 	titleWidth: function() {
 		var calc = '<span id="calc_span" class="ui-dialog" style="display: none;"><span class="ui-dialog-titlebar" style="font-family: Fine_Liner, sans-serif;font-size: 30px;font-weight: 900;line-height: 30px;">' +
 				   this.get('title') + '</span></span>';
 		var body = $('body');
 		body.append(calc);
-
 		var calcSpan = $('#calc_span');
-
 		var width = calcSpan.outerWidth();
-		console.log(width);
 		calcSpan.remove();
 		return width;
 	}.property('title'),
 
+	/**
+	 * used to know the "to previous column" arrow should be displayed
+	 */
 	displayPrevious: function() {
 		return this.get('ticket.state') > 1;
 	}.property('ticket.state'),
 
+	/**
+	 * used to know the "to next column" arrow should be displayed
+	 */
 	displayNext: function() {
 		return this.get('ticket.state') < 3;
 	}.property('ticket.state'),
 
+	/**
+	 * returns the board the ticket belongs to
+	 */
 	parentBoard: function() {
 		return this.get('ticket.board');
 	}.property('ticket.board'),
 
+	/**
+	 * returns the name of the board the ticket belongs to
+	 */
 	parentName: function() {
 		return this.get('parentBoard.name');
 	}.property('parentBoard.name'),
 
+	/**
+	 * returns true if the currently displayed board is the board this ticket originally belongs to
+	 * (e. g. not the parent board of its own board)
+	 */
 	fromCurrentBoard: function() {
 		return this.get('currentBoardID') === this.get('parentBoard.id');
 	}.property('currentBoardID', 'parentBoard.id'),
 
 	actions: {
+		/**
+		 * sends action to switch to the board of the current ticket belongs to
+		 */
 		showParentBoard: function() {
 			this.sendAction('showParentBoard', this.get('parentBoard'));
 		},
 
+		/**
+		 * switch to details-mode and display the corresponding dialog
+		 */
 		showDetails: function() {
 			var self = this;
 			var button = {
@@ -91,10 +127,16 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.send('showDialog', 'details', true, button);
 		},
 
+		/**
+		 * switch to edit-mode and display the corresponding dialog
+		 */
 		showEdit: function() {
 			this.send('showDialog', 'edit', true);
 		},
 
+		/**
+		 * switch to create-mode and display the corresponding dialog
+		 */
 		showCreate: function() {
 			var self = this;
 			var buttons = {
@@ -109,7 +151,10 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.send('showDialog', 'create', false, buttons);
 		},
 
-		showDelete: function() {
+		/**
+		 * switch to delete-mode and display the corresponding dialog
+		 */
+		showDelete  : function() {
 			var self = this;
 			var jqThis = self.$();
 			var buttons = {
@@ -124,7 +169,9 @@ App.TicketCompComponent = Ember.Component.extend({
 			}
 			this.send('showDialog', 'delete', true, buttons)
 		},
-
+		/**
+		 * triggered when a user clicks on the "to next column" arrow
+		 */
 		toNextColumn: function() {
 			var ticket = this.get('ticket');
 			var state = ticket.get('state');
@@ -132,6 +179,9 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.sendAction('editAction', ticket);
 		},
 
+		/**
+		 * triggered when a user clicks on the "to previous column" arrow
+		 */
 		toPreviousColumn: function() {
 			var ticket = this.get('ticket');
 			var state = ticket.get('state');
@@ -139,6 +189,13 @@ App.TicketCompComponent = Ember.Component.extend({
 			this.sendAction('editAction', ticket);
 		},
 
+		/**
+		 * Implements default display and behaviour for close-event for dialogs (details-, edit-, create-mode)
+		 *
+		 * @param {String} type (details, edit, create)
+		 * @param {Boolean} withPlaceholder
+		 * @param {Object} buttons
+		 */
 		showDialog: function(type, withPlaceholder, buttons) {
 			var self = this;
 			if (type !== 'create') {
@@ -166,10 +223,10 @@ App.TicketCompComponent = Ember.Component.extend({
 				}
 				self.set('isDialog', true);
 				jqThis.dialog({
-					buttons: buttons,
+					buttons    : buttons,
 					dialogClass: 'ticket ' + type + (self.get('ticket.isImportant') ? ' important' : ''),
-					minWidth: self.get('titleWidth'),
-					maxWidth: 800,
+					minWidth   : self.get('titleWidth'),
+					maxWidth   : 800,
 
 					hide: {
 						effect   : self.get('ticket.isDeleted') ? 'explode' : 'puff',

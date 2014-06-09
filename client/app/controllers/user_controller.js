@@ -65,7 +65,7 @@ App.UserController = Ember.ObjectController.extend({
 		},
 
 		/**
-		 * save new user-profile
+		 * save new user-profile if all inputs are valid
 		 */
 		save: function() {
 
@@ -76,16 +76,13 @@ App.UserController = Ember.ObjectController.extend({
 				var user = this.get('model');
 				user.set('password', this.get('pwPlaceholder'));
 				var self = this;
-				user.save().then(
-					function() {
+				user.save().then(function() {
 						self.set('success', true);
-					},
-					function() {
+					}, function() {
 						self.set('saveError', true);
-					}
-				);
+					});
 
-//				this.transitionToRoute('user', user.id);
+				//				this.transitionToRoute('user', user.id);
 			}
 		},
 

@@ -1,3 +1,7 @@
+/**
+ * Implements special behaviour on ajax errors related to Tickets
+ * @type {*|void|Object}
+ */
 App.TicketAdapter = App.ApplicationAdapter.extend({
 
 	ajaxError: function(jqXHR) {
@@ -6,8 +10,8 @@ App.TicketAdapter = App.ApplicationAdapter.extend({
 			var errorArray = jqXHR.responseJSON.error.split(',');
 			return {
 				serverError : 500,
-				sqlState : errorArray[0],
-				sqlError : errorArray[1],
+				sqlState    : errorArray[0],
+				sqlError    : errorArray[1],
 				errorMessage: errorArray[2]
 			}
 		} else {
